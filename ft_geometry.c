@@ -40,34 +40,6 @@ void	draw_full_circle(t_data *img)
 }
 
 
-void	draw_full_circle_polar(t_data *img)
-{
-	double angle = 0.0;
-	double x = 0;
-	double y = 0;
-	double r = 0;  // rmax = 100
-	int	xc = 100;
-	int yc = 100;
-	int color;
-
-	while (angle < PI / 2)
-	{
-		r = 0;
-		color = 0xFFFF0000;
-		while (r < 80)
-		{
-			x = r * sin(angle);
-			y = r * cos(angle);
-			my_mlx_pixel_put(img, xc + x, yc + y, color);
-			my_mlx_pixel_put(img, xc - x, yc - y, color);
-			my_mlx_pixel_put(img, xc - x, yc + y, color);
-			my_mlx_pixel_put(img, xc + x, yc - y, color);
-			r = r + 0.01;
-		}
-		angle = angle + 0.01;
-	}
-}
-
 void	draw_line(t_data *img)
 {
 	/*
@@ -178,33 +150,7 @@ void	draw_triangle_full(t_data *img)
 	}
 }
 
-void	draw_line_bresenham(t_data *img)
-{
-	int x1, x2, y1, y2, dx, dy, p;
-
-	x1 = 100; x2 = 300;
-	y1 = 50; y2 = 400;
-
-	dx = x2 - x1;
-	dy = y2 - y1;
-	p = 2 *dy - dx;
-
-	while(x1 < x2)
-	{
-		my_mlx_pixel_put(img, x1, y1, 0xff0000ff);
-		x1++;
-		if (p < 0)
-			p = p + 2 * dy;
-		else
-		{
-			p = p + 2 * dy - 2 * dx;
-			y1++;
-		}
-
-	}
-}
-
-void	ft_bresenham(t_data *img, int x1, int y1, int x2, int y2)
+void	ft_line_bresenham_positive(t_data *img, int x1, int y1, int x2, int y2)
 {
 	int p, dx, dy;
 
@@ -245,12 +191,28 @@ void	ft_bresenham(t_data *img, int x1, int y1, int x2, int y2)
 	}
 }
 
-void	draw_triangle_bresenham(t_data *img)
+void	ft_full_circle(t_data *img, int xc, int yc, int radius)
 {
-	char *data;
+	double angle = 0.0;
+	double x = 0;
+	double y = 0;
+	double r = 0;
+	int color;
 
-	data = img->addr;
-	printf("%s\n", img->addr);
-	ft_bresenham(img, 0, 200, 100, 0);
-	ft_bresenham(img, 100, 0, 200, 100);
+	while (angle < PI / 2)
+	{
+		r = 0;
+		color = 0xFFFF0000;
+		while (r < radius)
+		{
+			x = r * sin(angle);
+			y = r * cos(angle);
+			my_mlx_pixel_put(img, xc + x, yc + y, color);
+			my_mlx_pixel_put(img, xc - x, yc - y, color);
+			my_mlx_pixel_put(img, xc - x, yc + y, color);
+			my_mlx_pixel_put(img, xc + x, yc - y, color);
+			r = r + 0.01;
+		}
+		angle = angle + 0.01;
+	}
 }

@@ -5,17 +5,17 @@
   int dx = abs (x1 - x0);
   int dy = abs (y1 - y0);
   int x, y;
-  if (dx >= dy)
+  if (dx >= dy)  // slope < 45
   {
    int d = dy-dx;
    int ds = dy;
    int dt = (dy-dx);
-       if (x0 < x1)
+       if (x0 < x1)		// slope positivo
        {
             x = x0;
             y = y0;
        }
-        else
+        else			// slope negativo
         {
              x = x1;
              y = y1;
@@ -27,8 +27,9 @@
    {
         if (d < 0)
         d += ds;
-        else {
-             if (y < y1) {
+        else
+		{
+			if (y < y1) {
               y++;
               d += dt;
              }
@@ -36,20 +37,20 @@
               y--;
               d += dt;
              }
-            }
-   x++;
+		}
+		x++;
         my_mlx_pixel_put(img, x, y, 0xff0000ff);
-       }
-       }
-       else {
+    }
+	}
+    else {   // slope > 45
              int d = dx-dy;
              int ds = dx;
              int dt = (dx-dy);
-             if (y0 < y1) {
+             if (y0 < y1) {   //slope positivo
              x = x0;
              y = y0;
              }
-             else {
+             else {		//slope negativo
              x = x1;
              y = y1;
              y1 = y0;
@@ -78,4 +79,5 @@
 void	draw_triangle_bresenham(t_data *img)
 {
 	bresenhamAlg(img, 0, 200, 100, 0);
+	bresenhamAlg(img, 100, 0, 200, 200);
 }

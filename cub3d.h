@@ -21,12 +21,17 @@ void	draw_pixel(char *img, int x, int y, int color);
 
 void	draw_circle(t_data *img);
 void	draw_full_circle(t_data *img);
-void	draw_full_circle_polar(t_data *img);
 void	draw_line(t_data *img);
 void	draw_line_dda(t_data *img);
 void	draw_triangle(t_data *img);
 void	draw_triangle_full(t_data *img);
 void	draw_line_bresenham(t_data *img);
 void	draw_triangle_bresenham(t_data *img);
+
+void 	ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1);
+void	ft_full_circle(t_data *img, int xc, int yc, int radius);
+
+void	draw_heart(t_data *img);
+
 
 #endif
