@@ -21,7 +21,11 @@ int		main(void)
     img.img = mlx_new_image(mlx, 500, 500);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
-	draw_heart(&img);
+	//ft_midpoint_circle(&img, 250, 250, 200);
+	ft_full_circle(&img, 250, 250, 200);
+	//ft_circle(&img, 100, 100, 100);
+
+	//ft_line_bresenham_full(&img, 10, 40, 200, 200);
 
     mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
     mlx_loop(mlx);

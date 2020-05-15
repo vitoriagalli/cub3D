@@ -3,7 +3,6 @@
 void	ft_increment_x(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 {
 	int x, y;
-	int yl;
 	int d = dy - dx;
 	int ds = dy;
 	int dt = dy - dx;
@@ -22,7 +21,7 @@ void	ft_increment_x(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 		x0 = x;
 		y0 = y;
 	}
-	while(x < x1)
+	while(x <= x1)
 	{
 		if (d<0)
 			d = d + ds;
@@ -35,12 +34,6 @@ void	ft_increment_x(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 				y--;
 		}
 		x++;
-		yl = y0;
-		while (yl < y)
-		{
-			my_mlx_pixel_put(img, x, yl, 0xffff0000);
-			yl++;
-		}
 		my_mlx_pixel_put(img, x, y, 0xffff0000);
 	}
 }
@@ -48,7 +41,6 @@ void	ft_increment_x(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 void	ft_increment_y(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 {
 	int x, y;
-	int slope, yl;
 	int d = dx - dy;
 	int ds = dx;
 	int dt = dx - dy;
@@ -67,7 +59,7 @@ void	ft_increment_y(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 		x0 = x;
 		y0 = y;
 	}
-	while(y < y1)
+	while(y <= y1)
 	{
 		if (d<0)
 			d = d + ds;
@@ -80,17 +72,9 @@ void	ft_increment_y(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 				x--;
 		}
 		y++;
-
-		yl = y0;
-		while (yl < y)
-		{
-			my_mlx_pixel_put(img, x, yl, 0xffff0000);
-			yl++;
-		}
 		my_mlx_pixel_put(img, x, y, 0xffff0000);
 	}
 }
-
 
 void ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1)
 {
@@ -114,15 +98,18 @@ void ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1)
 
 void	draw_triangle_bresenham(t_data *img)
 {
-	ft_line_bresenham(img, 100, 120, 200, 300);
-	ft_line_bresenham(img, 200, 300, 300, 120);
+	ft_line_bresenham(img, 100, 120, 200, 20);
+	ft_line_bresenham(img, 200, 20, 300, 120);
+
+	ft_line_bresenham(img, 100, 120, 200, 200);
+	ft_line_bresenham(img, 200, 200, 300, 120);
 
 }
 
 void	draw_heart(t_data *img)
 {
-	ft_line_bresenham(img, 100, 120, 200, 300);
-	ft_line_bresenham(img, 200, 300, 300, 120);
+	ft_line_bresenham_full(img, 100, 120, 200, 250);
+	ft_line_bresenham_full(img, 200, 250, 300, 120);
 	ft_full_circle(img, 150, 120, 50);
 	ft_full_circle(img, 250, 120, 50);
 }

@@ -29,9 +29,14 @@ void	draw_line_bresenham(t_data *img);
 void	draw_triangle_bresenham(t_data *img);
 
 void 	ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1);
+void 	ft_line_bresenham_full(t_data *img, int x0, int y0, int x1, int y1);
+
+void	ft_circle(t_data *img, int xc, int yc, int radius);
 void	ft_full_circle(t_data *img, int xc, int yc, int radius);
+void	ft_midpoint_circle(t_data *img, int xc, int yc, int radius);
 
 void	draw_heart(t_data *img);
 
+unsigned int	ft_color(int i);
 
 #endif

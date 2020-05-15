@@ -1,22 +1,5 @@
 #include "cub3d.h"
 
-void	draw_circle(t_data *img)
-{
-	int	origin_x = 250;
-	int	origin_y = 250;
-	float x;
-	float y = 0;
-	int r = 150;
-
-	while (y < 300)
-	{
-		x = sqrtf(2*r*y - y*y);
-		my_mlx_pixel_put(img, 200 + x, 100 + y, 0xff0000ff);
-		my_mlx_pixel_put(img, 200 - x, 100 + y, 0xff0000ff);
-		y = y + 0.001;
-	}
-}
-
 // demora demais
 void	draw_full_circle(t_data *img)
 {
@@ -191,28 +174,4 @@ void	ft_line_bresenham_positive(t_data *img, int x1, int y1, int x2, int y2)
 	}
 }
 
-void	ft_full_circle(t_data *img, int xc, int yc, int radius)
-{
-	double angle = 0.0;
-	double x = 0;
-	double y = 0;
-	double r = 0;
-	int color;
 
-	while (angle < PI / 2)
-	{
-		r = 0;
-		color = 0xFFFF0000;
-		while (r < radius)
-		{
-			x = r * sin(angle);
-			y = r * cos(angle);
-			my_mlx_pixel_put(img, xc + x, yc + y, color);
-			my_mlx_pixel_put(img, xc - x, yc - y, color);
-			my_mlx_pixel_put(img, xc - x, yc + y, color);
-			my_mlx_pixel_put(img, xc + x, yc - y, color);
-			r = r + 0.01;
-		}
-		angle = angle + 0.01;
-	}
-}
