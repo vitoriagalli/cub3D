@@ -1,5 +1,36 @@
 #include "cub3d.h"
 
+void	ft_init_posit(t_point *center, int x, int y, int color)
+{
+	center->x = x;
+	center->y = y;
+	center->color = color;
+}
+
+
+/*
+** ft_circle function use float as variable
+*/
+
+void	ft_circle(t_data *img, t_point center, int radius)
+{
+	float angle;
+	float increase_angle = 0.01;
+	int new_x;
+	int new_y;
+
+	angle = 0.0;
+	while (angle < 2 * M_PI)
+	{
+		new_x = center.x + (radius * cos(angle));
+		new_y = center.y + (radius * sin(angle));
+		my_mlx_pixel_put(img, new_x, new_y, center.color);
+		angle += increase_angle;
+	}
+}
+
+
+
 void	ft_put_symmetry(t_data *img,  int xc, int yc, int x, int y, int color, int fill)
 {
 	if (fill == 1)
@@ -31,7 +62,13 @@ void	ft_put_symmetry(t_data *img,  int xc, int yc, int x, int y, int color, int 
 	}
 }
 
-void	ft_midpoint_circle(t_data *img, int xc, int yc, int radius)
+
+/*
+** ft_midpoint_circle function use int as variable
+** is an algotithm
+*/
+
+void	ft_midpoint_circle(t_data *img, int xc, int yc, int radius, int color)
 {
 	int x = 0;
 	int y = radius;
@@ -47,49 +84,12 @@ void	ft_midpoint_circle(t_data *img, int xc, int yc, int radius)
 			h = h + 2 * (x - y) + 5;
 			y--;
 		}
-		ft_put_symmetry(img, xc, yc, x, y, ft_color(i), 1);
+		ft_put_symmetry(img, xc, yc, x, y, color, 1);
 		x++; i++;
 	}
 }
 
-
-void	ft_full_circle(t_data *img, int xc, int yc, int radius)
+void	ft_circle_fill(t_data *img, t_point center, int radius)
 {
-	double angle = 0.0;
-	double x = 0;
-	double y = 0;
-	double r = 0;
-	int col = 270;
-	int color;
-
-	while (angle < PI / 2)
-	{
-		r = 0;
-		col++; color = ft_color(col);
-		while (r < radius)
-		{
-			x = r * sin(angle);
-			y = r * cos(angle);
-			my_mlx_pixel_put(img, xc + x, yc + y, color);
-			my_mlx_pixel_put(img, xc - x, yc - y, color);
-			my_mlx_pixel_put(img, xc - x, yc + y, color);
-			my_mlx_pixel_put(img, xc + x, yc - y, color);
-			r = r + 0.01;
-		}
-		angle = angle + 0.005;
-	}
-}
-
-void	ft_circle(t_data *img, int xc, int yc, int radius)
-{
-	float x = 0;
-	float y = 0;
-
-	while (x < 2 * radius)   //arrumar centro
-	{
-		y = sqrtf(2*radius*x - x*x);
-		my_mlx_pixel_put(img, x + xc, y + yc, 0xff0000ff);
-		my_mlx_pixel_put(img, xc + x, yc - y, 0xff0000ff);
-		x = x + 0.001;
-	}
+	ft_midpoint_circle(img, center.x, center.y, radius, center.color);
 }
