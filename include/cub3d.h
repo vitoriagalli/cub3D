@@ -11,13 +11,14 @@
 # define S_KEY 115
 # define A_KEY 97
 # define D_KEY 100
+# define ESC_KEY 65307
 
 
 typedef struct	s_data {
 	void		*img;
 	char		*addr;
 	int			bpp;
-	int			line_length;
+	int			size_line;
 	int			endian;
 }				t_data;
 
@@ -30,15 +31,18 @@ typedef struct	s_point {
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
-	t_point		*pos;
 	t_data		*data;
+	t_point		*pos;
 }				t_vars;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-void	ft_init_posit(t_point *center, int x, int y, int color);
+void	ft_move_circle(void);
 void	ft_circle(t_data *img, t_point center, int radius);
 void	ft_circle_fill(t_data *img, t_point center, int radius);
+void	ft_init_posit(t_point *center, int x, int y, int color);
 
+void	ft_draw_line(void);
+void	ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1);
 
 #endif

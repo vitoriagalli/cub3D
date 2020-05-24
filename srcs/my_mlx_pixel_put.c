@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 16:21:42 by vscabell          #+#    #+#             */
-/*   Updated: 2020/05/23 18:36:27 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/05/24 04:49:59 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 	int		offset;
 
-	offset = (y * data->line_length + x * (data->bpp / 8));
+	offset = (y * data->size_line + x * (data->bpp / 8));
 	dst = data->addr + offset;
 	*(unsigned int*)dst = color;
 }
