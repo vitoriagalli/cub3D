@@ -1,11 +1,13 @@
 #include "cub3d.h"
 
+
 int main (void)
 {
 	//ft_move_circle();
-	ft_draw_line();
-}
+	//ft_draw_line();
 
+	map_2d();
+}
 
 /*
 

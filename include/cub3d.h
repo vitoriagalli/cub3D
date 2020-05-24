@@ -43,6 +43,10 @@ void	ft_circle_fill(t_data *img, t_point center, int radius);
 void	ft_init_posit(t_point *center, int x, int y, int color);
 
 void	ft_draw_line(void);
-void	ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1);
+void	ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1, int color);
+
+
+void	map_2d(void);
+void	ft_rectangle(t_data *img, t_point point, int width, int height);
 
 #endif

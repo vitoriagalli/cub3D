@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_increment_x(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
+void	ft_increment_x(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy, int color)
 {
 	int x, y;
 	int d = dy - dx;
@@ -34,11 +34,11 @@ void	ft_increment_x(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 				y--;
 		}
 		x++;
-		my_mlx_pixel_put(img, x, y, 0xffff0000);
+		my_mlx_pixel_put(img, x, y, color);
 	}
 }
 
-void	ft_increment_y(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
+void	ft_increment_y(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy, int color)
 {
 	int x, y;
 	int d = dx - dy;
@@ -72,11 +72,11 @@ void	ft_increment_y(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy)
 				x--;
 		}
 		y++;
-		my_mlx_pixel_put(img, x, y, 0xffff0000);
+		my_mlx_pixel_put(img, x, y, color);
 	}
 }
 
-void ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1)
+void ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1, int color)
 {
 	int 	dx;
 	int 	dy;
@@ -85,13 +85,13 @@ void ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1)
 	dy = abs(y1 - y0);
 
 	if(dx >= dy)
-		ft_increment_x(img, x0, y0, x1, y1, dx, dy);
+		ft_increment_x(img, x0, y0, x1, y1, dx, dy, color);
 	else
 	{
 		/*
 		** slope > 45°
 		** o incremento é sobre y e não sobre x
 		*/
-		ft_increment_y(img, x0, y0, x1, y1, dx, dy);
+		ft_increment_y(img, x0, y0, x1, y1, dx, dy, color);
 	}
 }

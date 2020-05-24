@@ -11,7 +11,7 @@ int	ft_button(int button, int x, int y, t_vars *vars)
 	}
 	else
 	{
-		ft_line_bresenham(vars->data, vars->pos->x, vars->pos->y, x, y);
+		ft_line_bresenham(vars->data, vars->pos->x, vars->pos->y, x, y, vars->pos->color);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 		vars->pos->x = x;
 		vars->pos->y = y;
@@ -34,7 +34,7 @@ void	ft_draw_line(void)
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 
 	vars.data = &img;
-	posit.x = -1; posit.y = -1;
+	ft_init_posit(&posit, -1, -1, 0xff05cfff);
 	vars.pos = &posit;
 	mlx_hook(vars.win, 4, (1l<<2), ft_button, &vars);
 

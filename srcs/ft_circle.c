@@ -30,7 +30,6 @@ void	ft_circle(t_data *img, t_point center, int radius)
 }
 
 
-
 void	ft_put_symmetry(t_data *img,  int xc, int yc, int x, int y, int color, int fill)
 {
 	if (fill == 1)
