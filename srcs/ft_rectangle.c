@@ -1,14 +1,14 @@
 #include "cub3d.h"
 
-void	ft_rectangle(t_data *img, t_point point, int width, int height)
+void	ft_rectangle(t_data *img, t_point point, int l_width, int l_height)
 {
 	int x = 0;
 	int y = 0;
 
-	while(x < width)
+	while(x < l_width)
 	{
 		y = 0;
-		while (y < height)
+		while (y < l_height)
 		{
 			my_mlx_pixel_put(img, point.x + x, point.y + y, point.color);
 			y++;

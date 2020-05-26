@@ -1,12 +1,6 @@
 #include "cub3d.h"
 
-#define column 20
-#define row 13
-#define tile_size 20
-#define height 260
-#define width 400
-
-int	map[row][column] =
+int	map[N_ROW][N_COLUMN] =
 {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -23,47 +17,27 @@ int	map[row][column] =
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
-void	render_map(t_vars *vars)
+void	put_map(t_data *img, t_point *point)
 {
 	int i = 0;
 	int j = 0;
 	int x0;
 
-	x0 = vars->pos->x;
-	while (i < row)
+	x0 = point->x;
+	while (i < N_ROW)
 	{
 		j = 0;
-		vars->pos->x = x0;
-		while (j < column)
+		point->x = x0;
+		while (j < N_COLUMN)
 		{
-			vars->pos->color = map[i][j]> 0? 0xff000029 : 0x2ff9fca7;
-			ft_rectangle(vars->data, *vars->pos, tile_size, tile_size);
-			vars->pos->x = vars->pos->x + tile_size;
+			point->color = map[i][j]> 0? 0xff000029 : 0xdcdcdcfc;
+			ft_rectangle(img, *point, TILE_SIZE, TILE_SIZE);
+			point->x = point->x + TILE_SIZE;
 			j++;
 		}
-		vars->pos->y = vars->pos->y + tile_size;
+		point->y = point->y + TILE_SIZE;
 		i++;
 	}
-}
-
-void	map_2d(void)
-{
-	t_vars	vars;
-	t_data	img;
-	t_point	point;
-
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, width, height, "map");
-
-	img.img = mlx_new_image(vars.mlx, width, height);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.size_line, &img.endian);
-
-	ft_init_posit(&point, 0, 0, 0xff05cfff);
-
-	vars.data = &img;
-	vars.pos = &point;
-	render_map(&vars);
-
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_loop(vars.mlx);
+	point->x = 0;
+	point->y = 0;
 }

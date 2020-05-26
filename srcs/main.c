@@ -1,13 +1,15 @@
 #include "cub3d.h"
 
-
-int main (void)
+int main(void)
 {
-	//ft_move_circle();
-	//ft_draw_line();
+	t_vars	vars;
 
-	map_2d();
+	setup_vars(&vars);
+	mlx_hook(vars.win, 2, (1l<<0), move_player_press, &vars);
+	mlx_hook(vars.win, 3, (1l<<1), move_player_press, &vars);
+	mlx_loop(vars.mlx);
 }
+
 
 /*
 

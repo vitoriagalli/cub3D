@@ -76,7 +76,7 @@ void	ft_increment_y(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy,
 	}
 }
 
-void ft_line_bresenham(t_data *img, int x0, int y0, int x1, int y1, int color)
+void ft_line(t_data *img, int x0, int y0, int x1, int y1, int color)
 {
 	int 	dx;
 	int 	dy;
