@@ -9,19 +9,26 @@ void	replace_image(t_vars *vars, t_data *new_img)
 
 int		new_position_player(int keycode, t_vars *vars)
 {
-	float move_step;
+	int	move_step;
+	int	offset;
+	int	next_posit_x;
+	int	next_posit_y;
 
-	if(keycode == W_KEY || keycode == S_KEY)
+	move_step = vars->player->walk_direction * vars->player->move_speed;
+	offset = sin(vars->player->rotation_angle) * move_step;
+	next_posit_x = vars->player->x + offset;
+	offset = cos(vars->player->rotation_angle) * move_step;
+	next_posit_y = vars->player->y + offset;
+
+	if((keycode == W_KEY || keycode == S_KEY) && !(is_wall(next_posit_x, next_posit_y)))
 	{
-		move_step = vars->player->walk_direction * vars->player->move_speed;
-		vars->player->x += sin(vars->player->rotation_angle) * move_step;
-		vars->player->y += cos(vars->player->rotation_angle) * move_step;
+		vars->player->x = next_posit_x;
+		vars->player->y = next_posit_y;
 	}
 	else if (keycode == A_KEY || keycode == D_KEY)
 	{
 		vars->player->rotation_angle += vars->player->turn_direction * vars->player->rotation_speed;
 	}
-
 	return(render(vars));
 }
 

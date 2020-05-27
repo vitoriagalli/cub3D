@@ -6,7 +6,7 @@ int main(void)
 
 	setup_vars(&vars);
 	mlx_hook(vars.win, 2, (1l<<0), move_player_press, &vars);
-	mlx_hook(vars.win, 3, (1l<<1), move_player_press, &vars);
+	mlx_hook(vars.win, 3, (1l<<1), move_player_release, &vars); //verificar se faz diferença
 	mlx_loop(vars.mlx);
 }
 

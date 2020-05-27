@@ -15,9 +15,9 @@ void	assign_player(t_player *player, int x, int y, int color)
 	player->radius = 4;
 	player->turn_direction = 0;		//-1 esquerda +1 direita
 	player->walk_direction = 0;		//-1 p/frente   +1 p/tras
-	player->rotation_angle = 0;
-	player->move_speed = 3;
-	player->rotation_speed = 3 * PI / 180;
+	player->rotation_angle = PI;
+	player->move_speed = 10;
+	player->rotation_speed = 10 * PI / 180;
 }
 
 

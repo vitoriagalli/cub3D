@@ -6,7 +6,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define PI 3.1416
+# define PI 3.14159265359
 # define W_KEY 119
 # define S_KEY 115
 # define A_KEY 97
@@ -15,9 +15,9 @@
 
 # define N_COLUMN 20
 # define N_ROW 13
-# define TILE_SIZE 15
-# define HEIGHT 195
-# define WIDTH 300
+# define TILE_SIZE 30
+# define HEIGHT 390
+# define WIDTH 600
 
 
 typedef struct	s_data {
@@ -99,7 +99,7 @@ int		new_position_player(int keycode, t_vars *vars);
 //int		map[N_ROW][N_COLUMN];
 void	put_map(t_data *img, t_point *point);
 int		render(t_vars *vars);
-
+int		is_wall(int x, int y);
 
 
 /*
@@ -112,3 +112,8 @@ int		 ft_move_player(int keycode, t_vars *vars);
 */
 
 #endif
+
+
+// REVISAR FUNCAO MAPA
+// -> NAO PRECISA DO *POINT
+// REFAZER FUNCAO RETANGULO TAMBÉM
