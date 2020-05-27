@@ -19,6 +19,10 @@
 # define HEIGHT 390
 # define WIDTH 600
 
+# define FOV 60 * PI / 180
+# define WALL_WIDTH 1
+# define NUM_RAYS (WIDTH / WALL_WIDTH)
+
 
 typedef struct	s_data {
 	void		*img;
@@ -64,7 +68,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 ** geometry functions
 */
 void	ft_circle(t_data *img, int xc, int yc, int radius, int color);
-void	ft_arc_circle(t_data *img, t_player center);
+void	ft_arc_circle(t_data *img, t_player *center);
 void	ft_rectangle(t_data *img, t_point point, int l_width, int l_height);
 void 	ft_line(t_data *img, int x0, int y0, int x1, int y1, int color);
 
@@ -87,8 +91,10 @@ void		assign_player(t_player *player, int x, int y, int color);
 */
 //void	player(t_vars *vars);
 void	put_player(t_data *img, t_player *player);
-void	ft_circle_player(t_data *img, t_player center);
+void	ft_circle_player(t_data *img, t_player *player);
 void	ft_line_player(t_data *img, t_player *player);
+void	ft_rays(t_data *img, t_player *player);
+
 int		move_player_press(int keycode, t_vars *vars);
 int		move_player_release(int keycode, t_vars *vars);
 int		new_position_player(int keycode, t_vars *vars);
@@ -100,6 +106,11 @@ int		new_position_player(int keycode, t_vars *vars);
 void	put_map(t_data *img, t_point *point);
 int		render(t_vars *vars);
 int		is_wall(int x, int y);
+
+/*
+** raycast
+*/
+
 
 
 /*

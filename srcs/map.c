@@ -17,6 +17,7 @@ int	map[N_ROW][N_COLUMN] =
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
+
 void	put_map(t_data *img, t_point *point)
 {
 	int i = 0;

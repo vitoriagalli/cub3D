@@ -4,7 +4,7 @@
 ** ft_circle function use float as variable
 */
 
-void	ft_arc_circle(t_data *img, t_player center)
+void	ft_arc_circle(t_data *img, t_player *center)
 {
 	float angle;
 	float increase_angle = 0.01;
@@ -14,9 +14,9 @@ void	ft_arc_circle(t_data *img, t_player center)
 	angle = 0.0;
 	while (angle < 2 * M_PI)
 	{
-		new_x = center.x + (center.radius * cos(angle));
-		new_y = center.y + (center.radius * sin(angle));
-		my_mlx_pixel_put(img, new_x, new_y, center.color);
+		new_x = center->x + (center->radius * cos(angle));
+		new_y = center->y + (center->radius * sin(angle));
+		my_mlx_pixel_put(img, new_x, new_y, center->color);
 		angle += increase_angle;
 	}
 }

@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-void	ft_circle_player(t_data *img, t_player center)
+void	ft_circle_player(t_data *img, t_player *player)
 {
-	ft_circle(img, center.x, center.y, center.radius, center.color);
+	ft_circle(img, player->x, player->y, player->radius, player->color);
 }
 
 void	ft_line_player(t_data *img, t_player *player)
@@ -18,8 +18,9 @@ void	ft_line_player(t_data *img, t_player *player)
 
 void	put_player(t_data *img, t_player *player)
 {
-	ft_circle_player(img, *player);
+	ft_rays(img, player);
 	ft_line_player(img, player);
+	ft_circle_player(img, player);
 }
 
 int	move_player_press(int keycode, t_vars *vars)
