@@ -48,9 +48,11 @@ int	is_wall(int x, int y)
 	int	grid_x;
 	int	grid_y;
 
-	grid_x = x / TILE_SIZE;
-	grid_y = y / TILE_SIZE;
+	if (x < 0 || x > WIDTH || y < 0 || y > HEIGHT)
+		return (1);
+	grid_x = floor(x / TILE_SIZE);
+	grid_y = floor(y / TILE_SIZE);
 	if (map[grid_y][grid_x] != 0)
-		return(1); 			//	is wall
+		return(1);
 	return(0);
 }

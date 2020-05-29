@@ -1,5 +1,5 @@
 all:
-	clang srcs/*.c \
+	@ clang srcs/*.c \
 	-I include \
 	-Wall -Werror -Wextra \
 	-lmlx -lm -lX11 -lXext \
@@ -7,7 +7,7 @@ all:
 	-o a.out
 
 fclean:
-	/bin/rm -f a.out
+	@ /bin/rm -f a.out
 
 re: fclean all
 

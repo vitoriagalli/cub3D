@@ -23,6 +23,11 @@
 # define WALL_WIDTH 1
 # define NUM_RAYS (WIDTH / WALL_WIDTH)
 
+# define RAY_DOWN 2
+# define RAY_UP 4
+# define RAY_RIGHT 8
+# define RAY_LEFT 16
+
 
 typedef struct	s_data {
 	void		*img;
@@ -63,6 +68,10 @@ typedef struct	s_vars {
 ** utilis functions
 */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+double	ft_normalize_angle(double angle);
+int		ray_facing(double angle, int way);
+int		is_end_window(double x, double y);
+double	dist_btw_points(double x0, double y0, double x1, double y1);
 
 /*
 ** geometry functions
@@ -93,7 +102,7 @@ void		assign_player(t_player *player, int x, int y, int color);
 void	put_player(t_data *img, t_player *player);
 void	ft_circle_player(t_data *img, t_player *player);
 void	ft_line_player(t_data *img, t_player *player);
-void	ft_rays(t_data *img, t_player *player);
+void	ft_fov(t_data *img, t_player *player);
 
 int		move_player_press(int keycode, t_vars *vars);
 int		move_player_release(int keycode, t_vars *vars);
@@ -106,11 +115,14 @@ int		new_position_player(int keycode, t_vars *vars);
 void	put_map(t_data *img, t_point *point);
 int		render(t_vars *vars);
 int		is_wall(int x, int y);
+void	put_rays(t_data *img, t_player *player);
 
 /*
 ** raycast
 */
 
+t_point	*horizontal_intersection(t_player *player, t_point *intercept, double ray_angle);
+t_point	*cast_ray(t_player *player, double ray_angle);
 
 
 /*

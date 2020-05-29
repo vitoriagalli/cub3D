@@ -10,17 +10,18 @@ void	ft_line_player(t_data *img, t_player *player)
 	int x1;
 	int y1;
 
-	x1 = player->x + sin(player->rotation_angle) * 30;
-	y1 = player->y + cos(player->rotation_angle) * 30;
+	x1 = player->x + cos(player->rotation_angle) * 30;
+	y1 = player->y + sin(player->rotation_angle) * 30;
 
 	ft_line(img, player->x, player->y, x1, y1, player->color);
 }
 
 void	put_player(t_data *img, t_player *player)
 {
-	ft_rays(img, player);
+	ft_fov(img, player);
 	ft_line_player(img, player);
 	ft_circle_player(img, player);
+	put_rays(img, player);
 }
 
 int	move_player_press(int keycode, t_vars *vars)
@@ -30,9 +31,9 @@ int	move_player_press(int keycode, t_vars *vars)
 	else if(keycode == S_KEY)
 		vars->player->walk_direction = -1;
 	else if(keycode == D_KEY)
-		vars->player->turn_direction = -1;
-	else if(keycode == A_KEY)
 		vars->player->turn_direction = +1;
+	else if(keycode == A_KEY)
+		vars->player->turn_direction = -1;
 	return(new_position_player(keycode, vars));
 }
 

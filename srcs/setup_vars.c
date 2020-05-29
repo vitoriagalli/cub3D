@@ -15,5 +15,6 @@ void	setup_vars(t_vars *vars)
 	create_vars(vars);
 	put_map(vars->data, vars->point);
 	put_player(vars->data, vars->player);
+
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 }
