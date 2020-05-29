@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-double	ft_normalize_angle(double angle)
+float	ft_normalize_angle(float angle)
 {
 	angle = remainder(angle, 2 * PI);
 	if (angle < 0)
@@ -8,7 +8,7 @@ double	ft_normalize_angle(double angle)
 	return (angle);
 }
 
-int	ray_facing(double angle, int way)
+int	ray_facing(float angle, int way)
 {
 	int	up;
 	int	down;
@@ -30,14 +30,14 @@ int	ray_facing(double angle, int way)
 	return (-1);
 }
 
-int	is_end_window(double x, double y)
+int	is_end_window(float x, float y)
 {
 	if (x <= 0 || x >= WIDTH || y <= 0 || y >= HEIGHT)
 		return (1);
 	return (0);
 }
 
-double	dist_btw_points(double x0, double y0, double x1, double y1)
+float	dist_btw_points(float x0, float y0, float x1, float y1)
 {
 	return(sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)));
 }

@@ -16,8 +16,8 @@
 # define N_COLUMN 20
 # define N_ROW 13
 # define TILE_SIZE 30
-# define HEIGHT 390
 # define WIDTH 600
+# define HEIGHT 390
 
 # define FOV 60 * PI / 180
 # define WALL_WIDTH 1
@@ -50,9 +50,9 @@ typedef struct	s_player {
 	int			radius;
 	int			turn_direction;
 	int			walk_direction;
-	double		rotation_angle;
+	float		rotation_angle;
 	int			move_speed;
-	double		rotation_speed;
+	float		rotation_speed;
 }				t_player;
 
 typedef struct	s_vars {
@@ -68,10 +68,10 @@ typedef struct	s_vars {
 ** utilis functions
 */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-double	ft_normalize_angle(double angle);
-int		ray_facing(double angle, int way);
-int		is_end_window(double x, double y);
-double	dist_btw_points(double x0, double y0, double x1, double y1);
+float	ft_normalize_angle(float angle);
+int		ray_facing(float angle, int way);
+int		is_end_window(float x, float y);
+float	dist_btw_points(float x0, float y0, float x1, float y1);
 
 /*
 ** geometry functions
@@ -98,7 +98,6 @@ void		assign_player(t_player *player, int x, int y, int color);
 /*
 ** create player and move functions
 */
-//void	player(t_vars *vars);
 void	put_player(t_data *img, t_player *player);
 void	ft_circle_player(t_data *img, t_player *player);
 void	ft_line_player(t_data *img, t_player *player);
@@ -120,10 +119,10 @@ void	put_rays(t_data *img, t_player *player);
 /*
 ** raycast
 */
-
-t_point	*horizontal_intersection(t_player *player, t_point *intercept, double ray_angle);
-t_point	*cast_ray(t_player *player, double ray_angle);
-
+t_point	*cast_ray(t_player *player, float ray_angle, int coord);
+t_point	*closest_wall(t_player *player, float ray_angle);
+t_point	*horiz_inters(t_player *player, t_point *intercept, float ray_angle);
+t_point	*vert_inters(t_player *player, t_point *intercept, float ray_angle);
 
 /*
 void	ft_init_posit(t_point *center, int x, int y, int color);

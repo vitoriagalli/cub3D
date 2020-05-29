@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-t_point	*horizontal_intersection(t_player *player, t_point *intercept, double ray_angle)
+t_point	*horiz_inters(t_player *player, t_point *intercept, float ray_angle)
 {
 	t_point	*step;
 
@@ -16,52 +16,56 @@ t_point	*horizontal_intersection(t_player *player, t_point *intercept, double ra
 	return (step);
 }
 
-t_point	*cast_ray(t_player *player, double ray_angle)
+t_point	*vert_inters(t_player *player, t_point *intercept, float ray_angle)
 {
-	t_point	*step = NULL;
-	t_point	*intercept = NULL;
+	t_point	*step;
 
-	int		next_horiz_x;
-	int		next_horiz_y;
-	int		x_check;
-	int		y_check;
-
-	intercept = create_point();
-	step = horizontal_intersection(player, intercept, ray_angle);
-
-	next_horiz_x = intercept->x;
-	next_horiz_y = intercept->y;
-
-	// caso tan seja muito grande, linha praticamente horizontal
-	// REVEEEEEER ESSA JOÇA
-	if (next_horiz_x + step->x > (WIDTH - TILE_SIZE)	|| intercept->x + step->x < TILE_SIZE)
-	{
-		intercept->x = floor(player->x % WIDTH);
-		step->x = TILE_SIZE;
-		step->x *= ray_facing(ray_angle, RAY_LEFT)? -1 : 1;
-		step->y = 0;
-	}
-
-	while (!is_end_window(next_horiz_x, next_horiz_y))
-	{
-		x_check = next_horiz_x + (ray_facing(ray_angle, RAY_LEFT) ? -1 : 1);
-		y_check = next_horiz_y + (ray_facing(ray_angle, RAY_DOWN) ? 1 : -1);
-
-		if(is_wall(x_check, y_check))
-		{
-			intercept->x = next_horiz_x;
-			intercept->y = next_horiz_y;
-			break;
-		}
-		else
-		{
-			next_horiz_x += step->x;
-			next_horiz_y += step->y;
-		}
-	}
-	intercept->x = next_horiz_x;
-	intercept->y = next_horiz_y;
-	free(step);
-	return(intercept);
+	step = create_point();
+	// verificar necessidade
+	//if (ray_angle == PI / 2  || ray_angle == 3 * PI / 2)
+	//	return (NULL);
+	intercept->x = floor(player->x / TILE_SIZE) * TILE_SIZE;
+	intercept->x += ray_facing(ray_angle, RAY_RIGHT)? TILE_SIZE : 0;
+	intercept->y = player->y + (intercept->x - player->x) * tan(ray_angle);
+	step->x = TILE_SIZE;
+	step->x *= ray_facing(ray_angle, RAY_LEFT)? -1 : 1;
+	step->y = TILE_SIZE * tan (ray_angle);
+	step->y *= (ray_facing(ray_angle, RAY_UP) && step->y > 0) ? -1 : 1;
+	step->y *= (ray_facing(ray_angle, RAY_DOWN) && step->y < 0) ? -1 : 1;
+	return (step);
 }
 
+t_point	*closest_wall(t_player *player, float ray_angle)
+{
+	t_point	*horiz_intercept;
+	t_point *vert_intercept;
+	float	dist_horiz;
+	float	dist_vert;
+
+	horiz_intercept = cast_ray(player, ray_angle, 0);
+	vert_intercept = cast_ray(player, ray_angle, 1);
+
+	if (vert_intercept->color == 0)
+	{
+		free(vert_intercept);
+		return(horiz_intercept);
+	}
+	else if (horiz_intercept->color == 0)
+	{
+		free(horiz_intercept);
+		return(vert_intercept);
+	}
+	dist_horiz = dist_btw_points(player->x, player->y, horiz_intercept->x, horiz_intercept->y);
+	dist_vert = dist_btw_points(player->x, player->y, vert_intercept->x, vert_intercept->y);
+
+	if (dist_horiz < dist_vert)
+	{
+		free(vert_intercept);
+		return(horiz_intercept);
+	}
+	else
+	{
+		free(horiz_intercept);
+		return(vert_intercept);
+	}
+}
