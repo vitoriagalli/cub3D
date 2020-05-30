@@ -1,8 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/30 06:04:53 by vscabell          #+#    #+#             */
+/*   Updated: 2020/05/30 17:10:34 by vscabell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	ft_circle_player(t_data *img, t_player *player)
 {
-	ft_circle(img, player->x, player->y, player->radius, player->color);
+
+	ft_circle(img, player->x * MAP2D_SCALE
+				, player->y * MAP2D_SCALE
+				, player->radius * MAP2D_SCALE,
+				player->color);
 }
 
 void	ft_line_player(t_data *img, t_player *player)
@@ -13,15 +29,23 @@ void	ft_line_player(t_data *img, t_player *player)
 	x1 = player->x + cos(player->rotation_angle) * 30;
 	y1 = player->y + sin(player->rotation_angle) * 30;
 
-	ft_line(img, player->x, player->y, x1, y1, player->color);
+	ft_line(img, player->x * MAP2D_SCALE,
+			player->y * MAP2D_SCALE,
+			x1 * MAP2D_SCALE,
+			y1 * MAP2D_SCALE,
+			player->color);
 }
 
 void	put_player(t_data *img, t_player *player)
 {
-	ft_fov(img, player);
+	float *dist_rays;
+
+	//ft_fov(img, player);
 	ft_line_player(img, player);
 	ft_circle_player(img, player);
-	put_rays(img, player);
+
+	dist_rays = calculate_rays(img, player);
+	do_projection(img, dist_rays);
 }
 
 int	move_player_press(int keycode, t_vars *vars)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
+/*   Updated: 2020/05/30 06:04:15 by vscabell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 float	ft_normalize_angle(float angle)
@@ -19,13 +31,13 @@ int	ray_facing(float angle, int way)
 	up = !(down) ? 1 : 0;
 	left = (angle > PI / 2 && angle < 3 * PI / 2) ? 1 : 0;
 	right = !left ? 1 : 0;
-	if (way == RAY_UP)
+	if (way == ray_up)
 		return (up);
-	else if (way == RAY_DOWN)
+	else if (way == ray_down)
 		return (down);
-	else if (way == RAY_LEFT)
+	else if (way == ray_left)
 		return (left);
-	else if (way == RAY_RIGHT)
+	else if (way == ray_right)
 		return (right);
 	return (-1);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_vars.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
+/*   Updated: 2020/05/30 17:23:38 by vscabell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	assign_point(t_point *point, int x, int y, int color)
@@ -15,8 +27,7 @@ void	assign_player(t_player *player, int x, int y, int color)
 	player->radius = 4;
 	player->turn_direction = 0;		//-1 esquerda +1 direita
 	player->walk_direction = 0;		//-1 p/frente   +1 p/tras
-	//player->rotation_angle = 3 * PI / 2;
-	player->rotation_angle = 175 / 57;
+	player->rotation_angle = 3 * PI / 2;
 	player->move_speed = 10;
 	player->rotation_speed = 5 * PI / 180;
 }
@@ -40,12 +51,12 @@ t_player	*create_player(void)
 	return(player);
 }
 
-t_point	*create_point(void)
+t_point	*create_point(int x, int y, int color)
 {
 	t_point	*point;
 
 	point = alocate_memory(sizeof(t_point));
-	assign_point(point, 0, 0, 0xFFFF0000);
+	assign_point(point, x, y, color);
 	return(point);
 }
 

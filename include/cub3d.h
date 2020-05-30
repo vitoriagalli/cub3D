@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
+/*   Updated: 2020/05/30 17:25:47 by vscabell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -15,19 +27,23 @@
 
 # define N_COLUMN 20
 # define N_ROW 13
-# define TILE_SIZE 30
-# define WIDTH 600
-# define HEIGHT 390
+# define TILE_SIZE 50
+# define WIDTH (N_COLUMN * TILE_SIZE)
+# define HEIGHT (N_ROW * TILE_SIZE)
 
 # define FOV 60 * PI / 180
 # define WALL_WIDTH 1
 # define NUM_RAYS (WIDTH / WALL_WIDTH)
 
-# define RAY_DOWN 2
-# define RAY_UP 4
-# define RAY_RIGHT 8
-# define RAY_LEFT 16
+# define MAP2D_SCALE 0.2
 
+typedef enum	e_rayface
+{
+				ray_up,
+				ray_down,
+				ray_left,
+				ray_right
+}				t_face;
 
 typedef struct	s_data {
 	void		*img;
@@ -89,7 +105,7 @@ void 	ft_line(t_data *img, int x0, int y0, int x1, int y1, int color);
 void		setup_vars(t_vars *vars);
 void		create_vars(t_vars *vars);
 t_data		*create_image(void *mlx_ptr);
-t_point		*create_point(void);
+t_point		*create_point(int x, int y, int color);
 t_player	*create_player(void);
 void		*alocate_memory(int sizeof_type);
 void		assign_point(t_point *point, int x, int y, int color);
@@ -114,7 +130,7 @@ int		new_position_player(int keycode, t_vars *vars);
 void	put_map(t_data *img, t_point *point);
 int		render(t_vars *vars);
 int		is_wall(int x, int y);
-void	put_rays(t_data *img, t_player *player);
+float	*calculate_rays(t_data *img, t_player *player);
 
 /*
 ** raycast
@@ -123,6 +139,11 @@ t_point	*cast_ray(t_player *player, float ray_angle, int coord);
 t_point	*closest_wall(t_player *player, float ray_angle);
 t_point	*horiz_inters(t_player *player, t_point *intercept, float ray_angle);
 t_point	*vert_inters(t_player *player, t_point *intercept, float ray_angle);
+
+/*
+** render 3d map
+*/
+void	do_projection(t_data *img, float *rays);
 
 /*
 void	ft_init_posit(t_point *center, int x, int y, int color);
@@ -139,3 +160,5 @@ int		 ft_move_player(int keycode, t_vars *vars);
 // REVISAR FUNCAO MAPA
 // -> NAO PRECISA DO *POINT
 // REFAZER FUNCAO RETANGULO TAMBÉM
+
+// VERIFICAR SE NAO EXISTE PAREDE NO LUGAR ONDE VAI COLOCAR O JOGADOR
