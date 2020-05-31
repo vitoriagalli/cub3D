@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/05/30 17:23:38 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/05/30 23:18:10 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,21 @@ void	assign_point(t_point *point, int x, int y, int color)
 	point->color = color;
 }
 
-void	assign_player(t_player *player, int x, int y, int color)
+void	info_map_to_player(t_player *player, t_map *map)
 {
-	player->x = x;
-	player->y = y;
+	player->x = map->posit_player->x;
+	player->y = map->posit_player->y;
+	player->rotation_angle = map->rotation_angle;
+}
+
+void	assign_player(t_player *player, int color, int move_speed, float rotation_speed)
+{
 	player->color = color;
 	player->radius = 4;
 	player->turn_direction = 0;		//-1 esquerda +1 direita
 	player->walk_direction = 0;		//-1 p/frente   +1 p/tras
-	player->rotation_angle = 3 * PI / 2;
-	player->move_speed = 10;
-	player->rotation_speed = 5 * PI / 180;
+	player->move_speed = move_speed;
+	player->rotation_speed = rotation_speed;
 }
 
 
@@ -42,12 +46,14 @@ void	*alocate_memory(int sizeof_type)
 	return (variable);
 }
 
-t_player	*create_player(void)
+t_player	*create_player(t_map *map, int color, int move_speed, float rotation_speed)
 {
 	t_player	*player;
 
 	player = alocate_memory(sizeof(t_player));
-	assign_player(player, WIDTH / 2, HEIGHT / 2, 0xFFFF0000);
+	info_map_to_player(player, map);
+	free(map->posit_player);
+	assign_player(player, color, move_speed, rotation_speed);
 	return(player);
 }
 
@@ -60,12 +66,12 @@ t_point	*create_point(int x, int y, int color)
 	return(point);
 }
 
-t_data	*create_image(void *mlx_ptr)
+t_data	*create_image(void *mlx_ptr, t_map *map)
 {
 	t_data	*img;
 
 	img = alocate_memory(sizeof(t_data));
-	img->img = mlx_new_image(mlx_ptr, WIDTH, HEIGHT);
+	img->img = mlx_new_image(mlx_ptr, map->width, map->height);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->size_line, &img->endian);
 	return(img);
 }

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:53 by vscabell          #+#    #+#             */
-/*   Updated: 2020/05/30 17:10:34 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/05/31 02:47:15 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_circle_player(t_data *img, t_player *player)
 {
-
 	ft_circle(img, player->x * MAP2D_SCALE
 				, player->y * MAP2D_SCALE
 				, player->radius * MAP2D_SCALE,
@@ -36,16 +35,16 @@ void	ft_line_player(t_data *img, t_player *player)
 			player->color);
 }
 
-void	put_player(t_data *img, t_player *player)
+void	put_player(t_vars *vars)
 {
 	float *dist_rays;
 
-	//ft_fov(img, player);
-	ft_line_player(img, player);
-	ft_circle_player(img, player);
+	//ft_fov(vars);
+	//ft_line_player(vars->data, vars->player);
+	//ft_circle_player(vars->data, vars->player);
 
-	dist_rays = calculate_rays(img, player);
-	do_projection(img, dist_rays);
+	dist_rays = calculate_rays(vars);
+	do_projection(vars, dist_rays);
 }
 
 int	move_player_press(int keycode, t_vars *vars)
