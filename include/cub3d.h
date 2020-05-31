@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/05/31 02:52:29 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/05/31 07:54:43 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct	s_data {
 }				t_data;
 
 typedef struct	s_point {
-	int			x;
-	int			y;
+	float		x;
+	float		y;
 	int			color;
 }				t_point;
 

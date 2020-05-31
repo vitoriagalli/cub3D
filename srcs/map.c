@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/05/31 02:33:31 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/05/31 07:55:14 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	map_grid[13][20] =
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
+
 
 
 void	put_map(t_vars *vars)
@@ -60,8 +61,7 @@ int	is_wall(t_map *map, int x, int y)
 	int	grid_x;
 	int	grid_y;
 
-	if (x < map->tile_size || x > (map->width - map->tile_size)||
-	 y < map->tile_size || y > (map->height - map->tile_size))
+	if (is_end_window(map, x, y))
 		return (1);
 	grid_x = floor(x / map->tile_size);
 	grid_y = floor(y / map->tile_size);

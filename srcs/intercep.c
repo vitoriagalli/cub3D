@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:27 by vscabell          #+#    #+#             */
-/*   Updated: 2020/05/30 23:00:32 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/05/31 07:53:06 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_point	*horiz_inters(t_vars *vars, t_point *intercept, float ray_angle)
 	intercept->x = vars->player->x + (intercept->y - vars->player->y) / tan(ray_angle);
 	step->y = vars->map->tile_size;
 	step->y *= ray_facing(ray_angle, ray_up)? -1 : 1;
-	step->x = vars->map->tile_size / tan (ray_angle);
+	step->x = vars->map->tile_size / tan(ray_angle);
 	step->x *= (ray_facing(ray_angle, ray_left) && step->x > 0) ? -1 : 1;
 	step->x *= (ray_facing(ray_angle, ray_right) && step->x < 0) ? -1 : 1;
 	return (step);
@@ -33,9 +33,8 @@ t_point	*vert_inters(t_vars *vars, t_point *intercept, float ray_angle)
 	t_point	*step;
 
 	step = create_point(0, 0, 0xFF00FF00);
-	// verificar necessidade
-	//if (ray_angle == PI / 2  || ray_angle == 3 * PI / 2)
-	//	return (NULL);
+	if (ray_angle == PI / 2  || ray_angle == 3 * PI / 2)
+		return (NULL);
 	intercept->x = floor(vars->player->x / vars->map->tile_size) * vars->map->tile_size;
 	intercept->x += ray_facing(ray_angle, ray_right)? vars->map->tile_size : 0;
 	intercept->y = vars->player->y + (intercept->x - vars->player->x) * tan(ray_angle);
