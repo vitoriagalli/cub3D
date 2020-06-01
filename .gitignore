@@ -1,0 +1,6 @@
+en.subject.pdf
+.DS_Store
+*.o
+*.out
+*.swp
+*.swo
