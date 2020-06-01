@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 08:03:18 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 18:58:02 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 
 # define INT_MAX 2147483647
 # define PI 3.14159265359
-# define W_KEY 119
-# define S_KEY 115
-# define A_KEY 97
-# define D_KEY 100
-# define ESC_KEY 65307
+
+# define W_KEY 0x0077
+# define S_KEY 0x0073
+# define A_KEY 0x0061
+# define D_KEY 0x0064
+# define RIGHT_ARROW_KEY 0x00ff53
+# define LEFT_ARROW_KEY 0x00ff51
+# define ESC_KEY 0x00ff1b
 
 # define NORTH (3 * PI / 2)
 # define SOUTH (PI / 2)
@@ -37,7 +40,6 @@
 // 2d map colors
 # define WALL_2D_COLOR 0xff000000
 # define VOID_2D_COLOR 0xffffffff
-# define PLAYER_2D_COLOR
 
 # define FOV 60 * PI / 180
 # define WALL_WIDTH 1
@@ -96,8 +98,8 @@ typedef struct	s_ray {
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
-	t_map		*map;
 	t_data		*data;
+	t_map		*map;
 	t_point		*point;
 	t_player	*player;
 	t_ray		**ray;
@@ -153,6 +155,7 @@ int		move_player_release(int keycode, t_vars *vars);
 void	replace_image(t_vars *vars, t_data *new_img);
 int		new_position_player(int keycode, t_vars *vars);
 int		update_new_position(t_vars *vars);
+int		close_program(t_vars *vars);
 
 /*
 ** player 2d map functions
@@ -178,5 +181,12 @@ void	put_rays(t_vars *vars);
 */
 void		map3d_player(t_vars *vars);
 void		projection(t_vars *vars);
+
+/*
+** color functions
+*/
+
+int 	ft_rgb(int t, int r, int g, int b);
+int		shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:53 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 08:05:15 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 16:14:17 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ int	move_player_press(int keycode, t_vars *vars)
 		vars->player->turn_direction = +1;
 	else if (keycode == A_KEY)
 		vars->player->turn_direction = -1;
+	else if (keycode == RIGHT_ARROW_KEY)
+		vars->player->rotation_angle = EAST;
+	else if (keycode == LEFT_ARROW_KEY)
+		vars->player->rotation_angle = WEST;
+	else if (keycode == ESC_KEY)
+		return(close_program(vars));
 	return (new_position_player(keycode, vars));
 }
 
@@ -87,4 +93,11 @@ int	update_new_position(t_vars *vars)
 	put_player(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
 	return(0);
+}
+
+int	close_program(t_vars *vars)
+{
+	mlx_destroy_image(vars->mlx, vars->data->img);
+	mlx_destroy_window(vars->mlx, vars->win);
+	return (0);
 }
