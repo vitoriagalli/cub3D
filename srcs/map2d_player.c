@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_2dmap.c                                     :+:      :+:    :+:   */
+/*   map2d_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 03:51:44 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 08:02:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,29 @@ void	ft_direction_player(t_data *img, t_player *player)
 			player->posit->color);
 }
 
+void	put_rays(t_vars *vars)
+{
+	int i;
+
+
+	i = 0;
+	while (i < vars->map->num_rays)
+	{
+		ft_line(vars->data,
+		vars->player->posit->x * MAP2D_SCALE,
+		vars->player->posit->y * MAP2D_SCALE,
+		vars->ray[i]->collision->x * MAP2D_SCALE,
+		vars->ray[i]->collision->y * MAP2D_SCALE,
+		vars->player->posit->color);
+		i++;
+	}
+}
+
 void	map2d_player(t_vars *vars)
 {
 	vars->player->posit->color = 0xFFFF0000;
 	ft_fov(vars);
 	ft_direction_player(vars->data, vars->player);
 	ft_circle_player(vars->data, vars->player);
+	put_rays(vars);
 }

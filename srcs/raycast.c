@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 00:19:46 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 03:50:03 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 08:06:50 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	check_closest_wall(t_vars *vars, t_ray *ray, float ray_angle)
 
 	horz_intercept = cast_ray(vars, ray_angle, HORZ);
 	vert_intercept = cast_ray(vars, ray_angle, VERT);
-	dist_horz = horz_intercept->x == 0? INT_MAX :
+	dist_horz = is_end_window(vars->map, horz_intercept->x, horz_intercept->y) ? INT_MAX :
 	dist_btw_points(vars->player->posit->x, vars->player->posit->y,horz_intercept->x, horz_intercept->y);
-	dist_vert = vert_intercept->x == 0? INT_MAX :
+	dist_vert = is_end_window(vars->map, vert_intercept->x, vert_intercept->y) ? INT_MAX :
 	dist_btw_points(vars->player->posit->x, vars->player->posit->y, vert_intercept->x, vert_intercept->y);
 	ray->ray_angle = ray_angle;
-	if (dist_horz > dist_vert)
+	if (dist_horz < dist_vert)
 	{
 		assign_ray(ray, horz_intercept, dist_horz, HORZ);
 		free(vert_intercept);
@@ -51,14 +51,13 @@ t_ray	**ft_raycast(t_vars *vars)
 	float	ray_angle;
 	int		i;
 
-	ray = alocate_memory(sizeof(t_ray *) * vars->map->num_rays);
+	ray = alocate_memory(sizeof(t_ray *) * (vars->map->num_rays));
 
 	ray_angle = vars->player->rotation_angle - (FOV / 2);
 	i = 0;
 	while (i < vars->map->num_rays)
 	{
 		ray_angle = ft_normalize_angle(ray_angle);
-
 		ray[i] = alocate_memory(sizeof(t_ray));
 		check_closest_wall(vars, ray[i], ray_angle);
 		ray_angle += FOV / vars->map->num_rays;

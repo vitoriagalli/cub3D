@@ -6,15 +6,34 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/05/31 06:51:26 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 02:00:15 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+	int		offset;
+
+	offset = (y * data->size_line + x * (data->bpp / 8));
+	dst = data->addr + offset;
+	*(unsigned int*)dst = color;
+}
+
+void	*alocate_memory(int sizeof_type)
+{
+	void	*variable;
+
+	if (!(variable = malloc(sizeof_type * 1)))
+		return (NULL);
+	return (variable);
+}
+
 float	ft_normalize_angle(float angle)
 {
-	angle = remainder(angle, 2 * PI);
+	angle = remainder(angle, 2 * PI);		//verificar se não é fremainder
 	if (angle < 0)
 		angle += (2 * PI);
 	return (angle);
