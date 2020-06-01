@@ -6,15 +6,15 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 16:26:11 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 18:57:07 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 21:46:10 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_rgb(int t, int r, int g, int b)
+int ft_rgb(int r, int g, int b)
 {
-	return ((t << 24 | r << 16 | g << 8 | b));
+	return (r << 16 | g << 8 | b);
 }
 
 int	shade_wall(float dist, int r, int g, int b)
@@ -29,5 +29,19 @@ int	shade_wall(float dist, int r, int g, int b)
 	r -= r > delta? delta : 0;
 	g -= g > delta? delta : 0;
 	b -= b > delta? delta : 0;
-	return (ft_rgb(255, r, g, b));
+	return (ft_rgb(r, g, b));
+}
+
+int		get_color(t_ray *ray, t_color *color)
+{
+	if (ray_facing(ray->ray_angle, ray_up) && ray->coord == HORZ)
+		return (color->north_text);
+	else if (ray_facing(ray->ray_angle, ray_down) && ray->coord == HORZ)
+		return (color->south_text);
+	else if (ray_facing(ray->ray_angle, ray_right) && ray->coord == VERT)
+		return (color->east_text);
+	else if (ray_facing(ray->ray_angle, ray_left) && ray->coord == VERT)
+		return (color->west_text);
+	else
+		return (-1);
 }

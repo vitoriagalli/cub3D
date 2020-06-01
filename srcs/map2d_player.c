@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 18:58:49 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 21:46:57 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	put_rays(t_vars *vars)
 
 void	map2d_player(t_vars *vars)
 {
-	vars->player->posit->color = ft_rgb(255,255,230,0);
+	vars->player->posit->color = ft_rgb(255,230,0);
 	ft_fov(vars);
 	ft_direction_player(vars->data, vars->player);
 	ft_circle_player(vars->data, vars->player);

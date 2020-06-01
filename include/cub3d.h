@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 18:58:02 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 22:45:26 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,15 @@ typedef struct	s_point {
 	int			color;
 }				t_point;
 
+typedef struct	s_color {
+	int			north_text;
+	int			south_text;
+	int			east_text;
+	int			west_text;
+	int			ceilling;
+	int			floor;
+}				t_color;
+
 typedef struct	s_map {
 	int			width;
 	int			height;
@@ -77,6 +86,7 @@ typedef struct	s_map {
 	float		rotation_angle;
 	int			tile_size;
 	int			num_rays;
+	t_color		*color;
 }				t_map;
 
 typedef struct	s_player {
@@ -180,13 +190,14 @@ void	put_rays(t_vars *vars);
 ** render 3d map
 */
 void		map3d_player(t_vars *vars);
-void		projection(t_vars *vars);
+
 
 /*
 ** color functions
 */
 
-int 	ft_rgb(int t, int r, int g, int b);
+int 	ft_rgb(int r, int g, int b);
 int		shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
+int		get_color(t_ray *ray, t_color *color);
 
 #endif

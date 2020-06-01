@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 03:39:09 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/01 21:48:37 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,18 @@ int	is_wall(t_map *map, int x, int y)
 	return (0);
 }
 
+
+void	assign_colors(t_color *color)
+{
+	color->north_text = ft_rgb(255,90,255);
+	color->south_text = ft_rgb(255,0,255);
+	color->east_text = ft_rgb(150,0,150);
+	color->west_text = ft_rgb(200,0,200);
+
+	color->ceilling = ft_rgb(0,255,255);
+	color->floor = ft_rgb(200,200,80);
+}
+
 t_map	*assign_map(void)
 {
 	t_map *map;
@@ -81,6 +93,9 @@ t_map	*assign_map(void)
 	map->rotation_angle = NORTH;
 	map->tile_size = map->width / map->n_column;
 	map->num_rays = map->width / WALL_WIDTH;
+	map->color = alocate_memory(sizeof(t_color));
+	assign_colors(map->color);
+
 	return (map);
 }
 
