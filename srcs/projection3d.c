@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 22:44:27 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 01:58:35 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	project_things(t_vars *vars, float wall_proj_height, int i)
 	ceilling_lim = (vars->map->height / 2) - (wall_proj_height / 2);
 	wall_lim = (vars->map->height / 2) + (wall_proj_height / 2);
 	x = i * WALL_WIDTH;
-	while(x < (i + 1) * WALL_WIDTH)
+	while (x < (i + 1) * WALL_WIDTH)
 	{
 		y = 0;
 		while (y < vars->map->height)
@@ -36,7 +36,6 @@ void	project_things(t_vars *vars, float wall_proj_height, int i)
 				color = get_color(vars->ray[i], vars->map->color);
 			else
 			 	color = vars->map->color->floor;
-
 			my_mlx_pixel_put(vars->data, x, y, color);
 			y++;
 		}
@@ -60,14 +59,25 @@ void		iterate_3dprojection(t_vars *vars)
 		wall_proj_height = (vars->map->tile_size / correct_dist_plane) * dist_proj_plane;
 		wall_proj_height = (wall_proj_height < vars->map->height) ? wall_proj_height : vars->map->height;
 		project_things(vars, wall_proj_height, i);
-		free(vars->ray[i]->collision);
-		free(vars->ray[i]);
 		i++;
 	}
 }
 
-void		map3d_player(t_vars *vars)
+void		put_player_3dmap(t_vars *vars)
 {
 	iterate_3dprojection(vars);
+}
+
+void	clean_structure(t_vars *vars)
+{
+	int i;
+
+	i = 0;
+	while (i < vars->map->num_rays)
+	{
+		free(vars->ray[i]->collision);
+		free(vars->ray[i]);
+		i++;
+	}
 	free(vars->ray);
 }

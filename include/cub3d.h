@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 22:45:26 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 02:31:39 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,16 @@
 # define HORZ 0
 # define VERT 1
 
-// 2d map colors
-# define WALL_2D_COLOR 0xff000000
-# define VOID_2D_COLOR 0xffffffff
+# define WALL_2D_COLOR 0x000000
+# define VOID_2D_COLOR 0xffffff
 
-# define FOV 60 * PI / 180
+# define FOV 66 * PI / 180
 # define WALL_WIDTH 1
 
-# define MAP2D_SCALE 0.2
+# define MOVE_SPEED 20
+# define ROTAT_SPEED 20 * PI / 180
+
+# define MAP2D_SCALE 0.25
 
 typedef enum	e_playerface
 {
@@ -124,6 +126,7 @@ float	ft_normalize_angle(float angle);
 int		ray_facing(float angle, int way);
 int		is_end_window(t_map *map,float x, float y);
 float	dist_btw_points(float x0, float y0, float x1, float y1);
+void	clean_structure(t_vars *vars);
 
 /*
 ** geometry functions
@@ -133,9 +136,11 @@ void	ft_rectangle(t_data *img, t_point point, int l_width, int l_height);
 void 	ft_line(t_data *img, int x0, int y0, int x1, int y1, int color);
 
 /*
-** init game
+** game functions
 */
 void	init_game(t_vars *vars);
+void	put_game(t_vars *vars);
+int		close_program(t_vars *vars);
 
 /*
 ** setup, crate and assign variables
@@ -149,31 +154,25 @@ void		assign_player(t_player *player, int move_speed, float rotation_speed);
 void		info_map_to_player(t_player *player, t_map *map);
 
 /*
-** read and raycast map 2d and player
+** mini map and player functions
 */
 void	read_map(t_vars *vars);
 t_map	*assign_map(void);
-void	put_2dmap(t_vars *vars);
+void	put_minimap(t_vars *vars);
 int		is_wall(t_map *map, int x, int y);
+void	put_player_minimap(t_vars *vars);
+void	ft_direction_player(t_data *img, t_player *player);
+void	ft_circle_player(t_data *img, t_player *player);
+void	ft_fov(t_vars *vars);
 
 /*
 ** move player functions
 */
-void	put_player(t_vars *vars);
 int		move_player_press(int keycode, t_vars *vars);
 int		move_player_release(int keycode, t_vars *vars);
 void	replace_image(t_vars *vars, t_data *new_img);
 int		new_position_player(int keycode, t_vars *vars);
 int		update_new_position(t_vars *vars);
-int		close_program(t_vars *vars);
-
-/*
-** player 2d map functions
-*/
-void	map2d_player(t_vars *vars);
-void	ft_direction_player(t_data *img, t_player *player);
-void	ft_circle_player(t_data *img, t_player *player);
-void	ft_fov(t_vars *vars);
 
 /*
 ** raycast
@@ -189,13 +188,11 @@ void	put_rays(t_vars *vars);
 /*
 ** render 3d map
 */
-void		map3d_player(t_vars *vars);
-
+void		put_player_3dmap(t_vars *vars);
 
 /*
 ** color functions
 */
-
 int 	ft_rgb(int r, int g, int b);
 int		shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
 int		get_color(t_ray *ray, t_color *color);

@@ -6,18 +6,11 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:53 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 21:41:31 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 01:38:28 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	put_player(t_vars *vars)
-{
-	vars->ray = ft_raycast(vars);
-	map2d_player(vars);
-	map3d_player(vars);
-}
 
 int	move_player_press(int keycode, t_vars *vars)
 {
@@ -89,15 +82,7 @@ int	update_new_position(t_vars *vars)
 
 	img = create_image(vars->mlx, vars->map);
 	replace_image(vars, img);
-	put_2dmap(vars);
-	put_player(vars);
+	put_game(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
 	return(0);
-}
-
-int	close_program(t_vars *vars)
-{
-	mlx_destroy_image(vars->mlx, vars->data->img);
-	mlx_destroy_window(vars->mlx, vars->win);
-	return (0);
 }

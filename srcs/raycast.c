@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 00:19:46 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 08:06:50 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 01:12:34 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_ray	**ft_raycast(t_vars *vars)
 	int		i;
 
 	ray = alocate_memory(sizeof(t_ray *) * (vars->map->num_rays));
-
 	ray_angle = vars->player->rotation_angle - (FOV / 2);
 	i = 0;
 	while (i < vars->map->num_rays)

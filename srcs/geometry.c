@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 03:11:15 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 03:33:20 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 02:19:13 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,22 +108,17 @@ void	ft_increment_y(t_data *img, int x0, int y0, int x1, int y1, int dx, int dy,
 
 void ft_line(t_data *img, int x0, int y0, int x1, int y1, int color)
 {
-	int 	dx;
-	int 	dy;
+	int 	d[2];
 
-	dx = abs(x1 - x0);
-	dy = abs(y1 - y0);
+	d[0] = (x1 - x0);
+	d[0] *= d[0] > 0 ? 1 : -1;
+	d[1] = (y1 - y0);
+	d[1] *= d[1] > 0 ? 1 : -1;
 
-	if(dx >= dy)
-		ft_increment_x(img, x0, y0, x1, y1, dx, dy, color);
+	if(d[0] >= d[1])
+		ft_increment_x(img, x0, y0, x1, y1, d[0], d[1], color);
 	else
-	{
-		/*
-		** slope > 45°
-		** o incremento é sobre y e não sobre x
-		*/
-		ft_increment_y(img, x0, y0, x1, y1, dx, dy, color);
-	}
+		ft_increment_y(img, x0, y0, x1, y1, d[0], d[1], color);
 }
 
 

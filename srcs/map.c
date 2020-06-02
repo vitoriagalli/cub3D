@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 21:48:37 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 01:24:35 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	map_grid[13][20] =
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
-void	put_2dmap(t_vars *vars)
+void	put_minimap(t_vars *vars)
 {
 	int i;
 	int j;
@@ -71,10 +71,10 @@ int	is_wall(t_map *map, int x, int y)
 
 void	assign_colors(t_color *color)
 {
-	color->north_text = ft_rgb(255,90,255);
-	color->south_text = ft_rgb(255,0,255);
-	color->east_text = ft_rgb(150,0,150);
-	color->west_text = ft_rgb(200,0,200);
+	color->north_text = ft_rgb(180,150,180);
+	color->south_text = ft_rgb(120,100,120);
+	color->east_text = ft_rgb(150,30,150);
+	color->west_text = ft_rgb(90,50,90);
 
 	color->ceilling = ft_rgb(0,255,255);
 	color->floor = ft_rgb(200,200,80);
