@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 03:11:15 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 05:56:37 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 06:10:31 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_rectangle(t_data *img, t_point point, int l_width, int l_height)
 	}
 }
 
-void	ft_increment_x(t_data *img, int *p0, int *p1, int *dif, int color)
+void	ft_increment_x(t_data *img, int *p0, int *p1, int *dif)
 {
 	int x;
 	int	y;
@@ -59,11 +59,11 @@ void	ft_increment_x(t_data *img, int *p0, int *p1, int *dif, int color)
 			y += (y < p1[VERT]) ? 1 : -1;
 		}
 		x++;
-		my_mlx_pixel_put(img, x, y, color);
+		my_mlx_pixel_put(img, x, y, dif[4]);
 	}
 }
 
-void	ft_increment_y(t_data *img, int *p0, int *p1, int *dif, int color)
+void	ft_increment_y(t_data *img, int *p0, int *p1, int *dif)
 {
 	int x;
 	int y;
@@ -92,14 +92,15 @@ void	ft_increment_y(t_data *img, int *p0, int *p1, int *dif, int color)
 			x += (x < p1[HORZ]) ? 1 : -1;
 		}
 		y++;
-		my_mlx_pixel_put(img, x, y, color);
+		my_mlx_pixel_put(img, x, y, dif[4]);
 	}
 }
 
 void	ft_line(t_data *img, int *p0, int *p1, int color)
 {
-	int	dif[4];
+	int	dif[5];
 
+	dif[4] = color;
 	dif[HORZ] = (p1[HORZ] - p0[HORZ]);
 	dif[HORZ] *= (dif[HORZ] > 0) ? 1 : -1;
 	dif[VERT] = (p1[VERT] - p0[VERT]);
@@ -108,13 +109,13 @@ void	ft_line(t_data *img, int *p0, int *p1, int color)
 	{
 		dif[2] = dif[VERT]; 					//	ds = dy
 		dif[3] = dif[VERT] - dif[HORZ];			//  dt = dy - dx
-		ft_increment_x(img, p0, p1, dif, color);
+		ft_increment_x(img, p0, p1, dif);
 	}
 	else
 	{
 		dif[2] = dif[HORZ];						//	ds = dx
 		dif[3] = dif[HORZ] - dif[VERT];			//  dt = dx - dy
-		ft_increment_y(img, p0, p1, dif, color);
+		ft_increment_y(img, p0, p1, dif);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 05:35:35 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 21:32:49 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-
-
-#define ROUND(a) ((int)(a + 0.5)) //proibido
 
 
 # define INT_MAX 2147483647
@@ -47,10 +44,10 @@
 # define FOV 66 * PI / 180
 # define WALL_WIDTH 1
 
-# define MOVE_SPEED 20
+# define MOVE_SPEED 30
 # define ROTAT_SPEED 20 * PI / 180
 
-# define MAP2D_SCALE 1.0
+# define MAP2D_SCALE 0.25
 
 typedef enum	e_playerface
 {
@@ -125,13 +122,14 @@ typedef struct	s_vars {
 ** utilis functions
 */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	*alocate_memory(int sizeof_type);
 float	ft_normalize_angle(float angle);
 int		ray_facing(float angle, int way);
+void	ft_swap(int *a, int *b);
 int		is_end_window(t_map *map,float x, float y);
 float	dist_btw_points(float x0, float y0, float x1, float y1);
-void	clean_structure(t_vars *vars);
-void	ft_swap(int *a, int *b);
+void	*alocate_memory(int sizeof_type);
+int		**alocate_buffer(int n_arrays, int n_elem);
+void	clean_buffer(int **buffer, int n_arrays);
 
 /*
 ** geometry functions
@@ -193,13 +191,20 @@ void	put_rays(t_vars *vars);
 /*
 ** render 3d map
 */
-void		put_player_3dmap(t_vars *vars);
+void	put_player_3dmap(t_vars *vars);
+void	project_game(t_vars *vars, int **color_buf);
+void	clean_structure(t_vars *vars);
 
 /*
 ** color functions
 */
+int		**store_pixel_info(t_vars *vars, int **buffer);
+int		get_color(t_vars *vars, int n_ray, int column);
+
+
+int		get_texture(t_vars *vars, int n_ray, int column);
+unsigned int	ft_color(int i);
 int 	ft_rgb(int r, int g, int b);
 int		shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
-int		get_color(t_ray *ray, t_color *color);
 
 #endif

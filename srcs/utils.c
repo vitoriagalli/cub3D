@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 04:33:31 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 20:57:52 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	offset = (y * data->size_line + x * (data->bpp / 8));
 	dst = data->addr + offset;
 	*(unsigned int*)dst = color;
-}
-
-void	*alocate_memory(int sizeof_type)
-{
-	void	*variable;
-
-	if (!(variable = malloc(sizeof_type * 1)))
-		return (NULL);
-	return (variable);
 }
 
 float	ft_normalize_angle(float angle)
@@ -80,4 +71,43 @@ void	ft_swap(int *a, int *b)
 	aux = *a;
 	*a = *b;
 	*b = aux;
+}
+
+void	*alocate_memory(int sizeof_type)
+{
+	void	*variable;
+
+	if (!(variable = malloc(sizeof_type * 1)))
+		return (NULL);
+	return (variable);
+}
+
+int	**alocate_buffer(int n_arrays, int n_elem)
+{
+	int	**buffer;
+	int i;
+
+	i = 0;
+	buffer = alocate_memory(sizeof(int *) * n_arrays);
+	while (i < n_arrays)
+	{
+		buffer[i] = alocate_memory(sizeof(int) * n_elem);
+		i++;
+	}
+	return (buffer);
+}
+
+void	clean_buffer(int **buffer, int n_arrays)
+{
+	int i;
+
+	i = 0;
+	while (i < n_arrays)
+	{
+		free(buffer[i]);
+		buffer[i] = NULL;
+		i++;
+	}
+	free(buffer);
+	buffer = NULL;
 }
