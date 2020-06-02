@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 02:31:39 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 05:35:35 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
+
+
+#define ROUND(a) ((int)(a + 0.5)) //proibido
+
 
 # define INT_MAX 2147483647
 # define PI 3.14159265359
@@ -46,7 +50,7 @@
 # define MOVE_SPEED 20
 # define ROTAT_SPEED 20 * PI / 180
 
-# define MAP2D_SCALE 0.25
+# define MAP2D_SCALE 1.0
 
 typedef enum	e_playerface
 {
@@ -127,13 +131,14 @@ int		ray_facing(float angle, int way);
 int		is_end_window(t_map *map,float x, float y);
 float	dist_btw_points(float x0, float y0, float x1, float y1);
 void	clean_structure(t_vars *vars);
+void	ft_swap(int *a, int *b);
 
 /*
 ** geometry functions
 */
-void	ft_circle(t_data *img, int xc, int yc, int radius, int color);
+void	ft_circle(t_data *img, int *c, int radius, int color);
 void	ft_rectangle(t_data *img, t_point point, int l_width, int l_height);
-void 	ft_line(t_data *img, int x0, int y0, int x1, int y1, int color);
+void 	ft_line(t_data *img, int *p0, int *p1, int color);
 
 /*
 ** game functions
@@ -161,9 +166,9 @@ t_map	*assign_map(void);
 void	put_minimap(t_vars *vars);
 int		is_wall(t_map *map, int x, int y);
 void	put_player_minimap(t_vars *vars);
-void	ft_direction_player(t_data *img, t_player *player);
 void	ft_circle_player(t_data *img, t_player *player);
-void	ft_fov(t_vars *vars);
+// void	ft_direction_player(t_data *img, t_player *player);
+// void	ft_fov(t_vars *vars);
 
 /*
 ** move player functions

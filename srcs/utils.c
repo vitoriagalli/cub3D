@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 02:03:11 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/02 04:33:31 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,13 @@ int	is_end_window(t_map *map, float x, float y)
 float	dist_btw_points(float x0, float y0, float x1, float y1)
 {
 	return(sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)));
+}
+
+void	ft_swap(int *a, int *b)
+{
+	int aux;
+
+	aux = *a;
+	*a = *b;
+	*b = aux;
 }
