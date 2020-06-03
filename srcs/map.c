@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 18:58:30 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 20:23:58 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,6 @@ int	is_wall(t_map *map, int x, int y)
 	return (0);
 }
 
-
-void	assign_colors(t_color *color)
-{
-	color->north_text = ft_rgb(180,150,180);
-	color->south_text = ft_rgb(120,100,120);
-	color->east_text = ft_rgb(150,30,150);
-	color->west_text = ft_rgb(90,50,90);
-
-	color->ceilling = ft_rgb(0,255,255);
-	color->floor = ft_rgb(200,200,80);
-}
-
 t_map	*assign_map(void)
 {
 	t_map *map;
@@ -94,8 +82,13 @@ t_map	*assign_map(void)
 	map->tile_size = map->width / map->n_column;
 	map->num_rays = map->width / WALL_WIDTH;
 	map->color = alocate_memory(sizeof(t_color));
-	assign_colors(map->color);
-
+	map->color->ceilling = ft_rgb(0,255,255);
+	map->color->floor = ft_rgb(200,200,80);
+	map->path = alocate_memory(sizeof(char *) * 4);
+	map->path[north] = "./img/wood.xpm";
+	map->path[south] = "./img/eagle.xpm";
+	map->path[east] = "./img/greystone.xpm";
+	map->path[west] = "./img/purplestone.xpm";
 	return (map);
 }
 

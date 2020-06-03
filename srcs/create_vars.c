@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/01 03:40:16 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 20:58:35 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	assign_point(t_point *point, int x, int y, int color)
 
 void	assign_player(t_player *player, int move_speed, float rotation_speed)
 {
-	player->turn_direction = 0;				//-1 esquerda +1 direita
-	player->walk_direction = 0;				//-1 p/frente   +1 p/tras
+	player->turn_direction = 0;
+	player->walk_direction = 0;
 	player->move_speed = move_speed;
 	player->rotation_speed = rotation_speed;
 }
@@ -63,4 +63,16 @@ t_data	*create_image(void *mlx_ptr, t_map *map)
 	img->img = mlx_new_image(mlx_ptr, map->width, map->height);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->size_line, &img->endian);
 	return (img);
+}
+
+t_tex	**create_texture(void *mlx_ptr, char **path)
+{
+	t_tex	**texture;
+
+	texture = alocate_memory(sizeof(t_tex *) * 4);
+	texture[north] = get_texture(mlx_ptr, path[north]);
+	texture[south] = get_texture(mlx_ptr, path[south]);
+	texture[east] = get_texture(mlx_ptr, path[east]);
+	texture[west] = get_texture(mlx_ptr, path[west]);
+	return (texture);
 }

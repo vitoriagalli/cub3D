@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 18:52:22 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 20:31:41 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	create_vars(t_vars *vars)
 	vars->data = create_image(vars->mlx, vars->map);
 	vars->point = create_point(0, 0, 0);
 	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
-	vars->tex = create_texture(vars->mlx, "./img/wood.xpm");
+	vars->tex = create_texture(vars->mlx, vars->map->path);
 }
 
 void	put_game(t_vars *vars)
@@ -41,11 +41,21 @@ void	init_game(t_vars *vars)
 
 int	close_program(t_vars *vars)
 {
+	free(vars->map->path[north]);
+	free(vars->map->path[south]);
+	free(vars->map->path[east]);
+	free(vars->map->path[west]);
+	free(vars->map->path);
 	free(vars->map->color);
 	free(vars->map);
 	free(vars->point);
 	free(vars->player->posit);
 	free(vars->player);
+	free(vars->tex[north]);
+	free(vars->tex[south]);
+	free(vars->tex[east]);
+	free(vars->tex[west]);
+	free(vars->tex);
 	mlx_destroy_image(vars->mlx, vars->data->img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);

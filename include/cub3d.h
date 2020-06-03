@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 19:00:38 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 20:54:58 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,15 @@ typedef enum	e_playerface
 				ray_down,
 				ray_left,
 				ray_right
-}				t_face;
+}				t_playerface;
+
+typedef enum	e_text
+{
+				north,
+				south,
+				east,
+				west
+}				t_text;
 
 typedef struct	s_data {
 	void		*img;
@@ -90,7 +98,7 @@ typedef struct	s_map {
 	int			tile_size;
 	int			num_rays;
 	t_color		*color;
-	// t_text		*tex;
+	char		**path;
 }				t_map;
 
 typedef struct	s_player {
@@ -109,7 +117,7 @@ typedef struct	s_ray {
 	int			coord;
 }				t_ray;
 
-typedef struct s_tex {
+typedef struct	s_tex {
 	t_data		*data;
 	int			width;
 	int			height;
@@ -123,102 +131,96 @@ typedef struct	s_vars {
 	t_point		*point;
 	t_player	*player;
 	t_ray		**ray;
-	t_tex		*tex;
+	t_tex		**tex;
 }				t_vars;
 
 /*
 ** utilis functions
 */
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-float	ft_normalize_angle(float angle);
-int		ray_facing(float angle, int way);
-void	ft_swap(int *a, int *b);
-int		is_end_window(t_map *map,float x, float y);
-float	dist_btw_points(float x0, float y0, float x1, float y1);
-void	*alocate_memory(int sizeof_type);
-int		**alocate_buffer(int n_arrays, int n_elem);
-void	clean_buffer(int **buffer, int n_arrays);
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+float			ft_normalize_angle(float angle);
+int				ray_facing(float angle, int way);
+void			ft_swap(int *a, int *b);
+int				is_end_window(t_map *map, float x, float y);
+float			dist_btw_points(float x0, float y0, float x1, float y1);
+void			*alocate_memory(int sizeof_type);
+int				**alocate_buffer(int n_arrays, int n_elem);
+void			clean_buffer(int **buffer, int n_arrays);
 
 /*
 ** geometry functions
 */
-void	ft_circle(t_data *img, int *c, int radius, int color);
-void	ft_rectangle(t_data *img, t_point point, int l_width, int l_height);
-void 	ft_line(t_data *img, int *p0, int *p1, int color);
+void			ft_circle(t_data *img, int *c, int radius, int color);
+void			ft_rectangle(t_data *img, t_point point, int l_width, int l_height);
+void		 	ft_line(t_data *img, int *p0, int *p1, int color);
 
 /*
 ** game functions
 */
-void	init_game(t_vars *vars);
-void	put_game(t_vars *vars);
-int		close_program(t_vars *vars);
+void			init_game(t_vars *vars);
+void			put_game(t_vars *vars);
+int				close_program(t_vars *vars);
 
 /*
 ** setup, crate and assign variables
 */
-void		create_vars(t_vars *vars);
-t_data		*create_image(void *mlx_ptr, t_map *map);
-t_point		*create_point(int x, int y, int color);
-t_player	*create_player(t_map *map, int move_speed, float rotation_speed);
-void		assign_point(t_point *point, int x, int y, int color);
-void		assign_player(t_player *player, int move_speed, float rotation_speed);
-void		info_map_to_player(t_player *player, t_map *map);
+void			create_vars(t_vars *vars);
+t_data			*create_image(void *mlx_ptr, t_map *map);
+t_point			*create_point(int x, int y, int color);
+t_player		*create_player(t_map *map, int move_speed, float rotation_speed);
+t_tex			**create_texture(void *mlx_ptr, char **path);
+void			assign_point(t_point *point, int x, int y, int color);
+void			assign_player(t_player *player, int move_speed, float rotation_speed);
+void			info_map_to_player(t_player *player, t_map *map);
 
 /*
 ** mini map and player functions
 */
-void	read_map(t_vars *vars);
-t_map	*assign_map(void);
-void	put_minimap(t_vars *vars);
-int		is_wall(t_map *map, int x, int y);
-void	put_player_minimap(t_vars *vars);
-void	ft_circle_player(t_data *img, t_player *player);
-// void	ft_direction_player(t_data *img, t_player *player);
-// void	ft_fov(t_vars *vars);
+void			read_map(t_vars *vars);
+t_map			*assign_map(void);
+void			put_minimap(t_vars *vars);
+int				is_wall(t_map *map, int x, int y);
+void			put_player_minimap(t_vars *vars);
+void			ft_circle_player(t_data *img, t_player *player);
+// void			ft_direction_player(t_data *img, t_player *player);
+// void			ft_fov(t_vars *vars);
 
 /*
 ** move player functions
 */
-int		move_player_press(int keycode, t_vars *vars);
-int		move_player_release(int keycode, t_vars *vars);
-void	replace_image(t_vars *vars, t_data *new_img);
-int		new_position_player(int keycode, t_vars *vars);
-int		update_new_position(t_vars *vars);
+int				move_player_press(int keycode, t_vars *vars);
+int				move_player_release(int keycode, t_vars *vars);
+void			replace_image(t_vars *vars, t_data *new_img);
+int				new_position_player(int keycode, t_vars *vars);
+int				update_new_position(t_vars *vars);
 
 /*
 ** raycast
 */
-t_ray	**ft_raycast(t_vars *vars);
-void	check_closest_wall(t_vars *vars, t_ray *ray, float ray_angle);
-void	assign_ray(t_ray *ray, t_point *collision, float dist_wall, int coord);
-t_point	*cast_ray(t_vars *vars, float ray_angle, int coord);
-t_point	*horz_interception(t_vars *vars, t_point *intercept, float ray_angle);
-t_point	*vert_interception(t_vars *vars, t_point *intercept, float ray_angle);
-void	put_rays(t_vars *vars);
+t_ray			**ft_raycast(t_vars *vars);
+void			check_closest_wall(t_vars *vars, t_ray *ray, float ray_angle);
+void			assign_ray(t_ray *ray, t_point *collision, float dist_wall, int coord);
+t_point			*cast_ray(t_vars *vars, float ray_angle, int coord);
+t_point			*horz_interception(t_vars *vars, t_point *intercept, float ray_angle);
+t_point			*vert_interception(t_vars *vars, t_point *intercept, float ray_angle);
+void			put_rays(t_vars *vars);
 
 /*
 ** render 3d map
 */
-void	put_player_3dmap(t_vars *vars);
-int		**get_pixel_info(t_vars *vars, int **buffer);
-void	store_color(t_vars *vars, int **buffer, float wall_proj_height, int i);
-void	project_game(t_vars *vars, int **color_buf);
-void	clean_structure(t_vars *vars);
+void			put_player_3dmap(t_vars *vars);
+int				**get_pixel_info(t_vars *vars, int **buffer);
+void			store_all_colors(t_vars *vars, int **buffer, float wall_proj_height, int i);
+void			project_game(t_vars *vars, int **color_buf);
+void			clean_structure(t_vars *vars);
 
 /*
 ** color and texture functions
 */
-
-t_tex	*create_texture(void *mlx_ptr, char *path);
-int 	get_texture_color(t_tex *texture, int x, int y);
-
-
-int		store_texture(t_vars *vars, int y, int i, float *limit);
-
-
-
-unsigned int	ft_color(int i);
-int 	ft_rgb(int r, int g, int b);
-int		shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
+t_tex			*get_texture(void *mlx_ptr, char *path);
+int				store_texture(t_vars *vars, int y, int i, float *limit);
+int				ft_rgb(int r, int g, int b);
+int				shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
+int				get_texture_color(t_tex *texture, int x, int y);
 
 #endif

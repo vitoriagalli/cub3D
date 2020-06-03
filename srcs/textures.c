@@ -6,15 +6,40 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 16:42:31 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 18:52:13 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 20:49:45 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int		store_texture(t_vars *vars, int y, int i, float *limit)
+{
+	t_ray	*ray;
+	int		offset;
+	float	ymin;
+	float	ymax;
+	float	ytext;
+
+	ray = NULL;
+	ymin = limit[0];
+	ymax = limit[1];
+	offset = (int)vars->ray[i]->collision->x % vars->map->tile_size;
+	ytext = (y - ymin) * (vars->tex[0]->height - 0) / (ymax - ymin) + 0;
+	ray = vars->ray[i];
+	if (ray_facing(ray->ray_angle, ray_up) && ray->coord == HORZ)
+		return (get_texture_color(vars->tex[north], offset, ytext));
+	else if (ray_facing(ray->ray_angle, ray_down) && ray->coord == HORZ)
+		return (get_texture_color(vars->tex[south], offset, ytext));
+	else if (ray_facing(ray->ray_angle, ray_right) && ray->coord == VERT)
+		return (get_texture_color(vars->tex[east], offset, ytext));
+	else if (ray_facing(ray->ray_angle, ray_left) && ray->coord == VERT)
+		return (get_texture_color(vars->tex[west], offset, ytext));
+	else
+		return (-1);
+}
 
 // função que puxa a imagem do diretório e a transforma em textura
-t_tex *create_texture(void *mlx_ptr, char *path)
+t_tex *get_texture(void *mlx_ptr, char *path)
 {
 	t_tex *texture;
 	t_data *img;
@@ -27,22 +52,4 @@ t_tex *create_texture(void *mlx_ptr, char *path)
 	&img->size_line, &img->endian);
 	texture->data = img;
 	return (texture);
-}
-
-//funcao que pega a cor do pixel da posicao data
-int get_texture_color (t_tex *texture, int x, int y)
-{
-	int offset;
-	int a;
-	int r;
-	int g;
-	int b;
-
-	offset = y * texture->data->size_line
-	+ x * (texture->data->bpp / 8);
-	a = texture->data->addr[offset + 0];
-	r = texture->data->addr[offset + 1];
-	g = texture->data->addr[offset + 2];
-	b = texture->data->addr[offset + 3];
-	return (b << 24 | g << 16 | r << 8 | a);
 }

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:53 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 03:44:35 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 21:00:07 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	move_player_press(int keycode, t_vars *vars)
 	else if (keycode == LEFT_ARROW_KEY)
 		vars->player->rotation_angle = WEST;
 	else if (keycode == ESC_KEY)
-		return(close_program(vars));
+		return (close_program(vars));
 	return (new_position_player(keycode, vars));
 }
 
@@ -41,7 +41,7 @@ int	move_player_release(int keycode, t_vars *vars)
 		vars->player->turn_direction = 0;
 	else if (keycode == A_KEY)
 		vars->player->turn_direction = 0;
-	return(update_new_position(vars));			//******** VERIFICAR
+	return (update_new_position(vars));			//******** VERIFICAR
 }
 
 void	replace_image(t_vars *vars, t_data *new_img)
@@ -73,7 +73,7 @@ int		new_position_player(int keycode, t_vars *vars)
 		vars->player->rotation_angle += vars->player->turn_direction * vars->player->rotation_speed;
 		vars->player->rotation_angle = ft_normalize_angle(vars->player->rotation_angle);
 	}
-	return(update_new_position(vars));
+	return (update_new_position(vars));
 }
 
 int	update_new_position(t_vars *vars)
@@ -84,5 +84,5 @@ int	update_new_position(t_vars *vars)
 	replace_image(vars, img);
 	put_game(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
-	return(0);
+	return (0);
 }

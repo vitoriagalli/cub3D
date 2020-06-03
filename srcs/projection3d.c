@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 18:45:10 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 20:45:53 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,14 @@ int		**get_pixel_info(t_vars *vars, int **buffer)
 		correct_dist_plane = vars->ray[i]->dist_wall * cos(vars->ray[i]->ray_angle - vars->player->rotation_angle);
 		wall_proj_height = (vars->map->tile_size / correct_dist_plane) * dist_proj_plane;
 		wall_proj_height = (wall_proj_height < vars->map->height) ? wall_proj_height : vars->map->height;
-		store_color(vars, buffer, wall_proj_height, i);
+		store_all_colors(vars, buffer, wall_proj_height, i);
 		i++;
 	}
 	return (buffer);
 }
 
-void	store_color(t_vars *vars, int **buffer, float wall_proj_height, int i)
+void	store_all_colors(t_vars *vars, int **buffer, float wall_proj_height, int i)
 {
-	// float	ceilling_lim;
-	// float	wall_lim;
 	float	limit[2];
 	int 	x;
 	int 	y;
