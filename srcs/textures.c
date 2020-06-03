@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 16:42:31 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 20:49:45 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 22:38:17 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ int		store_texture(t_vars *vars, int y, int i, float *limit)
 	ray = NULL;
 	ymin = limit[0];
 	ymax = limit[1];
-	offset = (int)vars->ray[i]->collision->x % vars->map->tile_size;
-	ytext = (y - ymin) * (vars->tex[0]->height - 0) / (ymax - ymin) + 0;
 	ray = vars->ray[i];
+	offset = (ray->coord == HORZ) ?
+		(int)ray->collision->x % vars->map->tile_size :
+		(int)ray->collision->y % vars->map->tile_size;
+	ytext = (y - ymin) * (vars->tex[0]->height - 0) / (ymax - ymin) + 0;
 	if (ray_facing(ray->ray_angle, ray_up) && ray->coord == HORZ)
 		return (get_texture_color(vars->tex[north], offset, ytext));
 	else if (ray_facing(ray->ray_angle, ray_down) && ray->coord == HORZ)
@@ -39,12 +41,12 @@ int		store_texture(t_vars *vars, int y, int i, float *limit)
 }
 
 // função que puxa a imagem do diretório e a transforma em textura
-t_tex *get_texture(void *mlx_ptr, char *path)
+t_tex	*get_texture(void *mlx_ptr, char *path)
 {
 	t_tex *texture;
 	t_data *img;
 
-	texture = (t_tex *)malloc(sizeof(t_tex));
+	texture = malloc(sizeof(t_tex));
 	img = (t_data *)malloc(sizeof(t_data));
 	img->img = mlx_xpm_file_to_image(mlx_ptr, path, &texture->width,
 	&texture->height);

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 20:45:53 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 22:09:36 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	store_all_colors(t_vars *vars, int **buffer, float wall_proj_height, int i)
 	while (x < (i + 1) * WALL_WIDTH)
 	{
 		y = -1;
-		while (++y <= limit[0] && y < vars->map->height)
+		while (++y < limit[0] && y < vars->map->height)
 			buffer[y][x] = vars->map->color->ceilling;
-		while (++y <= limit[1] && y < vars->map->height)
+		while (++y < limit[1] && y < vars->map->height)
 			buffer[y][x] = store_texture(vars, y, i, limit);
 		while (++y < vars->map->height)
 			buffer[y][x] = vars->map->color->floor;

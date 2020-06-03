@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 20:54:58 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 22:44:48 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct	s_color {
 }				t_color;
 
 typedef struct	s_map {
+//	char		**map_grid;
 	int			width;
 	int			height;
 	int			n_column;

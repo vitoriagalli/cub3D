@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 20:31:41 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 22:48:33 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,20 @@ void	init_game(t_vars *vars)
 
 int	close_program(t_vars *vars)
 {
-	free(vars->map->path[north]);
-	free(vars->map->path[south]);
-	free(vars->map->path[east]);
-	free(vars->map->path[west]);
 	free(vars->map->path);
 	free(vars->map->color);
 	free(vars->map);
 	free(vars->point);
 	free(vars->player->posit);
 	free(vars->player);
+	mlx_destroy_image(vars->mlx, vars->tex[north]->data->img);
+	mlx_destroy_image(vars->mlx, vars->tex[south]->data->img);
+	mlx_destroy_image(vars->mlx, vars->tex[east]->data->img);
+	mlx_destroy_image(vars->mlx, vars->tex[west]->data->img);
+	free(vars->tex[north]->data);
+	free(vars->tex[south]->data);
+	free(vars->tex[east]->data);
+	free(vars->tex[west]->data);
 	free(vars->tex[north]);
 	free(vars->tex[south]);
 	free(vars->tex[east]);

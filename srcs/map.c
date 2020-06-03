@@ -6,13 +6,13 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 20:23:58 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 22:20:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	map_grid[13][20] =
+char	map_grid[13][20] =
 {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -73,6 +73,7 @@ t_map	*assign_map(void)
 	t_map *map;
 
 	map = alocate_memory(sizeof(t_map));
+	//map->map_grid = map_grid;
 	map->width = 1000;
 	map->height = 650;
 	map->n_column = 20;
@@ -86,9 +87,9 @@ t_map	*assign_map(void)
 	map->color->floor = ft_rgb(200,200,80);
 	map->path = alocate_memory(sizeof(char *) * 4);
 	map->path[north] = "./img/wood.xpm";
-	map->path[south] = "./img/eagle.xpm";
+	map->path[south] = "./img/bluestone.xpm";
 	map->path[east] = "./img/greystone.xpm";
-	map->path[west] = "./img/purplestone.xpm";
+	map->path[west] = "./img/redbrick.xpm";
 	return (map);
 }
 
