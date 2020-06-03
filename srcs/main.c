@@ -6,7 +6,13 @@ int main(void)
 
 	init_game(&vars);
 	mlx_hook(vars.win, 2, (1l<<0), move_player_press, &vars);
-	mlx_hook(vars.win, 3, (1l<<1), move_player_release, &vars); //verificar se faz diferença
+
+	// a função release deixa mais devagar pois processa todos os keycodes antes de update the position
+	// a nao ser que mude para new_position player --> verificar diferenças
+	//mlx_hook(vars.win, 3, (1l<<1), move_player_release, &vars); //verificar se faz diferença
+
+	//mlx_expose_hook(vars.win, update_new_position, &vars);
+
 	mlx_loop(vars.mlx);
 }
 

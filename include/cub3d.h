@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 21:32:49 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 19:00:38 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define FOV 66 * PI / 180
 # define WALL_WIDTH 1
 
-# define MOVE_SPEED 30
+# define MOVE_SPEED 20
 # define ROTAT_SPEED 20 * PI / 180
 
 # define MAP2D_SCALE 0.25
@@ -90,6 +90,7 @@ typedef struct	s_map {
 	int			tile_size;
 	int			num_rays;
 	t_color		*color;
+	// t_text		*tex;
 }				t_map;
 
 typedef struct	s_player {
@@ -108,6 +109,12 @@ typedef struct	s_ray {
 	int			coord;
 }				t_ray;
 
+typedef struct s_tex {
+	t_data		*data;
+	int			width;
+	int			height;
+}				t_tex;
+
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
@@ -116,6 +123,7 @@ typedef struct	s_vars {
 	t_point		*point;
 	t_player	*player;
 	t_ray		**ray;
+	t_tex		*tex;
 }				t_vars;
 
 /*
@@ -192,17 +200,23 @@ void	put_rays(t_vars *vars);
 ** render 3d map
 */
 void	put_player_3dmap(t_vars *vars);
+int		**get_pixel_info(t_vars *vars, int **buffer);
+void	store_color(t_vars *vars, int **buffer, float wall_proj_height, int i);
 void	project_game(t_vars *vars, int **color_buf);
 void	clean_structure(t_vars *vars);
 
 /*
-** color functions
+** color and texture functions
 */
-int		**store_pixel_info(t_vars *vars, int **buffer);
-int		get_color(t_vars *vars, int n_ray, int column);
+
+t_tex	*create_texture(void *mlx_ptr, char *path);
+int 	get_texture_color(t_tex *texture, int x, int y);
 
 
-int		get_texture(t_vars *vars, int n_ray, int column);
+int		store_texture(t_vars *vars, int y, int i, float *limit);
+
+
+
 unsigned int	ft_color(int i);
 int 	ft_rgb(int r, int g, int b);
 int		shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar

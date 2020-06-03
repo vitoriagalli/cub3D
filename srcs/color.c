@@ -6,87 +6,38 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 16:26:11 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 22:04:07 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 18:54:49 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	store_things(t_vars *vars, int **buffer, float wall_proj_height, int i)
-{
-	t_point	*thing;
-	float	ceilling_lim;
-	float	wall_lim;
-	int 	x;
-	int 	y;
-
-	thing = create_point(0, 0, 0);
-	ceilling_lim = (vars->map->height / 2) - (wall_proj_height / 2);
-	wall_lim = (vars->map->height / 2) + (wall_proj_height / 2);
-	x = i * WALL_WIDTH;
-	while (x < (i + 1) * WALL_WIDTH)
-	{
-		y = 0;
-		while (y < vars->map->height)
-		{
-			while (y < ceilling_lim)
-			{
-				buffer[y][x] = vars->map->color->ceilling;
-				y++;
-			}
-			while (y < wall_lim)
-			{
-				buffer[y][x] = get_color(vars, i, x);
-				y++;
-			}
-			while (y < vars->map->height)
-			{
-				buffer[y][x] = vars->map->color->floor;
-				y++;
-			}
-		}
-		x++;
-	}
-	free(thing);
-}
-
-int		**store_pixel_info(t_vars *vars, int **buffer)
-{
-	float	correct_dist_plane;
-	float	dist_proj_plane;
-	float	wall_proj_height;
-	int		i;
-
-	i = 0;
-	dist_proj_plane = (vars->map->width / 2) / (tan(FOV / 2));
-	while (i < vars->map->num_rays)
-	{
-		correct_dist_plane = vars->ray[i]->dist_wall * cos(vars->ray[i]->ray_angle - vars->player->rotation_angle);
-		wall_proj_height = (vars->map->tile_size / correct_dist_plane) * dist_proj_plane;
-		wall_proj_height = (wall_proj_height < vars->map->height) ? wall_proj_height : vars->map->height;
-		store_things(vars, buffer, wall_proj_height, i);
-		i++;
-	}
-	return (buffer);
-}
-
-
-int		get_color(t_vars *vars, int n_ray, int column)
+int		store_texture(t_vars *vars, int y, int i, float *limit)
 {
 	t_ray	*ray = NULL;
 	t_color	*color = NULL;
 
-	ray = vars->ray[n_ray]; 			(void) column;
+	float ymin = limit[0];
+	float ymax = limit[1];
+
+	int offset;
+	int	ytext;
+
+	offset = (int)vars->ray[i]->collision->x % vars->map->tile_size;
+	ytext = (y - ymin) * (vars->tex->height - 0) / (ymax - ymin) + 0;
+
+	ray = vars->ray[i];
 	color = vars->map->color;
+
 	if (ray_facing(ray->ray_angle, ray_up) && ray->coord == HORZ)
-		return (color->north_text);
+		// return (color->north_text);
+		return (get_texture_color(vars->tex, offset, ytext));
 	else if (ray_facing(ray->ray_angle, ray_down) && ray->coord == HORZ)
 		return (color->south_text);
 	else if (ray_facing(ray->ray_angle, ray_right) && ray->coord == VERT)
 		return (color->east_text);
 	else if (ray_facing(ray->ray_angle, ray_left) && ray->coord == VERT)
 		return (color->west_text);
-		// return (get_texture(vars, n_ray, column));
 
 	else
 		return (-1);
@@ -150,44 +101,3 @@ unsigned int	ft_color(int i)
 
 	return (color);
 }
-
-
-// int		*get_column_colors(t_vars *vars, float wall_proj_height, int i)
-// {
-// 	int		*column_buffer = NULL;					// i = num da coluna
-// 	float	ceilling_lim;
-// 	float	wall_lim;
-// 	int 	x;
-// 	int 	y;
-
-// 	ceilling_lim = (vars->map->height / 2) - (wall_proj_height / 2);
-// 	wall_lim = (vars->map->height / 2) + (wall_proj_height / 2);
-// 	x = i * WALL_WIDTH;
-// 	while (x < (i + 1) * WALL_WIDTH)
-// 	{
-// 		y = 0;
-// 		while (y < vars->map->height)
-// 		{
-// 			while (y < ceilling_lim)
-// 			{
-// 				column_buffer[y][x] = vars->map->color->ceilling;
-// 				y++;
-// 			}
-// 			while(y >= ceilling_lim && y < wall_lim)
-// 			{
-// 				column_buffer[y][x] = *ft_rgb(100, 100, 100);
-// 				// buffer_colors[y][x] = get_color(vars, i, y);
-// 				y++;
-// 			}
-// 			while (y < vars->map->height)
-// 			{
-// 			 	column_buffer[y][x] = vars->map->color->floor;
-// 				y++;
-// 			}
-
-// 			y++;
-// 		}
-// 		x++;
-// 	}
-// 	return (column_buffer);
-// }

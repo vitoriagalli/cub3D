@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 20:55:02 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/03 18:52:22 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	create_vars(t_vars *vars)
 	vars->data = create_image(vars->mlx, vars->map);
 	vars->point = create_point(0, 0, 0);
 	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
+	vars->tex = create_texture(vars->mlx, "./img/wood.xpm");
 }
 
 void	put_game(t_vars *vars)
@@ -47,5 +48,6 @@ int	close_program(t_vars *vars)
 	free(vars->player);
 	mlx_destroy_image(vars->mlx, vars->data->img);
 	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
 	return (0);
 }
