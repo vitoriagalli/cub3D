@@ -6,12 +6,14 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/04 03:16:44 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/04 19:57:03 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# include "get_next_line.h"
 
 # include "mlx.h"
 # include <math.h>
@@ -24,12 +26,6 @@
 
 # include <stdio.h>
 
-
-# ifndef BUFFER_SIZE		///////////
-#  define  BUFFER_SIZE 50	///////////
-# endif						///////////
-
-# define OPEN_MAX 20		///////////
 
 # define INT_MAX 2147483647
 # define PI 3.14159265359
@@ -96,10 +92,10 @@ typedef struct	s_point {
 }				t_point;
 
 typedef struct	s_color {
-	int			north_text;
-	int			south_text;
-	int			east_text;
-	int			west_text;
+	// int			north_text;
+	// int			south_text;
+	// int			east_text;
+	// int			west_text;
 	int			ceilling;
 	int			floor;
 }				t_color;
@@ -194,8 +190,8 @@ void			info_map_to_player(t_player *player, t_map *map);
 /*
 ** mini map and player functions
 */
-void			read_map(t_vars *vars);
-t_map			*assign_map(void);
+void			alocate_map(t_vars *vars);
+void			assign_map(t_map *map);
 void			put_minimap(t_vars *vars);
 int				is_wall(t_map *map, int x, int y);
 void			put_player_minimap(t_vars *vars);
@@ -242,14 +238,7 @@ int				shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
 int				get_texture_color(t_tex *texture, int x, int y);
 
 
-
-int get_next_line(int fd, char **line);
-
-size_t  ft_strlen(const char *str);
-void	*ft_memcpy(void *dst, const void *src, int n);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-
+void		process_map_info(t_map *map, char **map_info, int n);
+void	search_player(t_map *map, char *row, int n);
 
 #endif

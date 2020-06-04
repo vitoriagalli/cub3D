@@ -6,92 +6,101 @@
 /*   By: vscabell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 10:58:26 by vscabell          #+#    #+#             */
-/*   Updated: 2020/03/04 12:47:42 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/03/02 12:38:01 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *s)
 {
-	int i;
+	size_t count;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	count = 0;
+	while (s[count])
+		count++;
+	return (count);
 }
 
 void	*ft_memcpy(void *dst, const void *src, int n)
 {
 	int					i;
-	unsigned char		*d;
-	const unsigned char *s;
+	unsigned char		*dst_c;
+	const unsigned char	*src_c;
 
-	if (!src && !dst)
-		return (NULL);
+	if (!dst && !src)
+		return (dst);
 	i = 0;
-	s = (const unsigned char *)src;
-	d = (unsigned char *)dst;
+	dst_c = (unsigned char*)dst;
+	src_c = (unsigned char*)src;
 	while (i < n)
 	{
-		d[i] = s[i];
+		dst_c[i] = src_c[i];
 		i++;
 	}
-	return (d);
+	return (dst_c);
 }
 
 char	*ft_strdup(const char *s1)
 {
-	int		len;
-	char	*dup;
+	char	*s2;
+	int		lenplus;
 
-	len = ft_strlen(s1);
-	if (!(dup = malloc(sizeof(char) * (len + 1))))
+	lenplus = ft_strlen(s1) + 1;
+	if (!(s2 = malloc(lenplus * sizeof(char))))
 		return (NULL);
-	ft_memcpy(dup, s1, (len + 1));
-	return (dup);
+	ft_memcpy(s2, s1, lenplus);
+	return (s2);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	lens1;
-	size_t	lens2;
-	size_t	i;
-	char	*join;
+	char	*strjoin;
+	int		i;
+	int		j;
 
-	lens1 = ft_strlen(s1);
-	lens2 = ft_strlen(s2);
 	if (!s1 || !s2)
 		return (NULL);
-	if (!(join = malloc(sizeof(char) * (lens1 + lens2 + 1))))
+	if (!(strjoin = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char))))
 		return (NULL);
-	ft_memcpy(join, s1, lens1);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		strjoin[j] = s1[i];
+		i++;
+		j++;
+	}
 	i = 0;
 	while (s2[i])
 	{
-		join[lens1 + i] = s2[i];
+		strjoin[j] = s2[i];
 		i++;
+		j++;
 	}
-	join[lens1 + i] = '\0';
-	return (join);
+	strjoin[j] = 0;
+	return (strjoin);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*sub;
-	size_t	i;
+	char	*substr;
+	int		i;
 
-	if (!s || ft_strlen(s) < start)
+	if (!s)
 		return (NULL);
-	if (!(sub = malloc(sizeof(char) * (len + 1))))
-		return (NULL);
+	if (ft_strlen(s) < start)
+		return (ft_strdup(""));
 	i = 0;
-	while (i < len && s[start + i])
+	substr = malloc((len + 1) * sizeof(char));
+	if (!substr)
+		return (NULL);
+	while (s[start + i] && len > 0)
 	{
-		sub[i] = s[start + i];
+		substr[i] = s[start + i];
 		i++;
+		len--;
 	}
-	sub[i] = '\0';
-	return (sub);
+	substr[i] = '\0';
+	return (substr);
 }
