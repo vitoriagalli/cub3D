@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 20:57:52 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/04 02:38:35 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	ray_facing(float angle, int way)
 	int	left;
 	int	right;
 
-	down = (angle > 0 && angle < PI) ? 1 : 0;
-	up = !(down) ? 1 : 0;
-	left = (angle > PI / 2 && angle < 3 * PI / 2) ? 1 : 0;
-	right = !left ? 1 : 0;
+	down = (angle > 0 && angle < PI) ? TRUE : FALSE;
+	up = !(down) ? TRUE : FALSE;
+	left = (angle > PI / 2 && angle < 3 * PI / 2) ? TRUE : FALSE;
+	right = !left ? TRUE : FALSE;
 	if (way == ray_up)
 		return (up);
 	else if (way == ray_down)

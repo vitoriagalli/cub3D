@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 22:20:25 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/04 02:35:42 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int	is_wall(t_map *map, int x, int y)
 	int	grid_y;
 
 	if (is_end_window(map, x, y))
-		return (1);
+		return (TRUE);
 	grid_x = floor(x / map->tile_size);
 	grid_y = floor(y / map->tile_size);
 	if (map_grid[grid_y][grid_x] != 0)
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
 
 t_map	*assign_map(void)

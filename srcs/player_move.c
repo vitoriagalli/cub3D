@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:53 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 21:00:07 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/04 00:58:48 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	move_player_press(int keycode, t_vars *vars)
 		vars->player->rotation_angle = EAST;
 	else if (keycode == LEFT_ARROW_KEY)
 		vars->player->rotation_angle = WEST;
+	else if (keycode == M_KEY)
+		vars->minimap = vars->minimap == TRUE ? FALSE : TRUE;
 	else if (keycode == ESC_KEY)
 		return (close_program(vars));
 	return (new_position_player(keycode, vars));

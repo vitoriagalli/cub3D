@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 22:48:33 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/04 00:23:54 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,18 @@ void	create_vars(t_vars *vars)
 	vars->point = create_point(0, 0, 0);
 	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
 	vars->tex = create_texture(vars->mlx, vars->map->path);
+	vars->minimap = TRUE;
 }
 
 void	put_game(t_vars *vars)
 {
 	vars->ray = ft_raycast(vars);
 	put_player_3dmap(vars);
-	put_minimap(vars);
-	put_player_minimap(vars);
+	if (vars->minimap == TRUE)
+	{
+		put_minimap(vars);
+		put_player_minimap(vars);
+	}
 	clean_structure(vars);
 }
 

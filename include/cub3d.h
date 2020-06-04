@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 22:44:48 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/04 03:16:44 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,21 @@
 
 # include "mlx.h"
 # include <math.h>
-# include <stdio.h>
 # include <stdlib.h>
 
+# include <unistd.h>
+# include <sys/fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+
+# include <stdio.h>
+
+
+# ifndef BUFFER_SIZE		///////////
+#  define  BUFFER_SIZE 50	///////////
+# endif						///////////
+
+# define OPEN_MAX 20		///////////
 
 # define INT_MAX 2147483647
 # define PI 3.14159265359
@@ -28,6 +40,7 @@
 # define D_KEY 0x0064
 # define RIGHT_ARROW_KEY 0x00ff53
 # define LEFT_ARROW_KEY 0x00ff51
+# define M_KEY 0x006d
 # define ESC_KEY 0x00ff1b
 
 # define NORTH (3 * PI / 2)
@@ -38,10 +51,13 @@
 # define HORZ 0
 # define VERT 1
 
+# define FALSE 0
+# define TRUE 1
+
 # define WALL_2D_COLOR 0x000000
 # define VOID_2D_COLOR 0xffffff
 
-# define FOV 66 * PI / 180
+# define FOV 60 * PI / 180
 # define WALL_WIDTH 1
 
 # define MOVE_SPEED 20
@@ -89,7 +105,7 @@ typedef struct	s_color {
 }				t_color;
 
 typedef struct	s_map {
-//	char		**map_grid;
+	char		**map_grid;
 	int			width;
 	int			height;
 	int			n_column;
@@ -133,6 +149,7 @@ typedef struct	s_vars {
 	t_player	*player;
 	t_ray		**ray;
 	t_tex		**tex;
+	int			minimap;
 }				t_vars;
 
 /*
@@ -223,5 +240,16 @@ int				store_texture(t_vars *vars, int y, int i, float *limit);
 int				ft_rgb(int r, int g, int b);
 int				shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
 int				get_texture_color(t_tex *texture, int x, int y);
+
+
+
+int get_next_line(int fd, char **line);
+
+size_t  ft_strlen(const char *str);
+void	*ft_memcpy(void *dst, const void *src, int n);
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+
 
 #endif
