@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/04 00:23:54 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/04 07:41:50 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	put_game(t_vars *vars)
 
 void	init_game(t_vars *vars)
 {
-	read_map(vars);
+	// read_map(vars);		/////////////////
 	create_vars(vars);
 	put_game(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);

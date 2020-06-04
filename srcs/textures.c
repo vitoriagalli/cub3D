@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 16:42:31 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 22:38:17 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/04 04:50:02 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_tex	*get_texture(void *mlx_ptr, char *path)
 	t_tex *texture;
 	t_data *img;
 
-	texture = malloc(sizeof(t_tex));
-	img = (t_data *)malloc(sizeof(t_data));
+	texture = alocate_memory(sizeof(t_tex));
+	img = alocate_memory(sizeof(t_data));
 	img->img = mlx_xpm_file_to_image(mlx_ptr, path, &texture->width,
 	&texture->height);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp,
