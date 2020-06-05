@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 05:52:06 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 19:46:05 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@
 # define WALL_WIDTH 1
 
 # define MOVE_SPEED 20
-# define ROTAT_SPEED 20 * PI / 180
+# define ROTAT_SPEED 10 * PI / 180
 
-# define MAP2D_SCALE 0.25
+# define MAP2D_SCALE 0.23
 
 typedef enum	e_playerface
 {
@@ -243,6 +243,9 @@ int				get_texture_color(t_tex *texture, int x, int y);
 */
 int				ft_isspace(int c);
 int				ft_isdigit(int c);
+void			*ft_memset(void *b, int c, size_t len);
+void			*ft_calloc_char(size_t count, char c);
+char			*ft_strjoin_and_free(char *s1, char *s2);
 
 /*
 ** parse and validate functions
@@ -255,7 +258,8 @@ int			parse_row_map(t_map *map, char *line, int row);
 void		parse_player_location(t_map *map, char c, int row, int column);
 int			ft_error(t_map *map);
 int			free_map(t_map *map);
+void		fill_columns(t_map *map);
+// int			validate_map(t_map *map);
 
-// void	search_player(t_map *map, char *row, int n);
 
 #endif

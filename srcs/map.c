@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 06:21:26 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 16:46:36 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@ void	put_minimap(t_vars *vars)
 	i = 0;
 	j = 0;
 	x0 = vars->point->x;
-	while (i < vars->map->n_row)   /// ver se precisa da primeira verif
+	while (i < vars->map->n_row)   ///  REVER REVIFICAÇÃO
 	{
 		j = 0;
 		vars->point->x = x0;
 		while (j < vars->map->n_column && vars->map->map_grid[i][j])
 		{
-			vars->point->color = vars->map->map_grid[i][j] == '1' ? WALL_2D_COLOR : VOID_2D_COLOR;
-			ft_rectangle(vars->data, *vars->point, vars->map->tile_size * MAP2D_SCALE, vars->map->tile_size * MAP2D_SCALE);
+			if (vars->map->map_grid[i][j] != ' ')
+			{
+				vars->point->color = vars->map->map_grid[i][j] == '1' ? WALL_2D_COLOR : VOID_2D_COLOR;
+				ft_rectangle(vars->data, *vars->point, vars->map->tile_size * MAP2D_SCALE, vars->map->tile_size * MAP2D_SCALE);
+			}
 			vars->point->x = vars->point->x + vars->map->tile_size * MAP2D_SCALE;
 			j++;
 		}

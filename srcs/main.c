@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 06:29:16 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 19:27:32 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int		read_file_get_info(char *file, t_map *map)
 		if (line[0] == ' ' || line[0] == '1')			//por enquanto aceita só espaço depois ver se trata tab tambem
 		{
 			ismap = TRUE;
-			n_col = parse_row_map(map, line, i);
+			if (!(n_col = parse_row_map(map, line, i)))
+			{
+				n_col_max = 0;
+				break ;
+			}
 			n_col_max = n_col > n_col_max ? n_col : n_col_max;
 			i++;
 		}
@@ -58,6 +62,7 @@ int		read_file_get_info(char *file, t_map *map)
 	free(line);
 	map->n_row = i;
 	map->n_column = n_col_max;
+	fill_columns(map);
 
 	return (ft_error(map));		// retorna o numero de linhas
 }
@@ -71,12 +76,11 @@ int main(int argc, char **argv)
 	if (argc)
 	{
 		alocate_map(&vars);
-		if (!read_file_get_info("map.cub", vars.map))
+		if (!read_file_get_info("map2.cub", vars.map))
 		{
 			printf("Error\n");		//MODIFICAR para WRITE
 			return (0);
 		}
-
 
 		assign_map(vars.map);
 
