@@ -16,7 +16,8 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/geometry.c \
 		$(SRC_DIR)/map.c \
 		$(SRC_DIR)/validate_file.c \
-		# $(SRC_DIR)/ft_atoi.c
+		$(SRC_DIR)/utils_lib.c \
+		$(SRC_DIR)/parse.c \
 
 OBJ = *.o
 
@@ -26,7 +27,7 @@ INCLUDES = include
 
 CC = clang
 
-CFLAGS =	-Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS =	-Wall -Werror -Wextra -g -fsanitize=address
 
 LFLAGS =	-lbsd -lmlx -lm -lX11 -lXext \
 			-L ./$(GNL_DIR) -lgnl

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/04 19:57:03 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 05:52:06 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ float			dist_btw_points(float x0, float y0, float x1, float y1);
 void			*alocate_memory(int sizeof_type);
 int				**alocate_buffer(int n_arrays, int n_elem);
 void			clean_buffer(int **buffer, int n_arrays);
+void			clean_buffer_char(char **buffer, int n_arrays);
 
 /*
 ** geometry functions
@@ -237,8 +238,24 @@ int				ft_rgb(int r, int g, int b);
 int				shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
 int				get_texture_color(t_tex *texture, int x, int y);
 
+/*
+** utils lib
+*/
+int				ft_isspace(int c);
+int				ft_isdigit(int c);
 
-void		process_map_info(t_map *map, char **map_info, int n);
-void	search_player(t_map *map, char *row, int n);
+/*
+** parse and validate functions
+*/
+void		parse_all(t_map *map, char **map_info, int n);
+char		*parse_path(char *path);
+int			parse_color(char *str);
+void		parse_resolution(char *str, t_map *map);
+int			parse_row_map(t_map *map, char *line, int row);
+void		parse_player_location(t_map *map, char c, int row, int column);
+int			ft_error(t_map *map);
+int			free_map(t_map *map);
+
+// void	search_player(t_map *map, char *row, int n);
 
 #endif

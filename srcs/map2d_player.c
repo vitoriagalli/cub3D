@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 05:34:06 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 04:12:24 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	put_rays(t_vars *vars)
 
 	i = 0;
 	while (i < vars->map->num_rays)
+	//while (i < 800)
 	{
 		posit[0] = vars->player->posit->x * MAP2D_SCALE;
 		posit[1] = vars->player->posit->y * MAP2D_SCALE;
@@ -46,7 +47,7 @@ void	put_player_minimap(t_vars *vars)
 	vars->player->posit->color = ft_rgb(255,230,0);
 	// ft_fov(vars);
 	// ft_direction_player(vars->data, vars->player);
-	ft_circle_player(vars->data, vars->player);
+	// ft_circle_player(vars->data, vars->player);
 	put_rays(vars);
 }
 

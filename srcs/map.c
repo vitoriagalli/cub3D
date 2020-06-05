@@ -6,28 +6,11 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/04 20:04:50 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 06:21:26 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// char	map_grid[13][20] =
-// {
-// 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1},
-// 	{1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-// };
 
 void	put_minimap(t_vars *vars)
 {
@@ -36,12 +19,13 @@ void	put_minimap(t_vars *vars)
 	int x0;
 
 	i = 0;
+	j = 0;
 	x0 = vars->point->x;
-	while (i < vars->map->n_row)
+	while (i < vars->map->n_row)   /// ver se precisa da primeira verif
 	{
 		j = 0;
 		vars->point->x = x0;
-		while (j < vars->map->n_column)
+		while (j < vars->map->n_column && vars->map->map_grid[i][j])
 		{
 			vars->point->color = vars->map->map_grid[i][j] == '1' ? WALL_2D_COLOR : VOID_2D_COLOR;
 			ft_rectangle(vars->data, *vars->point, vars->map->tile_size * MAP2D_SCALE, vars->map->tile_size * MAP2D_SCALE);
@@ -70,33 +54,26 @@ int	is_wall(t_map *map, int x, int y)
 
 void	assign_map(t_map *map)
 {
-	// map->map_grid = map_grid;
-	// map->width = 1000;
-	// map->height = 650;
-	// map->n_column = 20;
-	// map->n_row = 13;
-
-	// map->init_posit = create_point(map->width / 2, map->height / 2, 0);
-	// map->rotation_angle = NORTH;
-
 	map->tile_size = map->width / map->n_column;
-
-
-	map->init_posit->x = map->init_posit->x * map->n_column + map->tile_size;
-	map->init_posit->y = map->init_posit->y * map->n_row + map->tile_size;
-
-	map->num_rays = map->width / WALL_WIDTH;
-	// map->color->ceilling = ft_rgb(0,255,255);
-	// map->color->floor = ft_rgb(200,200,80);
-	// map->path[north] = "./img/wood.xpm";
-	// map->path[south] = "./img/bluestone.xpm";
-	// map->path[east] = "./img/greystone.xpm";
-	// map->path[west] = "./img/redbrick.xpm";
+	map->init_posit->x = map->init_posit->x * map->tile_size + 1;
+	map->init_posit->y = map->init_posit->y * map->tile_size + 1;
+	map->num_rays = map->width / WALL_WIDTH;			//VERIFICAAAAAR!!
 }
 
 void	alocate_map(t_vars *vars)
 {
 	vars->map = alocate_memory(sizeof(t_map));
+	vars->map->init_posit = NULL;
 	vars->map->color = alocate_memory(sizeof(t_color));
+	vars->map->color->ceilling = -1;
+	vars->map->color->ceilling = -1;
 	vars->map->path = alocate_memory(sizeof(char *) * 4);
+	vars->map->path[north] = NULL;
+	vars->map->path[south] = NULL;
+	vars->map->path[east] = NULL;
+	vars->map->path[west] = NULL;
+	vars->map->init_posit = NULL;
+	vars->map->width = 0;
+	vars->map->height = 0;
+	vars->mlx = NULL;
 }

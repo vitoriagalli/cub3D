@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/04 07:41:50 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 05:42:22 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void	init_game(t_vars *vars)
 
 int	close_program(t_vars *vars)
 {
+	clean_buffer_char(vars->map->map_grid, vars->map->n_row);
+	free(vars->map->path[north]);
+	free(vars->map->path[south]);
+	free(vars->map->path[east]);
+	free(vars->map->path[west]);
 	free(vars->map->path);
 	free(vars->map->color);
 	free(vars->map);
