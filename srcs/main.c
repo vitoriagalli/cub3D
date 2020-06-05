@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 19:27:32 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 21:28:45 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		read_file_get_info(char *file, t_map *map)
 			n_col_max = n_col > n_col_max ? n_col : n_col_max;
 			i++;
 		}
-		else
+		else					//criar um caso para row com carac estranhos e comecando com 0
 		{
 			if (line[0] == 'R' && !ismap)
 				parse_resolution(&line[1], map);

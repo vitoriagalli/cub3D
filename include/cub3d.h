@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 19:46:05 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 21:20:06 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct	s_map {
 	t_point		*init_posit;
 	float		rotation_angle;
 	int			tile_size;
+	int			tile_y;
 	int			num_rays;
 	t_color		*color;
 	char		**path;

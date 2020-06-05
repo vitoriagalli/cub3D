@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 19:45:50 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/05 20:05:12 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	free_map(t_map *map)
 	return (0);
 }
 
-int	validate_map(t_map *map)
-{
+// int	validate_map(t_map *map)
+// {
 
-}
+// }
