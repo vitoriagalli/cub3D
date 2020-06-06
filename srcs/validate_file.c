@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 07:08:57 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 17:30:03 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	free_map(t_map *map)
 
 int		ft_valid_char(char c)
 {
-	if (c == ' ' || c == '1')
+	if (c == '0' || c == '1')
 		return (1);
 	return (0);
 }
 
 int		check_char(t_map *map, int i, int j)
 {
-	if (i > 0 && i < (map->n_row - 2) && j > 0 && j < (map->n_column - 2))
+	if (i > 0 && i < (map->n_row - 1) && j > 0 && j < (map->n_column - 1))
 	{
 		if (!(ft_valid_char(map->map_grid[i - 1][j - 1])) ||
 			!(ft_valid_char(map->map_grid[i][j - 1])) ||
@@ -74,12 +74,12 @@ int	validate_map(t_map *map)
 		j = 0;
 		while (j < map->n_column)
 		{
-			if (map->map_grid[i][j] == ' ')
+			if (map->map_grid[i][j] == '0' && (i == 0 || j == 0 ||
+			i == map->n_row - 1 || j == map->n_column - 1))
+				return (0);
+			else if (map->map_grid[i][j] == '0')
 				if(!check_char(map, i, j))
 					return (0);
-			if (map->map_grid[i][j] == '0' && (i == 0 || j == 0 ||
-			i == map->n_row || j == map->n_column))
-				return (0);
 			j++;
 		}
 		i++;

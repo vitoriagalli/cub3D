@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 07:25:37 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 16:40:07 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			parse_color(char *str)
 	i = 0;
 	j = 0;
 	if (!str[i])
-		return (0);			// nao tiver cor no arquivo
+		return (0);
 	while (str[i] && j < 3)
 	{
 		while (ft_isspace(str[i]))
@@ -54,8 +54,7 @@ int			parse_color(char *str)
 		j++;
 		i += (str[i] == ',') ? 1 : 0;
 	}
-	if (nb[0] > 255 || nb[1] > 255 || nb[2] > 255 || i < 2 ||
-	(str[i] != ' ' && str[i] != '\0'))
+	if (nb[0] > 255 || nb[1] > 255 || nb[2] > 255 || j < 3 || str[i] != '\0')
 		return (-1);
 	return (ft_rgb(nb[0], nb[1], nb[2]));
 }

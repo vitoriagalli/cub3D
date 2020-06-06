@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 07:26:25 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 17:33:26 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int		read_file_get_info(char *file, t_map *map)
 	map->n_row = i;
 	map->n_column = n_col_max;
 	fill_columns(map);
-
 	return (ft_error(map));
 }
 

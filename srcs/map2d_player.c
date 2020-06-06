@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 16:24:06 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 16:01:55 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,44 +44,7 @@ void	put_rays(t_vars *vars)
 void	put_player_minimap(t_vars *vars)
 {
 	vars->player->posit->color = ft_rgb(255,230,0);
-	// ft_fov(vars);
-	// ft_direction_player(vars->data, vars->player);
-	// ft_circle_player(vars->data, vars->player);
+	ft_circle_player(vars->data, vars->player);
 	put_rays(vars);
 }
-
-// void	ft_fov(t_vars *vars)
-// {
-// 	float	ray_angle;
-// 	int		length;
-// 	int 	i;
-
-// 	i = 0;
-// 	length = 40;
-// 	ray_angle = vars->player->rotation_angle - FOV / 2;
-// 	while(i < vars->map->num_rays)
-// 	{
-// 		ft_line(vars->data,
-// 				vars->player->posit->x * MAP2D_SCALE,
-// 				vars->player->posit->y * MAP2D_SCALE,
-// 				(vars->player->posit->x + cos(ray_angle) * length) * MAP2D_SCALE,
-// 				(vars->player->posit->y + sin(ray_angle) * length) * MAP2D_SCALE,
-// 				vars->player->posit->color);
-// 		ray_angle += FOV / vars->map->num_rays;
-// 		i++;
-// 	}
-// }
-
-// void	ft_direction_player(t_data *img, t_player *player)
-// {
-// 	int length;
-
-// 	length = 50;
-// 	ft_line(img,
-// 			player->posit->x * MAP2D_SCALE,
-// 			player->posit->y * MAP2D_SCALE,
-// 			(player->posit->x + cos(player->rotation_angle) * length) * MAP2D_SCALE,
-// 			(player->posit->y + sin(player->rotation_angle) * length) * MAP2D_SCALE,
-// 			player->posit->color);
-// }
 

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 07:23:21 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 16:00:58 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # define MOVE_SPEED 20
 # define ROTAT_SPEED 10 * PI / 180
 
-# define MAP2D_SCALE 0.23
+# define MAP2D_SCALE 0.4
 
 typedef enum	e_playerface
 {
@@ -92,10 +92,6 @@ typedef struct	s_point {
 }				t_point;
 
 typedef struct	s_color {
-	// int			north_text;
-	// int			south_text;
-	// int			east_text;
-	// int			west_text;
 	int			ceilling;
 	int			floor;
 }				t_color;
