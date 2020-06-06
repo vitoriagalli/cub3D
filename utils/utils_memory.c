@@ -1,59 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_lib.c                                        :+:      :+:    :+:   */
+/*   utils_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 20:15:21 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 03:57:22 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 19:46:51 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-int	ft_isspace(int c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
-void	*ft_calloc_char(size_t count, char c)
-{
-	void	*ptr;
-	size_t	mem;
-
-	mem = count * sizeof(char);
-	if (!(ptr = malloc(mem + 1)))
-		return (NULL);
-	ft_memset(ptr, c, mem);
-	return (ptr);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	size_t			i;
-	unsigned char	*p;
-
-	p = b;
-	i = 0;
-	while (i < len)
-	{
-		p[i] = (unsigned char)c;
-		i++;
-	}
-	p[i] = '\0';
-	return (p);
-}
+#include "util.h"
 
 char	*ft_strjoin_and_free(char *s1, char *s2)
 {
@@ -81,13 +38,59 @@ char	*ft_strjoin_and_free(char *s1, char *s2)
 	return (join);
 }
 
-int	ft_c_in_set(char c, char const *set)		//ver se vai usar
+void	*alocate_memory(int sizeof_type)
+{
+	void	*variable;
+
+	if (!(variable = malloc(sizeof_type * 1)))
+		return (NULL);
+	return (variable);
+}
+
+int		**alocate_buffer(int n_arrays, int n_elem)
+{
+	int	**buffer;
+	int i;
+
+	i = 0;
+	buffer = alocate_memory(sizeof(int *) * n_arrays);
+	while (i < n_arrays)
+	{
+		buffer[i] = alocate_memory(sizeof(int) * n_elem);
+		i++;
+	}
+	return (buffer);
+}
+
+void	clean_buffer(int **buffer, int n_arrays)
 {
 	int i;
 
 	i = 0;
-	while (set[i])
-		if (c == set[i++])
-			return (1);
-	return (0);
+	while (i < n_arrays)
+	{
+		free(buffer[i]);
+		buffer[i] = NULL;
+		i++;
+	}
+	free(buffer);
+	buffer = NULL;
+}
+
+/*
+** DEPOIS JUNTAS AS DUAS EM UMA SÓ!!!!
+*/
+void	clean_buffer_char(char **buffer, int n_arrays)
+{
+	int i;
+
+	i = 0;
+	while (i < n_arrays)
+	{
+		free(buffer[i]);
+		buffer[i] = NULL;
+		i++;
+	}
+	free(buffer);
+	buffer = NULL;
 }

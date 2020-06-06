@@ -6,16 +6,24 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 05:42:22 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 22:07:19 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	init_game(t_vars *vars)
+{
+	create_vars(vars);
+	put_game(vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
+}
+
 void	create_vars(t_vars *vars)
 {
 	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, vars->map->width, vars->map->height, "MAP");
+	vars->win = mlx_new_window(vars->mlx, vars->map->width,
+				vars->map->height, "MAP");
 	vars->data = create_image(vars->mlx, vars->map);
 	vars->point = create_point(0, 0, 0);
 	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
@@ -32,18 +40,27 @@ void	put_game(t_vars *vars)
 		put_minimap(vars);
 		put_player_minimap(vars);
 	}
-	clean_structure(vars);
+	clean_ray_struct(vars);
 }
 
-void	init_game(t_vars *vars)
+void	clean_ray_struct(t_vars *vars)
 {
-	// read_map(vars);		/////////////////
-	create_vars(vars);
-	put_game(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
+	int i;
+
+	i = 0;
+	while (i < vars->map->num_rays)
+	{
+		free(vars->ray[i]->collision);
+		vars->ray[i]->collision = NULL;
+		free(vars->ray[i]);
+		vars->ray[i] = NULL;
+		i++;
+	}
+	free(vars->ray);
+	vars->ray = NULL;
 }
 
-int	close_program(t_vars *vars)
+int		close_program(t_vars *vars)
 {
 	clean_buffer_char(vars->map->map_grid, vars->map->n_row);
 	free(vars->map->path[north]);

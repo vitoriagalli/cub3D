@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 03:47:40 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 22:09:55 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,4 @@ void	project_game(t_vars *vars, int **color_buf)
 		}
 		x++;
 	}
-}
-
-void	clean_structure(t_vars *vars)
-{
-	int i;
-
-	i = 0;
-	while (i < vars->map->num_rays)
-	{
-		free(vars->ray[i]->collision);
-		vars->ray[i]->collision = NULL;
-		free(vars->ray[i]);
-		vars->ray[i] = NULL;
-		i++;
-	}
-	free(vars->ray);
-	vars->ray = NULL;
 }

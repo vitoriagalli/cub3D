@@ -6,11 +6,12 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/03 20:58:35 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 18:59:11 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "util.h"
 
 void	assign_point(t_point *point, int x, int y, int color)
 {

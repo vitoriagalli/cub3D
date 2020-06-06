@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 17:33:26 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 20:06:56 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,12 @@ int		read_file_get_info(char *file, t_map *map)
 			n_col_max = n_col > n_col_max ? n_col : n_col_max;
 			i++;
 		}
-		else if (is_identifier(line))
-		{
-			if (line[0] == 'R' && !ismap)
-				parse_resolution(&line[1], map);
-			else if (line[0] == 'C' && !ismap)
-				map->color->ceilling = parse_color(&line[1]);
-			else if (line[0] == 'F' && !ismap)
-				map->color->floor = parse_color(&line[1]);
-			// else if (line[0] == 'S' && !ismap)
-			// 	get_text();
-			if (line[0] == 'N' && line[1] == 'O' && !ismap)
-				map->path[north] = parse_path(&line[2]);
-			else if (line[0] == 'S' && line[1] == 'O' && !ismap)
-				map->path[south] = parse_path(&line[2]);
-			else if (line[0] == 'W' && line[1] == 'E' && !ismap)
-				map->path[west] = parse_path(&line[2]);
-			else if (line[0] == 'E' && line[1] == 'A' && !ismap)
-				map->path[east] = parse_path(&line[2]);
-			free (line);
-		}
+		else if (is_identifier(line) && !ismap)
+			get_identifier(map, line);
 		else if (!(is_empty_line(line)))
 			break ;
 		else
-			free (line);
+			free(line);
 	}
 	free(line);
 	map->n_row = i;

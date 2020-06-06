@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vscabell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 08:37:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/03/02 14:38:35 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 19:36:00 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "util.h"
 
 static int	ft_breakline(char *str, char c)
 {

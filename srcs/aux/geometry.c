@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 03:11:15 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/02 06:10:31 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 21:38:46 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_line(t_data *img, int *p0, int *p1, int color)
 	}
 }
 
-void	ft_put_symmetry(t_data *img, int *center, int *p, int color)
+static void	ft_put_symmetry(t_data *img, int *center, int *p, int color)
 {
 	int xc;
 	int yc;
@@ -144,11 +144,6 @@ void	ft_put_symmetry(t_data *img, int *center, int *p, int color)
 	}
 }
 
-
-/*
-** ft_midpoint_circle function use int as variable
-** is an algotithm
-*/
 void	ft_circle(t_data *img, int *center, int radius, int color)
 {
 	int p[2];

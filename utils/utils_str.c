@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vscabell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 10:58:26 by vscabell          #+#    #+#             */
-/*   Updated: 2020/03/02 12:38:01 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 19:09:04 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "util.h"
 
 size_t	ft_strlen(const char *s)
 {
