@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 16:42:31 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/04 04:50:02 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 00:55:52 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int		store_texture(t_vars *vars, int y, int i, float *limit)
 	ymax = limit[1];
 	ray = vars->ray[i];
 	offset = (ray->coord == HORZ) ?
-		(int)ray->collision->x % vars->map->tile_size :
-		(int)ray->collision->y % vars->map->tile_size;
+		(int)ray->collision->x % vars->map->tile_x :
+		(int)ray->collision->y % vars->map->tile_y;
 	ytext = (y - ymin) * (vars->tex[0]->height - 0) / (ymax - ymin) + 0;
 	if (ray_facing(ray->ray_angle, ray_up) && ray->coord == HORZ)
 		return (get_texture_color(vars->tex[north], offset, ytext));

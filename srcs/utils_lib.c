@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 20:15:21 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 20:38:49 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 03:57:22 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ char	*ft_strjoin_and_free(char *s1, char *s2)
 	return (join);
 }
 
-// static int	ft_c_in_set(char c, char const *set)		//ver se vai usar
-// {
-// 	int i;
+int	ft_c_in_set(char c, char const *set)		//ver se vai usar
+{
+	int i;
 
-// 	i = 0;
-// 	while (set[i])
-// 		if (c == set[i++])
-// 			return (1);
-// 	return (0);
-// }
+	i = 0;
+	while (set[i])
+		if (c == set[i++])
+			return (1);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 21:28:30 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 01:40:57 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	put_minimap(t_vars *vars)
 	i = 0;
 	j = 0;
 	x0 = vars->point->x;
-	while (i < vars->map->n_row)   ///  REVER REVIFICAÇÃO
+	while (i < vars->map->n_row)
 	{
 		j = 0;
 		vars->point->x = x0;
@@ -30,9 +30,9 @@ void	put_minimap(t_vars *vars)
 			if (vars->map->map_grid[i][j] != ' ')
 			{
 				vars->point->color = vars->map->map_grid[i][j] == '1' ? WALL_2D_COLOR : VOID_2D_COLOR;
-				ft_rectangle(vars->data, *vars->point, vars->map->tile_size * MAP2D_SCALE, vars->map->tile_y * MAP2D_SCALE);
+				ft_rectangle(vars->data, *vars->point, vars->map->tile_x * MAP2D_SCALE, vars->map->tile_y * MAP2D_SCALE);
 			}
-			vars->point->x = vars->point->x + vars->map->tile_size * MAP2D_SCALE;
+			vars->point->x = vars->point->x + vars->map->tile_x * MAP2D_SCALE;
 			j++;
 		}
 		vars->point->y = vars->point->y + vars->map->tile_y * MAP2D_SCALE;
@@ -48,7 +48,7 @@ int	is_wall(t_map *map, int x, int y)
 
 	if (is_end_window(map, x, y))
 		return (TRUE);
-	grid_x = floor(x / map->tile_size);
+	grid_x = floor(x / map->tile_x);
 	grid_y = floor(y / map->tile_y);
 	if (grid_x >= map->n_column || grid_y >= map->n_row)
 		return (TRUE);
@@ -59,11 +59,11 @@ int	is_wall(t_map *map, int x, int y)
 
 void	assign_map(t_map *map)
 {
-	map->tile_size = map->width / map->n_column;						// verificar
-	map->tile_y = map->height / map->n_row;						// verificar
-	map->init_posit->x = map->init_posit->x * map->tile_size + 1;
+	map->tile_x = map->width / map->n_column;
+	map->tile_y = map->height / map->n_row;
+	map->init_posit->x = map->init_posit->x * map->tile_x + 1;
 	map->init_posit->y = map->init_posit->y * map->tile_y + 1;
-	map->num_rays = map->width / WALL_WIDTH;			//VERIFICAAAAAR!!
+	map->num_rays = map->width / WALL_WIDTH;
 }
 
 void	alocate_map(t_vars *vars)

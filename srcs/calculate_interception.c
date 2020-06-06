@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 01:53:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 21:09:01 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 00:55:54 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ t_point	*vert_interception(t_vars *vars, t_point *intercept, float ray_angle)
 	step = create_point(0, 0, 0);
 	if (ray_angle == PI / 2  || ray_angle == 3 * PI / 2)
 		return (NULL);
-	intercept->x = floor(vars->player->posit->x / vars->map->tile_size) * vars->map->tile_size;
-	intercept->x += ray_facing(ray_angle, ray_right) ? vars->map->tile_size : 0;
+	intercept->x = floor(vars->player->posit->x / vars->map->tile_x) * vars->map->tile_x;
+	intercept->x += ray_facing(ray_angle, ray_right) ? vars->map->tile_x : 0;
 	intercept->y = vars->player->posit->y + (intercept->x - vars->player->posit->x) * tan(ray_angle);
-	step->x = vars->map->tile_size;
+	step->x = vars->map->tile_x;
 	step->x *= ray_facing(ray_angle, ray_left) ? -1 : 1;
-	step->y = vars->map->tile_size * tan(ray_angle);
+	step->y = vars->map->tile_x * tan(ray_angle);
 	step->y *= (ray_facing(ray_angle, ray_up) && step->y > 0) ? -1 : 1;
 	step->y *= (ray_facing(ray_angle, ray_down) && step->y < 0) ? -1 : 1;
 	return (step);

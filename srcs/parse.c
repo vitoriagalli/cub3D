@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 20:03:04 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 06:32:40 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	parse_player_location(t_map *map, char c, int row, int column)
 		map->init_posit = create_point(column, row, 0);
 		map->rotation_angle = WEST;
 	}
+	map->map_grid[row][column] = '0';
 }
 
 void	fill_columns(t_map *map)
@@ -155,3 +156,23 @@ void	fill_columns(t_map *map)
 	}
 }
 
+int			is_identifier(char *line)
+{
+	if (line[0] == 'R' || line[0] == 'C' || line[0] == 'F' || line[0] == 'S' ||
+	(line[0] == 'N' && line[1] == 'O') || (line[0] == 'W' && line[1] == 'E') ||
+	(line[0] == 'E' && line[1] == 'A') || (line[0] == 'S' && line[1] == '0'))
+			return (1);
+	return (0);
+}
+
+int			is_empty_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (*line && line[i] == ' ')
+		i++;
+	if (line[i] != '\0')
+		return (0);
+	return (1);
+}

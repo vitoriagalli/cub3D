@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 21:28:45 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 06:59:10 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		read_file_get_info(char *file, t_map *map)
 			n_col_max = n_col > n_col_max ? n_col : n_col_max;
 			i++;
 		}
-		else					//criar um caso para row com carac estranhos e comecando com 0
+		else if (is_identifier(line))
 		{
 			if (line[0] == 'R' && !ismap)
 				parse_resolution(&line[1], map);
@@ -51,20 +51,24 @@ int		read_file_get_info(char *file, t_map *map)
 			if (line[0] == 'N' && line[1] == 'O' && !ismap)
 				map->path[north] = parse_path(&line[2]);
 			else if (line[0] == 'S' && line[1] == 'O' && !ismap)
-				map->path[south] =  parse_path(&line[2]);
+				map->path[south] = parse_path(&line[2]);
 			else if (line[0] == 'W' && line[1] == 'E' && !ismap)
-				map->path[west] =  parse_path(&line[2]);
+				map->path[west] = parse_path(&line[2]);
 			else if (line[0] == 'E' && line[1] == 'A' && !ismap)
-				map->path[east] =  parse_path(&line[2]);
+				map->path[east] = parse_path(&line[2]);
 			free (line);
 		}
+		else if (!(is_empty_line(line)))
+			break ;
+		else
+			free (line);
 	}
 	free(line);
 	map->n_row = i;
 	map->n_column = n_col_max;
 	fill_columns(map);
 
-	return (ft_error(map));		// retorna o numero de linhas
+	return (ft_error(map));
 }
 
 int main(int argc, char **argv)

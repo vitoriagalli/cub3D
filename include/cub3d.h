@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/05 21:20:06 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 05:12:43 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct	s_map {
 	int			n_row;
 	t_point		*init_posit;
 	float		rotation_angle;
-	int			tile_size;
+	int			tile_x;
 	int			tile_y;
 	int			num_rays;
 	t_color		*color;
@@ -260,7 +260,9 @@ void		parse_player_location(t_map *map, char c, int row, int column);
 int			ft_error(t_map *map);
 int			free_map(t_map *map);
 void		fill_columns(t_map *map);
-// int			validate_map(t_map *map);
+int			is_identifier(char *line);
+int			is_empty_line(char *line);
+int			validate_map(t_map *map);
 
 
 #endif
