@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 06:32:40 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 07:25:37 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,12 @@ void		parse_resolution(char *str, t_map *map)
 int		parse_row_map(t_map *map, char *line, int row)
 {
 	int i;
+	int	find_player;
 
 	map->map_grid[row] = line;
 
 	i = 0;
+	find_player = FALSE;
 	while (line[i])
 	{
 		if (line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W'
@@ -107,14 +109,19 @@ int		parse_row_map(t_map *map, char *line, int row)
 			return(0);
 		map->map_grid[row][i] = line[i];
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
-			parse_player_location(map, line[i], row, i);
+		{
+			if (parse_player_location(map, line[i], row, i) < 0)
+				return (-1);
+		}
 		i++;
 	}
 	return (i);
 }
 
-void	parse_player_location(t_map *map, char c, int row, int column)
+int	parse_player_location(t_map *map, char c, int row, int column)
 {
+	if (map->init_posit != NULL)
+		return (-1) ;
 	if (c == 'N')
 	{
 		map->init_posit = create_point(column, row, 0);
@@ -136,6 +143,7 @@ void	parse_player_location(t_map *map, char c, int row, int column)
 		map->rotation_angle = WEST;
 	}
 	map->map_grid[row][column] = '0';
+	return (0);
 }
 
 void	fill_columns(t_map *map)

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 05:12:43 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 07:23:21 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ char		*parse_path(char *path);
 int			parse_color(char *str);
 void		parse_resolution(char *str, t_map *map);
 int			parse_row_map(t_map *map, char *line, int row);
-void		parse_player_location(t_map *map, char c, int row, int column);
+int			parse_player_location(t_map *map, char c, int row, int column);
 int			ft_error(t_map *map);
 int			free_map(t_map *map);
 void		fill_columns(t_map *map);

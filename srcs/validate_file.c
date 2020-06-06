@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 07:00:53 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 07:08:57 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	validate_map(t_map *map)
 				if(!check_char(map, i, j))
 					return (0);
 			if (map->map_grid[i][j] == '0' && (i == 0 || j == 0 ||
-			i == map->n_column || j == map->n_row))
+			i == map->n_row || j == map->n_column))
 				return (0);
 			j++;
 		}

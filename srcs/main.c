@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 06:59:10 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 07:26:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		read_file_get_info(char *file, t_map *map)
 		if (line[0] == ' ' || line[0] == '1')			//por enquanto aceita só espaço depois ver se trata tab tambem
 		{
 			ismap = TRUE;
-			if (!(n_col = parse_row_map(map, line, i)))
+			if (!(n_col = parse_row_map(map, line, i)) || n_col < 0)
 			{
 				n_col_max = 0;
 				break ;
