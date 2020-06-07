@@ -6,11 +6,28 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/07 04:31:48 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/07 16:47:37 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		get_map_info(t_map *map, char *line, int *row)
+{
+	int	n_col;
+	int i;
+
+	i = *row;
+	n_col = 0;
+	map->map_grid = alocate_dynamic(map->map_grid, i);
+	if (!(n_col = parse_row_map(map, line, map->n_row)) || n_col < 0)
+		return (-1);
+	map->n_column = n_col > map->n_column ? n_col : map->n_column;
+	map->n_row++;
+	i++;
+	*row = i;
+	return (n_col);
+}
 
 int		parse_row_map(t_map *map, char *line, int row)
 {
@@ -65,7 +82,7 @@ int		parse_player_location(t_map *map, char c, int row, int column)
 	return (0);
 }
 
-void	fill_columns(t_map *map)
+int		fill_columns(t_map *map)
 {
 	int	i;
 	int	j;
@@ -81,6 +98,7 @@ void	fill_columns(t_map *map)
 			ft_calloc_char(map->n_column - j, ' '));
 		i++;
 	}
+	return (ft_error(map));
 }
 
 int		is_empty_line(char *line)

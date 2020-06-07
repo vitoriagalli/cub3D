@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/07 04:37:19 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/07 16:48:13 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,17 @@
 char	**alocate_dynamic(char **map_buffer, int m)
 {
 	char	**new_map_buffer;
-	char	**aux;
 	int		i;
 
-	if (!(new_map_buffer = alocate_memory(sizeof(char *) * (m + 2))))
-	aux = map_buffer;
+	new_map_buffer = alocate_memory(sizeof(char *) * (m + 2));
 	i = 0;
-	while(i < m)
+	while (i < m)
 	{
 		new_map_buffer[i] = map_buffer[i];
 		i++;
 	}
 	if (m > 0)
-		free (map_buffer);
+		free(map_buffer);
 	return (new_map_buffer);
 }
 
@@ -36,41 +34,28 @@ int		read_file_get_info(char *file, t_map *map)
 	char	*line;
 	int		fd;
 	int		ismap;
-	int		i = 0;
-	int		n_col = 0;
-	int		n_col_max = 0;
+	int		i;
 
 	fd = open(file, O_RDONLY);
 	ismap = FALSE;
-	int m = 0;
-	while ((get_next_line(fd, &line)) == 1)
+	i = 0;
+	while ((get_next_line(fd, &line)))
 	{
-		if (line[0] == ' ' || line[0] == '1')			//por enquanto aceita só espaço depois ver se trata tab tambem
+		if (line[0] == ' ' || line[0] == '1')
 		{
 			ismap = TRUE;
-
-			map->map_grid = alocate_dynamic(map->map_grid, m);
-			if (!(n_col = parse_row_map(map, line, i)) || n_col < 0)
-			{
-				n_col_max = 0;
+			if (get_map_info(map, line, &i) < 0)
 				break ;
-			}
-			n_col_max = n_col > n_col_max ? n_col : n_col_max;
-			i++;
-			m++;
 		}
 		else if (is_identifier(line) && !ismap)
 			get_identifier(map, line);
-		else if (!(is_empty_line(line)))
+		else if (!(is_empty_line(line)) || (is_empty_line(line) && ismap))
 			break ;
 		else
 			free(line);
 	}
 	free(line);
-	map->n_row = i;
-	map->n_column = n_col_max;
-	fill_columns(map);
-	return (ft_error(map));
+	return (fill_columns(map));
 }
 
 int main(int argc, char **argv)
@@ -94,7 +79,7 @@ int main(int argc, char **argv)
 		// 	printf("%d %s\n", i ,vars.map->map_grid[i]);
 
 		init_game(&vars);
-		mlx_hook(vars.win, 2, (1l<<0), move_player_press, &vars);
+		mlx_hook(vars.win, 2, (1l << 0), move_player_press, &vars);
 
 		// a função release deixa mais devagar pois processa todos os keycodes antes de update the position
 		// a nao ser que mude para new_position player --> verificar diferenças

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 21:58:05 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/07 16:13:57 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ void	alocate_map(t_vars *vars)
 	vars->map->init_posit = NULL;
 	vars->map->width = 0;
 	vars->map->height = 0;
+	vars->map->n_row = 0;
+	vars->map->n_column = 0;
 	vars->mlx = NULL;
 }

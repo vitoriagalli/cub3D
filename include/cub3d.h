@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/07 02:02:58 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/07 16:41:51 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ typedef struct	s_vars {
 ** validate and parse input functions
 */
 
+int			get_map_info(t_map *map, char *line, int *row);
+char		**alocate_dynamic(char **map_buffer, int m);
 void 		get_identifier(t_map *map, char *line);
 char		*parse_path(char *path);
 void		parse_resolution(char *str, t_map *map);
@@ -150,7 +152,7 @@ int			get_additive_color(char *str, int i, int *num);
 int			parse_row_map(t_map *map, char *line, int row);
 int			parse_player_location(t_map *map, char c, int row, int column);
 int			is_identifier(char *line);
-void		fill_columns(t_map *map);
+int			fill_columns(t_map *map);
 int			is_empty_line(char *line);
 int			validate_map(t_map *map);
 int			ft_error(t_map *map);
