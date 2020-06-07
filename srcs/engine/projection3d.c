@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 22:09:55 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/07 00:30:22 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		put_player_3dmap(t_vars *vars)
 	pixels_buffer = alocate_buffer(vars->map->height, vars->map->width);
 	pixels_buffer = get_pixel_info(vars, pixels_buffer);
 	project_game(vars, pixels_buffer);
-	clean_buffer(pixels_buffer, vars->map->height);
+	clean_buffer((void **)pixels_buffer, vars->map->height);
 }
 
 int		**get_pixel_info(t_vars *vars, int **buffer)
@@ -44,20 +44,20 @@ int		**get_pixel_info(t_vars *vars, int **buffer)
 
 void	store_all_colors(t_vars *vars, int **buffer, float wall_proj_height, int i)
 {
-	float	limit[2];
+	float	limit_y[2];
 	int 	x;
 	int 	y;
 
-	limit[0] = (vars->map->height / 2) - (wall_proj_height / 2);
-	limit[1] = (vars->map->height / 2) + (wall_proj_height / 2);
+	limit_y[0] = (vars->map->height / 2) - (wall_proj_height / 2);
+	limit_y[1] = (vars->map->height / 2) + (wall_proj_height / 2);
 	x = i * WALL_WIDTH;
 	while (x < (i + 1) * WALL_WIDTH)
 	{
 		y = -1;
-		while (++y < limit[0] && y < vars->map->height)
+		while (++y < limit_y[0] && y < vars->map->height)
 			buffer[y][x] = vars->map->color->ceilling;
-		while (++y < limit[1] && y < vars->map->height)
-			buffer[y][x] = store_texture(vars, y, i, limit);
+		while (++y < limit_y[1] && y < vars->map->height)
+			buffer[y][x] = store_texture(vars, y, i, limit_y);
 		while (++y < vars->map->height)
 			buffer[y][x] = vars->map->color->floor;
 		x++;

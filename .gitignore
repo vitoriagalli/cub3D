@@ -1,5 +1,6 @@
 en.subject.pdf
 .DS_Store
+*.txt
 *.o
 *.out
 *.swp

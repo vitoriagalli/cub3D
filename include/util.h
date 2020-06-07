@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 19:18:42 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 19:48:13 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 23:23:16 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_swap(int *a, int *b);
 char	*ft_strjoin_and_free(char *s1, char *s2);
 void	*alocate_memory(int sizeof_type);
 int		**alocate_buffer(int n_arrays, int n_elem);
-void	clean_buffer(int **buffer, int n_arrays);
-void	clean_buffer_char(char **buffer, int n_arrays);
+void	clean_buffer(void **buffer, int n_arrays);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 22:10:31 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/07 02:02:58 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ void			ft_circle_player(t_data *img, t_player *player);
 /*
 ** move player functions
 */
+
 int				move_player_press(int keycode, t_vars *vars);
 int				move_player_release(int keycode, t_vars *vars);
 void			replace_image(t_vars *vars, t_data *new_img);

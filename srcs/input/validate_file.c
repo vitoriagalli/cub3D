@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 20:18:34 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/07 04:34:52 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	ft_error(t_map *map)
 int	free_map(t_map *map)
 {
 	if (map->map_grid)
-		clean_buffer_char(map->map_grid, map->n_row);
+		clean_buffer((void **)map->map_grid, map->n_row);
 	if (map->init_posit)
 		free(map->init_posit);
-	clean_buffer_char(map->path, 4);
+	clean_buffer((void **)map->path, 4);
 	free(map->color);
 	free(map);
 	return (0);

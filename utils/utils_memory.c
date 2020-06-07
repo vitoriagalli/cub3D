@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 20:15:21 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 19:46:51 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 23:20:55 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,7 @@ int		**alocate_buffer(int n_arrays, int n_elem)
 	return (buffer);
 }
 
-void	clean_buffer(int **buffer, int n_arrays)
-{
-	int i;
-
-	i = 0;
-	while (i < n_arrays)
-	{
-		free(buffer[i]);
-		buffer[i] = NULL;
-		i++;
-	}
-	free(buffer);
-	buffer = NULL;
-}
-
-/*
-** DEPOIS JUNTAS AS DUAS EM UMA SÓ!!!!
-*/
-void	clean_buffer_char(char **buffer, int n_arrays)
+void	clean_buffer(void **buffer, int n_arrays)
 {
 	int i;
 

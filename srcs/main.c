@@ -6,16 +6,33 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 20:06:56 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/07 04:37:19 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+char	**alocate_dynamic(char **map_buffer, int m)
+{
+	char	**new_map_buffer;
+	char	**aux;
+	int		i;
+
+	if (!(new_map_buffer = alocate_memory(sizeof(char *) * (m + 2))))
+	aux = map_buffer;
+	i = 0;
+	while(i < m)
+	{
+		new_map_buffer[i] = map_buffer[i];
+		i++;
+	}
+	if (m > 0)
+		free (map_buffer);
+	return (new_map_buffer);
+}
+
 int		read_file_get_info(char *file, t_map *map)
 {
-	map->map_grid = alocate_memory(sizeof(char *) * 200);			// TRATAR DEPOIS
-
 	char	*line;
 	int		fd;
 	int		ismap;
@@ -25,11 +42,14 @@ int		read_file_get_info(char *file, t_map *map)
 
 	fd = open(file, O_RDONLY);
 	ismap = FALSE;
+	int m = 0;
 	while ((get_next_line(fd, &line)) == 1)
 	{
 		if (line[0] == ' ' || line[0] == '1')			//por enquanto aceita só espaço depois ver se trata tab tambem
 		{
 			ismap = TRUE;
+
+			map->map_grid = alocate_dynamic(map->map_grid, m);
 			if (!(n_col = parse_row_map(map, line, i)) || n_col < 0)
 			{
 				n_col_max = 0;
@@ -37,6 +57,7 @@ int		read_file_get_info(char *file, t_map *map)
 			}
 			n_col_max = n_col > n_col_max ? n_col : n_col_max;
 			i++;
+			m++;
 		}
 		else if (is_identifier(line) && !ismap)
 			get_identifier(map, line);
@@ -55,9 +76,8 @@ int		read_file_get_info(char *file, t_map *map)
 int main(int argc, char **argv)
 {
 	t_vars	vars;
-	char	**map_buf;
 
-	map_buf = NULL;		 (void) argv;
+	(void) argv;
 	if (argc)
 	{
 		alocate_map(&vars);

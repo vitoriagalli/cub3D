@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 22:07:19 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/06 23:53:57 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	clean_ray_struct(t_vars *vars)
 
 int		close_program(t_vars *vars)
 {
-	clean_buffer_char(vars->map->map_grid, vars->map->n_row);
+	clean_buffer((void **)vars->map->map_grid, vars->map->n_row);
 	free(vars->map->path[north]);
 	free(vars->map->path[south]);
 	free(vars->map->path[east]);
