@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/07 00:30:22 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:02:32 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		**get_pixel_info(t_vars *vars, int **buffer)
 	while (i < vars->map->num_rays)
 	{
 		correct_dist_plane = vars->ray[i]->dist_wall * cos(vars->ray[i]->ray_angle - vars->player->rotation_angle);
-		wall_proj_height = (vars->map->tile_x) / correct_dist_plane * dist_proj_plane;
+		wall_proj_height = TILE_SIZE / correct_dist_plane * dist_proj_plane;
 		wall_proj_height = (wall_proj_height < vars->map->height) ? wall_proj_height : vars->map->height;
 		store_all_colors(vars, buffer, wall_proj_height, i);
 		i++;

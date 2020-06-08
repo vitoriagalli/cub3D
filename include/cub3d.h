@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 18:52:14 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:15:28 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@
 # define MOVE_SPEED 20
 # define ROTAT_SPEED 5 * PI / 180
 
-# define MAP2D_SCALE 0.2
+# define MAP2D_SCALE 0.3
+
+# define TILE_SIZE 64
 
 typedef enum	e_playerface
 {

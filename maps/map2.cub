@@ -4,7 +4,7 @@ F 		200    ,			200  , 80
 
 SO 			./img/eagle.xpm
 
-R    1024   400
+R    900   600
 NO       ./img/eagle.xpm
 WE   ./img/eagle.xpm
 EA  ./img/eagle.xpm

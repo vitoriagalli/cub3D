@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 18:50:59 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 18:58:00 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ray_facing(float angle, int way)
 
 int		is_end_window(t_map *map, float x, float y)
 {
-	if (x < 0 || x >= map->width || y < 0 || y >= map->height)
+	if (x < 0 || x >= map->n_column * TILE_SIZE || y < 0 || y >= map->n_row * TILE_SIZE)
 		return (1);
 	return (0);
 }
