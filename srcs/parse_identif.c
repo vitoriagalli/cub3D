@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 20:06:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 22:26:37 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 22:37:45 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	get_identifier(t_map *map, char *line)
 		map->color->ceilling = parse_color(&line[1]);
 	else if (line[0] == 'F')
 		map->color->floor = parse_color(&line[1]);
-	// else if (line[0] == 'S')
-		// 	get_text();
+	else if (line[0] == 'S' && line[1] == ' ')
+		map->path[sprite] = parse_path(&line[2]);
 	if (line[0] == 'N' && line[1] == 'O')
 		map->path[north] = parse_path(&line[2]);
 	else if (line[0] == 'S' && line[1] == 'O')

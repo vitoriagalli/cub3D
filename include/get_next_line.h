@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 12:37:43 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 19:48:44 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 22:31:16 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 50
+#  define BUFFER_SIZE 100
 # endif
 
 # define OPEN_MAX 20

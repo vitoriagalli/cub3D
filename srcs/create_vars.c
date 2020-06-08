@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 18:59:11 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 23:13:10 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,23 @@ t_tex	**create_texture(void *mlx_ptr, char **path)
 {
 	t_tex	**texture;
 
-	texture = alocate_memory(sizeof(t_tex *) * 4);
+	texture = alocate_memory(sizeof(t_tex *) * 5);
 	texture[north] = get_texture(mlx_ptr, path[north]);
 	texture[south] = get_texture(mlx_ptr, path[south]);
 	texture[east] = get_texture(mlx_ptr, path[east]);
 	texture[west] = get_texture(mlx_ptr, path[west]);
+	texture[sprite] = get_texture(mlx_ptr, path[sprite]);
 	return (texture);
+}
+
+t_sprite *create_sprite(t_map *map)
+{
+	t_sprite *sprite;
+
+	sprite = alocate_memory(sizeof(t_sprite));
+	sprite->posit = alocate_memory(sizeof(t_point));
+	sprite->posit->x = map->sprite_posit->x;
+	sprite->posit->y = map->sprite_posit->y;
+	free(map->sprite_posit);
+	return (sprite);
 }

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/07 16:47:37 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 22:45:30 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		parse_row_map(t_map *map, char *line, int row)
 	while (line[i])
 	{
 		if (line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W'
-		&& line[i] != ' ' && line[i] != '0' && line[i] != '1')
+		&& line[i] != ' ' && line[i] != '0' && line[i] != '1' && line[i] != '2')
 			return (0);
 		map->map_grid[row][i] = line[i];
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' ||
@@ -48,6 +48,11 @@ int		parse_row_map(t_map *map, char *line, int row)
 		{
 			if (parse_player_location(map, line[i], row, i) < 0)
 				return (-1);
+		}
+		if (line[i] == '2')
+		{
+			map->sprite_posit = create_point(line[i], row, 0);
+			map->map_grid[row][i] = '1';
 		}
 		i++;
 	}

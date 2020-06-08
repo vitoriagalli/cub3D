@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 16:42:31 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 19:06:03 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 22:51:16 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,29 @@
 int		store_texture(t_vars *vars, int y, int i, float *limit)
 {
 	t_ray	*ray;
-	int		offset;
 	float	ymin;
 	float	ymax;
-	float	ytext;
 
 	ray = NULL;
 	ymin = limit[0];
 	ymax = limit[1];
 	ray = vars->ray[i];
-
-	offset = (ray->coord == HORZ) ?
-		(int)ray->collision->x % TILE_SIZE:
-		(int)ray->collision->y % TILE_SIZE;
-	ytext = (y - ymin) * (vars->tex[0]->height - 0) / (ymax - ymin) + 0;
-
 	if (ray_facing(ray->ray_angle, ray_up) && ray->coord == HORZ)
-		return (get_texture_color(vars->tex[north], offset, ytext));
+		return (get_texture_color(vars->tex[north],
+				(int)ray->collision->x % vars->tex[north]->width,
+				(y - ymin) * (vars->tex[north]->height - 0) / (ymax - ymin) + 0));
 	else if (ray_facing(ray->ray_angle, ray_down) && ray->coord == HORZ)
-		return (get_texture_color(vars->tex[south], offset, ytext));
+		return (get_texture_color(vars->tex[south],
+				(int)ray->collision->x % vars->tex[north]->width,
+				(y - ymin) * (vars->tex[south]->height - 0) / (ymax - ymin) + 0));
 	else if (ray_facing(ray->ray_angle, ray_right) && ray->coord == VERT)
-		return (get_texture_color(vars->tex[east], offset, ytext));
+		return (get_texture_color(vars->tex[east],
+				(int)ray->collision->y % vars->tex[north]->width,
+				(y - ymin) * (vars->tex[east]->height - 0) / (ymax - ymin) + 0));
 	else if (ray_facing(ray->ray_angle, ray_left) && ray->coord == VERT)
-		return (get_texture_color(vars->tex[west], offset, ytext));
+		return (get_texture_color(vars->tex[west],
+				(int)ray->collision->y % vars->tex[north]->width,
+				(y - ymin) * (vars->tex[west]->height - 0) / (ymax - ymin) + 0));
 	else
 		return (-1);
 }

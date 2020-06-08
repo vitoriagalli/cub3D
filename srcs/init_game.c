@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 23:53:57 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 23:16:41 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	create_vars(t_vars *vars)
 	vars->point = create_point(0, 0, 0);
 	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
 	vars->tex = create_texture(vars->mlx, vars->map->path);
+	vars->sprite = create_sprite(vars->map);
 	vars->minimap = TRUE;
 }
 
@@ -67,6 +68,7 @@ int		close_program(t_vars *vars)
 	free(vars->map->path[south]);
 	free(vars->map->path[east]);
 	free(vars->map->path[west]);
+	free(vars->map->path[sprite]);
 	free(vars->map->path);
 	free(vars->map->color);
 	free(vars->map);
@@ -77,15 +79,20 @@ int		close_program(t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->tex[south]->data->img);
 	mlx_destroy_image(vars->mlx, vars->tex[east]->data->img);
 	mlx_destroy_image(vars->mlx, vars->tex[west]->data->img);
+	mlx_destroy_image(vars->mlx, vars->tex[sprite]->data->img);
 	free(vars->tex[north]->data);
 	free(vars->tex[south]->data);
 	free(vars->tex[east]->data);
 	free(vars->tex[west]->data);
+	free(vars->tex[sprite]->data);
 	free(vars->tex[north]);
 	free(vars->tex[south]);
 	free(vars->tex[east]);
 	free(vars->tex[west]);
+	free(vars->tex[sprite]);
 	free(vars->tex);
+	free(vars->sprite->posit);
+	free(vars->sprite);
 	mlx_destroy_image(vars->mlx, vars->data->img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);

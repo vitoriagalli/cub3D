@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/07 04:34:52 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 22:20:49 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_error(t_map *map)
 	map->color->floor < 0 || !map->path[north] || !*map->path[north] ||
 	!map->path[south] || !*map->path[south] || !map->path[east] ||
 	!*map->path[east] || !map->path[west] || !*map->path[west] ||
+	!map->path[sprite] || !*map->path[sprite] || !map->sprite_posit ||
 	!map->n_column || !map->n_row || !map->init_posit)
 		return (free_map(map));
 	else if (!(validate_map(map)))

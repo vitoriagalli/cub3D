@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 19:15:28 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/08 23:12:59 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 
 # define MAP2D_SCALE 0.3
 
-# define TILE_SIZE 64
+# define TILE_SIZE 32
 
 typedef enum	e_playerface
 {
@@ -69,7 +69,8 @@ typedef enum	e_text
 				north,
 				south,
 				east,
-				west
+				west,
+				sprite
 }				t_text;
 
 typedef struct	s_data {
@@ -99,11 +100,10 @@ typedef struct	s_map {
 	int			n_row;
 	t_point		*init_posit;
 	float		rotation_angle;
-	int			tile_x;
-	int			tile_y;
 	int			num_rays;
 	t_color		*color;
 	char		**path;
+	t_point		*sprite_posit;
 }				t_map;
 
 typedef struct	s_player {
@@ -128,6 +128,22 @@ typedef struct	s_tex {
 	int			height;
 }				t_tex;
 
+typedef struct	s_sprite
+{
+	int			type;
+	t_point		*posit;
+	int		rel_pos;
+	float		angle;
+	float		pdist;
+	int		sdist;
+	int		step;
+	int		dir;
+	int			wall;
+	int			side;
+	int			draw_w;
+	int			draw_h;
+}				t_sprite;
+
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
@@ -137,6 +153,7 @@ typedef struct	s_vars {
 	t_player	*player;
 	t_ray		**ray;
 	t_tex		**tex;
+	t_sprite	*sprite;
 	int			minimap;
 }				t_vars;
 
@@ -201,6 +218,7 @@ t_data			*create_image(void *mlx_ptr, t_map *map);
 t_point			*create_point(int x, int y, int color);
 t_player		*create_player(t_map *map, int move_speed, float rotation_speed);
 t_tex			**create_texture(void *mlx_ptr, char **path);
+t_sprite 		*create_sprite(t_map *map);
 void			assign_point(t_point *point, int x, int y, int color);
 void			assign_player(t_player *player, int move_speed, float rotation_speed);
 void			info_map_to_player(t_player *player, t_map *map);
