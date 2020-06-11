@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/09 16:19:31 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 19:22:03 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	free_map(t_map *map)
 		free(map->init_posit);
 	clean_buffer((void **)map->path, 4);
 	free(map->color);
+	if (map->sprite_posit)
+		clean_buffer((void **)map->sprite_posit, 5);  //modificar numero
 	free(map);
 	return (0);
 }

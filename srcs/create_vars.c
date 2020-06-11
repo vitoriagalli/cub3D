@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 03:58:14 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 21:37:53 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,23 @@ t_tex	**create_texture(void *mlx_ptr, char **path)
 	return (texture);
 }
 
-t_sprite *create_sprite(t_map *map)
+t_sprite	**create_sprite(t_map *map)
 {
-	t_sprite *sprite;
+	t_sprite	**sprite;
+	int			i;
 
-	sprite = alocate_memory(sizeof(t_sprite));
-	sprite->posit = alocate_memory(sizeof(t_point));
-	sprite->posit->x = map->sprite_posit->x * TILE_SIZE + TILE_SIZE / 2;
-	sprite->posit->y = map->sprite_posit->y * TILE_SIZE + TILE_SIZE / 2;
+	i = 0;
+	sprite = alocate_memory(sizeof(t_sprite *) * map->n_sprites + 2);
+
+	while (i < map->n_sprites)
+	{
+		sprite[i] = alocate_memory(sizeof(t_sprite));
+		sprite[i]->posit = alocate_memory(sizeof(t_point));
+		sprite[i]->posit->x = map->sprite_posit[i]->x * TILE_SIZE + TILE_SIZE / 2;
+		sprite[i]->posit->y = map->sprite_posit[i]->y * TILE_SIZE + TILE_SIZE / 2;
+		free(map->sprite_posit[i]);
+		i++;
+	}
 	free(map->sprite_posit);
 	return (sprite);
 }

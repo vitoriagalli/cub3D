@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/09 19:24:59 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 21:35:31 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,15 @@ void	alocate_map(t_vars *vars)
 	vars->map->path[west] = NULL;
 	vars->map->path[sprite] = NULL;
 	vars->map->init_posit = NULL;
-	vars->map->sprite_posit = NULL;
+	vars->map->n_sprites = 0;
+
+	// vars->map->sprite_posit = alocate_memory(sizeof(t_point *) * 4); //por ex num de sprites alocar dyn depois
+
+	// vars->map->sprite_posit[0] = NULL;
+	// vars->map->sprite_posit[1] = NULL;
+	// vars->map->sprite_posit[2] = NULL;
+	// vars->map->sprite_posit[3] = NULL;
+
 	vars->map->width = 0;
 	vars->map->height = 0;
 	vars->map->n_row = 0;

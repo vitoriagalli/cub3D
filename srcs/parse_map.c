@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/09 19:14:12 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 21:36:11 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		get_map_info(t_map *map, char *line, int *row)
 {
 	int	n_col;
-	int i;
+	int	i;
 
 	i = *row;
 	n_col = 0;
@@ -32,10 +32,12 @@ int		get_map_info(t_map *map, char *line, int *row)
 int		parse_row_map(t_map *map, char *line, int row)
 {
 	int	i;
+	int	s;
 	int	find_player;
 
 	map->map_grid[row] = line;
 	i = 0;
+	s = 0;
 	find_player = FALSE;
 	while (line[i])
 	{
@@ -50,7 +52,11 @@ int		parse_row_map(t_map *map, char *line, int row)
 				return (-1);
 		}
 		if (line[i] == '2')
-			map->sprite_posit = create_point(i, row, 0);
+		{
+			map->sprite_posit = alocate_sprite(map->sprite_posit, map->n_sprites);
+			map->sprite_posit[map->n_sprites] = create_point(i, row, 0);
+			map->n_sprites++;
+		}
 		i++;
 	}
 	return (i);

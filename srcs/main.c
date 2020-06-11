@@ -6,28 +6,11 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 22:33:50 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 21:23:41 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-char	**alocate_dynamic(char **map_buffer, int m)
-{
-	char	**new_map_buffer;
-	int		i;
-
-	new_map_buffer = alocate_memory(sizeof(char *) * (m + 2));
-	i = 0;
-	while (i < m)
-	{
-		new_map_buffer[i] = map_buffer[i];
-		i++;
-	}
-	if (m > 0)
-		free(map_buffer);
-	return (new_map_buffer);
-}
 
 int		read_file_get_info(char *file, t_map *map)
 {

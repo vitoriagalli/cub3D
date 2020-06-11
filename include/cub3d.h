@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 04:57:20 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 22:39:04 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ typedef struct	s_map {
 	int			num_rays;
 	t_color		*color;
 	char		**path;
-	t_point		*sprite_posit;
+	int			n_sprites;
+	t_point		**sprite_posit;
 }				t_map;
 
 typedef struct	s_player {
@@ -150,7 +151,7 @@ typedef struct	s_vars {
 	t_player	*player;
 	t_ray		**ray;
 	t_tex		**tex;
-	t_sprite	*sprite;
+	t_sprite	**sprite;
 	int			minimap;
 }				t_vars;
 
@@ -215,7 +216,7 @@ t_data			*create_image(void *mlx_ptr, t_map *map);
 t_point			*create_point(int x, int y, int color);
 t_player		*create_player(t_map *map, int move_speed, float rotation_speed);
 t_tex			**create_texture(void *mlx_ptr, char **path);
-t_sprite 		*create_sprite(t_map *map);
+t_sprite 		**create_sprite(t_map *map);
 void			assign_point(t_point *point, int x, int y, int color);
 void			assign_player(t_player *player, int move_speed, float rotation_speed);
 void			info_map_to_player(t_player *player, t_map *map);
@@ -262,8 +263,16 @@ int				**get_pixel_info(t_vars *vars, int **buffer);
 void			store_all_colors(t_vars *vars, int **buffer, float wall_proj_height, int i);
 void			project_game(t_vars *vars, int **color_buf);
 
-void	project_sprite(t_vars *vars);
-void	draw_sprite(t_vars *vars, int x);
-void	clear_sprite(t_vars *vars);
+/*
+** sprites functions
+*/
+
+t_point			**alocate_sprite(t_point **sprite, int m);
+void			project_sprite(t_vars *vars);
+void			calculate_sprite(t_vars *vars, int s);
+void			draw_sprite(t_vars *vars, int s, int x);
+void			sort_sprite(t_vars *vars);
+// void			clear_sprite(t_vars *vars);
+
 
 #endif

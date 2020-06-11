@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 23:16:41 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 21:40:34 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ int		close_program(t_vars *vars)
 	free(vars->tex[west]);
 	free(vars->tex[sprite]);
 	free(vars->tex);
-	free(vars->sprite->posit);
-	free(vars->sprite);
+
+	// dar free na estrutura do sprite????
+
 	mlx_destroy_image(vars->mlx, vars->data->img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);
