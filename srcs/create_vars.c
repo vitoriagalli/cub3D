@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 23:13:10 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 03:58:14 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ t_sprite *create_sprite(t_map *map)
 
 	sprite = alocate_memory(sizeof(t_sprite));
 	sprite->posit = alocate_memory(sizeof(t_point));
-	sprite->posit->x = map->sprite_posit->x;
-	sprite->posit->y = map->sprite_posit->y;
+	sprite->posit->x = map->sprite_posit->x * TILE_SIZE + TILE_SIZE / 2;
+	sprite->posit->y = map->sprite_posit->y * TILE_SIZE + TILE_SIZE / 2;
 	free(map->sprite_posit);
 	return (sprite);
 }

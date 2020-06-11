@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 23:07:29 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:24:59 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	put_minimap(t_vars *vars)
 			if (vars->map->map_grid[i][j] != ' ')
 			{
 				vars->point->color = vars->map->map_grid[i][j] == '1' ? WALL_2D_COLOR : VOID_2D_COLOR;
+				vars->point->color = vars->map->map_grid[i][j] == '2' ? SPRITE_2D_COLOR : vars->point->color;
 				ft_rectangle(vars->data, *vars->point, TILE_SIZE * MAP2D_SCALE, TILE_SIZE * MAP2D_SCALE);
 			}
 			vars->point->x = vars->point->x + TILE_SIZE * MAP2D_SCALE;
@@ -41,7 +42,7 @@ void	put_minimap(t_vars *vars)
 	assign_point(vars->point, 0, 0, 0);
 }
 
-int	is_wall(t_map *map, int x, int y)
+int	is_wall(t_map *map, int x, int y, char identf)
 {
 	int	grid_x;
 	int	grid_y;
@@ -52,7 +53,7 @@ int	is_wall(t_map *map, int x, int y)
 	grid_y = floor(y / TILE_SIZE);
 	if (grid_x >= map->n_column || grid_y >= map->n_row)
 		return (TRUE);
-	if (map->map_grid[grid_y][grid_x] == '1')
+	if (map->map_grid[grid_y][grid_x] == identf)
 		return (TRUE);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 23:12:59 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 04:41:54 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 
 # define WALL_2D_COLOR 0x000000
 # define VOID_2D_COLOR 0xffffff
+# define SPRITE_2D_COLOR 0x0ff00f
 
 # define FOV 60 * PI / 180
 # define WALL_WIDTH 1
@@ -113,6 +114,7 @@ typedef struct	s_player {
 	float		rotation_angle;
 	int			move_speed;
 	float		rotation_speed;
+	float		dist_proj_plane;
 }				t_player;
 
 typedef struct	s_ray {
@@ -130,18 +132,13 @@ typedef struct	s_tex {
 
 typedef struct	s_sprite
 {
-	int			type;
 	t_point		*posit;
-	int		rel_pos;
 	float		angle;
-	float		pdist;
-	int		sdist;
-	int		step;
-	int		dir;
-	int			wall;
-	int			side;
-	int			draw_w;
-	int			draw_h;
+	float		angle_dif;
+	float		dist;
+	float		height;
+	float		width;
+	int			ray_facing;
 }				t_sprite;
 
 typedef struct	s_vars {
@@ -230,7 +227,7 @@ void			info_map_to_player(t_player *player, t_map *map);
 void			alocate_map(t_vars *vars);
 void			assign_map(t_map *map);
 void			put_minimap(t_vars *vars);
-int				is_wall(t_map *map, int x, int y);
+int				is_wall(t_map *map, int x, int y, char identf);
 void			put_player_minimap(t_vars *vars);
 void			ft_circle_player(t_data *img, t_player *player);
 
@@ -264,5 +261,9 @@ void			put_player_3dmap(t_vars *vars);
 int				**get_pixel_info(t_vars *vars, int **buffer);
 void			store_all_colors(t_vars *vars, int **buffer, float wall_proj_height, int i);
 void			project_game(t_vars *vars, int **color_buf);
+
+void	ptoject_sprite(t_vars *vars);
+void	draw_sprite(t_vars *vars, int x);
+
 
 #endif

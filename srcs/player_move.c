@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:53 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 21:58:14 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/10 17:12:09 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		new_position_player(int keycode, t_vars *vars)
 	next_posit_x = vars->player->posit->x + offset;
 	offset = sin(vars->player->rotation_angle) * move_step;
 	next_posit_y = vars->player->posit->y + offset;
-	if((keycode == W_KEY || keycode == S_KEY) && !(is_wall(vars->map, next_posit_x, next_posit_y)))
+	if((keycode == W_KEY || keycode == S_KEY) && !(is_wall(vars->map, next_posit_x, next_posit_y, '1')))
 	{
 		vars->player->posit->x = next_posit_x;
 		vars->player->posit->y = next_posit_y;

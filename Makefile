@@ -17,6 +17,7 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/projection3d.c \
 		$(SRC_DIR)/map.c \
 		$(SRC_DIR)/text_colors.c \
+		$(SRC_DIR)/sprite.c \
 		$(SRC_DIR)/geometry.c \
 		$(SRC_DIR)/aux.c \
 		$(SRC_DIR)/validate_file.c \

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 22:45:30 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:14:12 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int		parse_row_map(t_map *map, char *line, int row)
 				return (-1);
 		}
 		if (line[i] == '2')
-		{
-			map->sprite_posit = create_point(line[i], row, 0);
-			map->map_grid[row][i] = '1';
-		}
+			map->sprite_posit = create_point(i, row, 0);
 		i++;
 	}
 	return (i);

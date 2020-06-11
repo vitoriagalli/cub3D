@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 22:20:49 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/09 16:19:31 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	free_map(t_map *map)
 
 int	ft_valid_char(char c)
 {
-	if (c == '0' || c == '1')
+	if (c == '0' || c == '1' || c == '2')
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 01:53:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 19:16:22 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/10 17:12:49 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_point	*cast_ray(t_vars *vars, float ray_angle, int coord)
 		x_check += ((ray_facing(ray_angle, ray_right) && coord == VERT) ? 1 : 0);
 		y_check = next->y + ((ray_facing(ray_angle, ray_down) && coord == HORZ) ? 1 : 0);
 		y_check += ((ray_facing(ray_angle, ray_up) && coord == HORZ) ? -1 : 0);
-		if (is_wall(vars->map, x_check, y_check))
+		if (is_wall(vars->map, x_check, y_check, '1'))
 			break ;
 		else
 		{

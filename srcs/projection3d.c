@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 19:02:32 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 04:41:01 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		put_player_3dmap(t_vars *vars)
 	pixels_buffer = alocate_buffer(vars->map->height, vars->map->width);
 	pixels_buffer = get_pixel_info(vars, pixels_buffer);
 	project_game(vars, pixels_buffer);
+	project_sprite(vars);
 	clean_buffer((void **)pixels_buffer, vars->map->height);
 }
 
@@ -31,6 +32,7 @@ int		**get_pixel_info(t_vars *vars, int **buffer)
 
 	i = 0;
 	dist_proj_plane = (vars->map->width / 2) / (tan(FOV / 2));
+	vars->player->dist_proj_plane = dist_proj_plane;				///ARRUMAR
 	while (i < vars->map->num_rays)
 	{
 		correct_dist_plane = vars->ray[i]->dist_wall * cos(vars->ray[i]->ray_angle - vars->player->rotation_angle);
