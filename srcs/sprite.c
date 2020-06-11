@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 16:28:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 04:41:26 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 18:05:12 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,31 @@ void	project_sprite(t_vars *vars)
 {
 	int xi;
 
-	vars->sprite->angle = atan((vars->sprite->posit->y - vars->player->posit->y) /
+	vars->sprite->angle = atan2((vars->sprite->posit->y - vars->player->posit->y),
 	(vars->sprite->posit->x - vars->player->posit->x));
+
+	vars->sprite->angle_dif = (vars->player->rotation_angle - vars->sprite->angle);
+
+	if (vars->sprite->angle_dif < -1 * PI)
+	 	vars->sprite->angle_dif += 2 * PI;
+	if (vars->sprite->angle_dif > PI)
+		vars->sprite->angle_dif -= 2 * PI;
+	vars->sprite->angle_dif = fabs(vars->sprite->angle_dif);
 
 	vars->sprite->dist = dist_btw_points(vars->player->posit->x, vars->player->posit->y,
 	vars->sprite->posit->x, vars->sprite->posit->y);
+	vars->sprite->dist *= (cos(vars->sprite->angle_dif));
 
-
-	vars->sprite->angle_dif = ft_normalize_angle(vars->player->rotation_angle - vars->sprite->angle);
-	vars->sprite->dist *= fabs(cos(vars->sprite->angle_dif));
-
-	//if (vars->sprite->angle_dif < FOV)
+	if (vars->sprite->angle_dif < FOV / 2)
 	{
 		vars->sprite->height = (TILE_SIZE * vars->player->dist_proj_plane / vars->sprite->dist);
 		vars->sprite->width = (vars->sprite->height * vars->tex[sprite]->width / vars->tex[sprite]->height);
-		xi = tan(vars->sprite->angle) * vars->player->dist_proj_plane + (vars->map->width / 2);
-		project_sprite(vars, xi);
+		if (vars->sprite->angle > vars->player->rotation_angle)
+			xi = tan(vars->sprite->angle_dif) * vars->player->dist_proj_plane + (vars->map->width / 2);
+		else
+			xi = -tan(vars->sprite->angle_dif) * vars->player->dist_proj_plane + (vars->map->width / 2);
+		draw_sprite(vars, xi);
 	}
-
 }
 
 void	draw_sprite(t_vars *vars, int x)
@@ -60,5 +67,13 @@ void	draw_sprite(t_vars *vars, int x)
 		}
 		i.x++;
 	}
+
+	clear_sprite(vars);
 }
 
+void	clear_sprite(t_vars *vars)
+{
+	vars->sprite->dist = 0;
+	// vars->sprite->posit->x = 0;
+	// vars->sprite->posit->y = 0;
+}

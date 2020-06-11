@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 04:41:54 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/11 04:57:20 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,8 +262,8 @@ int				**get_pixel_info(t_vars *vars, int **buffer);
 void			store_all_colors(t_vars *vars, int **buffer, float wall_proj_height, int i);
 void			project_game(t_vars *vars, int **color_buf);
 
-void	ptoject_sprite(t_vars *vars);
+void	project_sprite(t_vars *vars);
 void	draw_sprite(t_vars *vars, int x);
-
+void	clear_sprite(t_vars *vars);
 
 #endif
