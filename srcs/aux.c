@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 02:24:04 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 20:00:57 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,68 @@ void	**allocate_dynamic(void **buffer, int size, int m)
 	if (m > 0)
 		free(buffer);
 	return (new_buffer);
+}
+
+
+void	*allocate_memory(int sizeof_type)
+{
+	void	*variable;
+
+	if (!(variable = malloc(sizeof_type * 1)))
+		return (NULL);
+	return (variable);
+}
+
+int		**allocate_buffer(int n_arrays, int n_elem)
+{
+	int	**buffer;
+	int i;
+
+	i = 0;
+	buffer = allocate_memory(sizeof(int *) * n_arrays);
+	while (i < n_arrays)
+	{
+		buffer[i] = allocate_memory(sizeof(int) * n_elem);
+		i++;
+	}
+	return (buffer);
+}
+
+void	clean_buffer(void **buffer, int n_arrays)
+{
+	int i;
+
+	i = 0;
+	while (i < n_arrays && buffer[i])
+	{
+		free(buffer[i]);
+		buffer[i] = NULL;
+		i++;
+	}
+	if (buffer)
+	{
+		free(buffer);
+		buffer = NULL;
+	}
+}
+
+
+int		ft_c_is_in(char c, char *str)
+{
+	size_t	i;
+	size_t	len;
+
+	if (!str)
+		return (0);
+	if (!*str)
+		return (0);
+	len = ft_strlen(str);
+	i = 0;
+	while (i < len)
+	{
+		if (c == str[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }

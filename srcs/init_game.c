@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 21:40:34 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 22:58:31 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 void	init_game(t_vars *vars)
 {
-	create_vars(vars);
 	put_game(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 }
 
-void	create_vars(t_vars *vars)
+int	create_n_check(t_vars *vars)
 {
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, vars->map->width,
 				vars->map->height, "MAP");
+	if (!(vars->tex = create_texture(vars->mlx, vars->map->path)))
+		return (ft_path_error(vars));
 	vars->data = create_image(vars->mlx, vars->map);
 	vars->point = create_point(0, 0, 0);
 	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
-	vars->tex = create_texture(vars->mlx, vars->map->path);
 	vars->sprite = create_sprite(vars->map);
 	vars->minimap = TRUE;
+	return (1);
 }
 
 void	put_game(t_vars *vars)

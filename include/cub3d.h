@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 02:16:04 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 22:50:11 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "mlx.h"
-# include "util.h"
+# include "libft.h"
 # include "get_next_line.h"
 # include <math.h>
 # include <stdio.h>
@@ -171,8 +171,12 @@ int			is_identifier(char *line);
 int			fill_columns(t_map *map);
 int			is_empty_line(char *line);
 int			validate_map(t_map *map);
-int			ft_error(t_map *map);
+int			check_lack_info(t_map *map);
+int			ft_error(t_map *map, int i);
+char		*error_messeges(int i);
+void		check_n_free(void *ptr);
 int			free_map(t_map *map);
+int			ft_path_error(t_vars *vars);
 
 /*
 ** geometry and aux functions
@@ -187,6 +191,9 @@ int				ray_facing(float angle, int way);
 float			dist_btw_points(float x0, float y0, float x1, float y1);
 int				is_end_window(t_map *map, float x, float y);
 void			**allocate_dynamic(void **buffer, int size, int m);
+void			*allocate_memory(int sizeof_type);
+int				**allocate_buffer(int n_arrays, int n_elem);
+void			clean_buffer(void **buffer, int n_arrays);
 
 /*
 ** color and texture functions
@@ -202,7 +209,7 @@ int				get_texture_color(t_tex *texture, int x, int y);
 ** init and finish game functions
 */
 
-void			create_vars(t_vars *vars);
+int				create_n_check(t_vars *vars);
 void			init_game(t_vars *vars);
 void			put_game(t_vars *vars);
 void			clean_ray_struct(t_vars *vars);
@@ -273,5 +280,8 @@ void			draw_sprite(t_vars *vars, int s, int x);
 void			sort_sprite(t_vars *vars);
 // void			clear_sprite(t_vars *vars);
 
+
+int				ft_c_is_in(char c, char *str);
+void			free_tex(void *mlx, t_tex **tex);
 
 #endif

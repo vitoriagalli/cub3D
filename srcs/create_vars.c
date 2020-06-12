@@ -6,12 +6,11 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 02:17:25 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 22:57:52 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "util.h"
 
 void	assign_point(t_point *point, int x, int y, int color)
 {
@@ -33,6 +32,8 @@ void	info_map_to_player(t_player *player, t_map *map)
 	player->posit->x = map->init_posit->x;
 	player->posit->y = map->init_posit->y;
 	player->rotation_angle = map->rotation_angle;
+	free(map->init_posit);
+	map->init_posit = NULL;
 }
 
 t_player	*create_player(t_map *map, int move_speed, float rotation_speed)
@@ -76,6 +77,12 @@ t_tex	**create_texture(void *mlx_ptr, char **path)
 	texture[east] = get_texture(mlx_ptr, path[east]);
 	texture[west] = get_texture(mlx_ptr, path[west]);
 	texture[sprite] = get_texture(mlx_ptr, path[sprite]);
+	if (!(texture[north]) || !(texture[south]) || !(texture[east]) ||
+	!(texture[west]) || !(texture[sprite]))
+	{
+		free_tex(mlx_ptr, texture);
+		return (NULL);
+	}
 	return (texture);
 }
 
@@ -94,8 +101,10 @@ t_sprite	**create_sprite(t_map *map)
 		sprite[i]->posit->x = map->sprite_posit[i]->x * TILE_SIZE + TILE_SIZE / 2;
 		sprite[i]->posit->y = map->sprite_posit[i]->y * TILE_SIZE + TILE_SIZE / 2;
 		free(map->sprite_posit[i]);
+		map->sprite_posit[i] = NULL;
 		i++;
 	}
 	free(map->sprite_posit);
+	map->sprite_posit = NULL;
 	return (sprite);
 }

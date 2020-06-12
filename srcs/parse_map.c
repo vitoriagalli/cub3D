@@ -6,11 +6,12 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 02:16:22 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 21:40:53 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 int		get_map_info(t_map *map, char *line, int *row)
 {
@@ -21,7 +22,7 @@ int		get_map_info(t_map *map, char *line, int *row)
 	n_col = 0;
 	map->map_grid = (char **)allocate_dynamic((void **)map->map_grid, sizeof(char *), i);
 	if (!(n_col = parse_row_map(map, line, map->n_row)) || n_col < 0)
-		return (-1);
+		return (n_col);
 	map->n_column = n_col > map->n_column ? n_col : map->n_column;
 	map->n_row++;
 	i++;
@@ -32,32 +33,25 @@ int		get_map_info(t_map *map, char *line, int *row)
 int		parse_row_map(t_map *map, char *line, int row)
 {
 	int	i;
-	int	s;
 	int	find_player;
 
 	map->map_grid[row] = line;
-	i = 0;
-	s = 0;
 	find_player = FALSE;
-	while (line[i])
+	i = -1;
+	while (line[++i])
 	{
-		if (line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W'
-		&& line[i] != ' ' && line[i] != '0' && line[i] != '1' && line[i] != '2')
-			return (0);
 		map->map_grid[row][i] = line[i];
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' ||
-		line[i] == 'W')
-		{
+		if (!(ft_c_is_in(line[i], "NSEW 012")))
+			return (-2);
+		if (ft_c_is_in(line[i], "NSEW"))
 			if (parse_player_location(map, line[i], row, i) < 0)
-				return (-1);
-		}
+				return (-3);
 		if (line[i] == '2')
 		{
 			map->sprite_posit =(t_point **)allocate_dynamic((void **)map->sprite_posit, sizeof(t_point *), map->n_sprites);
 			map->sprite_posit[map->n_sprites] = create_point(i, row, 0);
 			map->n_sprites++;
 		}
-		i++;
 	}
 	return (i);
 }
@@ -65,27 +59,12 @@ int		parse_row_map(t_map *map, char *line, int row)
 int		parse_player_location(t_map *map, char c, int row, int column)
 {
 	if (map->init_posit != NULL)
-		return (-1);
-	if (c == 'N')
-	{
-		map->init_posit = create_point(column, row, 0);
-		map->rotation_angle = NORTH;
-	}
-	else if (c == 'S')
-	{
-		map->init_posit = create_point(column, row, 0);
-		map->rotation_angle = SOUTH;
-	}
-	else if (c == 'E')
-	{
-		map->init_posit = create_point(column, row, 0);
-		map->rotation_angle = EAST;
-	}
-	else if (c == 'W')
-	{
-		map->init_posit = create_point(column, row, 0);
-		map->rotation_angle = WEST;
-	}
+		return (-1);						//erro caso ja tenha alocado jogador
+	map->init_posit = create_point(column, row, 0);
+	map->rotation_angle = (c == 'N') ? NORTH : 0;
+	map->rotation_angle = (c == 'S') ? SOUTH : map->rotation_angle;
+	map->rotation_angle = (c == 'E') ? EAST : map->rotation_angle;
+	map->rotation_angle = (c == 'W') ? WEST : map->rotation_angle;
 	map->map_grid[row][column] = '0';
 	return (0);
 }
@@ -102,11 +81,11 @@ int		fill_columns(t_map *map)
 		while (map->map_grid[i][j])
 			j++;
 		if (j < map->n_column)
-			map->map_grid[i] = ft_strjoin_and_free(map->map_grid[i],
+			map->map_grid[i] = ft_strjoin_n_free(map->map_grid[i],
 			ft_calloc_char(map->n_column - j, ' '));
 		i++;
 	}
-	return (ft_error(map));
+	return (check_lack_info(map));
 }
 
 int		is_empty_line(char *line)
@@ -123,9 +102,11 @@ int		is_empty_line(char *line)
 
 int		is_identifier(char *line)
 {
-	if (line[0] == 'R' || line[0] == 'C' || line[0] == 'F' || line[0] == 'S' ||
-	(line[0] == 'N' && line[1] == 'O') || (line[0] == 'W' && line[1] == 'E') ||
-	(line[0] == 'E' && line[1] == 'A') || (line[0] == 'S' && line[1] == '0'))
+	if (ft_c_is_in(line[0], "RCFS") ||
+		(line[0] == 'N' && line[1] == 'O') ||
+		(line[0] == 'W' && line[1] == 'E') ||
+		(line[0] == 'E' && line[1] == 'A') ||
+		(line[0] == 'S' && line[1] == '0'))
 		return (1);
 	return (0);
 }

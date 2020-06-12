@@ -2,10 +2,7 @@ NAME = a.out
 
 SRC_DIR = srcs
 GNL_DIR = gnl
-# INPUT_DIR = input
-# ENGINE_DIR = engine
-# AUX_DIR = aux
-# UTIL_DIR = utils
+LIBFT_DIR = libft
 
 SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/create_vars.c \
@@ -23,12 +20,9 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/validate_file.c \
 		$(SRC_DIR)/parse_identif.c \
 		$(SRC_DIR)/parse_map.c \
-		$(SRC_DIR)/utils_str.c \
-		$(SRC_DIR)/utils_char.c \
-		$(SRC_DIR)/utils_memory.c \
 		$(GNL_DIR)/get_next_line.c \
 
-OBJ = *.o
+OBJ = $(SRC:.c=.o)
 
 INCLUDES = include
 
@@ -36,19 +30,23 @@ CC = clang
 
 CFLAGS =	-Wall -Werror -Wextra -g -fsanitize=address
 
-LFLAGS =	-lbsd -lmlx -lm -lX11 -lXext
+LFLAGS =	-lbsd -lmlx -lm -lX11 -lXext \
+			-L ./$(LIBFT_DIR) -lft
 
 RM = /bin/rm -f
 
 $(NAME):
+	@ make -C $(LIBFT_DIR)
 	@ $(CC) $(SRC) -I $(INCLUDES) $(CFLAGS) $(LFLAGS) -o a.out
 
 all: $(NAME)
 
 clean:
+	@ make clean -C $(LIBFT_DIR)
 	@ $(RM) $(OBJ)
 
 fclean: clean
+	@ make fclean -C $(LIBFT_DIR)
 	@ $(RM) $(NAME)
 
 re: fclean all
