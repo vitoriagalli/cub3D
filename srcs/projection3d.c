@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 04:41:01 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 02:33:14 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		put_player_3dmap(t_vars *vars)
 {
 	int **pixels_buffer;
 
-	pixels_buffer = alocate_buffer(vars->map->height, vars->map->width);
+	pixels_buffer = allocate_buffer(vars->map->height, vars->map->width);
 	pixels_buffer = get_pixel_info(vars, pixels_buffer);
 	project_game(vars, pixels_buffer);
 	project_sprite(vars);
@@ -26,17 +26,15 @@ void		put_player_3dmap(t_vars *vars)
 int		**get_pixel_info(t_vars *vars, int **buffer)
 {
 	float	correct_dist_plane;
-	float	dist_proj_plane;
 	float	wall_proj_height;
 	int		i;
 
 	i = 0;
-	dist_proj_plane = (vars->map->width / 2) / (tan(FOV / 2));
-	vars->player->dist_proj_plane = dist_proj_plane;				///ARRUMAR
+	vars->player->dist_proj_plane = (vars->map->width / 2) / (tan(FOV / 2));
 	while (i < vars->map->num_rays)
 	{
 		correct_dist_plane = vars->ray[i]->dist_wall * cos(vars->ray[i]->ray_angle - vars->player->rotation_angle);
-		wall_proj_height = TILE_SIZE / correct_dist_plane * dist_proj_plane;
+		wall_proj_height = TILE_SIZE / correct_dist_plane * vars->player->dist_proj_plane;
 		wall_proj_height = (wall_proj_height < vars->map->height) ? wall_proj_height : vars->map->height;
 		store_all_colors(vars, buffer, wall_proj_height, i);
 		i++;

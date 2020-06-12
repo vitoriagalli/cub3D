@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 21:23:41 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 02:16:39 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int main(int argc, char **argv)
 	(void) argv;
 	if (argc)
 	{
-		alocate_map(&vars);
-		if (!read_file_get_info("maps/map2.cub", vars.map))
+		allocate_map(&vars);
+		if (!read_file_get_info("maps/map3.cub", vars.map))
 		{
 			write(STDOUT_FILENO, "\e[31mError\e[39m\n", 16);
 			write(1, "\e[31mInvalid Map\e[39m\n", 22);

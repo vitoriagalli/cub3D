@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 21:33:11 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 02:24:04 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,39 +64,19 @@ float	dist_btw_points(float x0, float y0, float x1, float y1)
 	return (sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)));
 }
 
-char	**alocate_dynamic(char **map_buffer, int m)
+void	**allocate_dynamic(void **buffer, int size, int m)
 {
-	char	**new_map_buffer;
+	void	**new_buffer;
 	int		i;
 
-	new_map_buffer = alocate_memory(sizeof(char *) * (m + 2));
+	new_buffer = allocate_memory(size * (m + 2));
 	i = 0;
 	while (i < m)
 	{
-		new_map_buffer[i] = map_buffer[i];
+		new_buffer[i] = buffer[i];
 		i++;
 	}
 	if (m > 0)
-		free(map_buffer);
-	return (new_map_buffer);
+		free(buffer);
+	return (new_buffer);
 }
-
-
-t_point	**alocate_sprite(t_point **sprite, int m)
-{
-	t_point	**new_sprite;
-	int		i;
-
-	new_sprite = alocate_memory(sizeof(t_point *) * (m + 2));
-	i = 0;
-	while (i < m)
-	{
-		new_sprite[i] = sprite[i];
-		i++;
-	}
-	if (m > 0)
-		free(sprite);
-	return (new_sprite);
-}
-
-

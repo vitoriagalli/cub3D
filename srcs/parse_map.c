@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 21:36:11 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 02:16:22 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		get_map_info(t_map *map, char *line, int *row)
 
 	i = *row;
 	n_col = 0;
-	map->map_grid = alocate_dynamic(map->map_grid, i);
+	map->map_grid = (char **)allocate_dynamic((void **)map->map_grid, sizeof(char *), i);
 	if (!(n_col = parse_row_map(map, line, map->n_row)) || n_col < 0)
 		return (-1);
 	map->n_column = n_col > map->n_column ? n_col : map->n_column;
@@ -53,7 +53,7 @@ int		parse_row_map(t_map *map, char *line, int row)
 		}
 		if (line[i] == '2')
 		{
-			map->sprite_posit = alocate_sprite(map->sprite_posit, map->n_sprites);
+			map->sprite_posit =(t_point **)allocate_dynamic((void **)map->sprite_posit, sizeof(t_point *), map->n_sprites);
 			map->sprite_posit[map->n_sprites] = create_point(i, row, 0);
 			map->n_sprites++;
 		}

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 21:37:53 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 02:17:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_player	*create_player(t_map *map, int move_speed, float rotation_speed)
 {
 	t_player	*player;
 
-	player = alocate_memory(sizeof(t_player));
-	player->posit = alocate_memory(sizeof(t_point));
+	player = allocate_memory(sizeof(t_player));
+	player->posit = allocate_memory(sizeof(t_point));
 	info_map_to_player(player, map);
 	free(map->init_posit);
 	assign_player(player, move_speed, rotation_speed);
@@ -51,7 +51,7 @@ t_point	*create_point(int x, int y, int color)
 {
 	t_point	*point;
 
-	point = alocate_memory(sizeof(t_point));
+	point = allocate_memory(sizeof(t_point));
 	assign_point(point, x, y, color);
 	return (point);
 }
@@ -60,7 +60,7 @@ t_data	*create_image(void *mlx_ptr, t_map *map)
 {
 	t_data	*img;
 
-	img = alocate_memory(sizeof(t_data));
+	img = allocate_memory(sizeof(t_data));
 	img->img = mlx_new_image(mlx_ptr, map->width, map->height);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->size_line, &img->endian);
 	return (img);
@@ -70,7 +70,7 @@ t_tex	**create_texture(void *mlx_ptr, char **path)
 {
 	t_tex	**texture;
 
-	texture = alocate_memory(sizeof(t_tex *) * 5);
+	texture = allocate_memory(sizeof(t_tex *) * 5);
 	texture[north] = get_texture(mlx_ptr, path[north]);
 	texture[south] = get_texture(mlx_ptr, path[south]);
 	texture[east] = get_texture(mlx_ptr, path[east]);
@@ -85,12 +85,12 @@ t_sprite	**create_sprite(t_map *map)
 	int			i;
 
 	i = 0;
-	sprite = alocate_memory(sizeof(t_sprite *) * map->n_sprites + 2);
+	sprite = allocate_memory(sizeof(t_sprite *) * map->n_sprites + 2);
 
 	while (i < map->n_sprites)
 	{
-		sprite[i] = alocate_memory(sizeof(t_sprite));
-		sprite[i]->posit = alocate_memory(sizeof(t_point));
+		sprite[i] = allocate_memory(sizeof(t_sprite));
+		sprite[i]->posit = allocate_memory(sizeof(t_point));
 		sprite[i]->posit->x = map->sprite_posit[i]->x * TILE_SIZE + TILE_SIZE / 2;
 		sprite[i]->posit->y = map->sprite_posit[i]->y * TILE_SIZE + TILE_SIZE / 2;
 		free(map->sprite_posit[i]);

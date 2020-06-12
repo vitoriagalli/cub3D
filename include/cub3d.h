@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 22:39:04 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 02:16:04 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@
 # define MOVE_SPEED 20
 # define ROTAT_SPEED 5 * PI / 180
 
-# define MAP2D_SCALE 0.3
+# define MAP2D_SCALE 0.12
 
-# define TILE_SIZE 32
+# define TILE_SIZE 64
 
 typedef enum	e_playerface
 {
@@ -160,7 +160,6 @@ typedef struct	s_vars {
 */
 
 int			get_map_info(t_map *map, char *line, int *row);
-char		**alocate_dynamic(char **map_buffer, int m);
 void 		get_identifier(t_map *map, char *line);
 char		*parse_path(char *path);
 void		parse_resolution(char *str, t_map *map);
@@ -187,6 +186,7 @@ float			ft_normalize_angle(float angle);
 int				ray_facing(float angle, int way);
 float			dist_btw_points(float x0, float y0, float x1, float y1);
 int				is_end_window(t_map *map, float x, float y);
+void			**allocate_dynamic(void **buffer, int size, int m);
 
 /*
 ** color and texture functions
@@ -225,7 +225,7 @@ void			info_map_to_player(t_player *player, t_map *map);
 ** mini map and player functions
 */
 
-void			alocate_map(t_vars *vars);
+void			allocate_map(t_vars *vars);
 void			assign_map(t_map *map);
 void			put_minimap(t_vars *vars);
 int				is_wall(t_map *map, int x, int y, char identf);
@@ -267,7 +267,6 @@ void			project_game(t_vars *vars, int **color_buf);
 ** sprites functions
 */
 
-t_point			**alocate_sprite(t_point **sprite, int m);
 void			project_sprite(t_vars *vars);
 void			calculate_sprite(t_vars *vars, int s);
 void			draw_sprite(t_vars *vars, int s, int x);

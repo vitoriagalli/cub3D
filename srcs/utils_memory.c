@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 20:15:21 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 23:20:55 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 02:19:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strjoin_and_free(char *s1, char *s2)
 	return (join);
 }
 
-void	*alocate_memory(int sizeof_type)
+void	*allocate_memory(int sizeof_type)
 {
 	void	*variable;
 
@@ -47,16 +47,16 @@ void	*alocate_memory(int sizeof_type)
 	return (variable);
 }
 
-int		**alocate_buffer(int n_arrays, int n_elem)
+int		**allocate_buffer(int n_arrays, int n_elem)
 {
 	int	**buffer;
 	int i;
 
 	i = 0;
-	buffer = alocate_memory(sizeof(int *) * n_arrays);
+	buffer = allocate_memory(sizeof(int *) * n_arrays);
 	while (i < n_arrays)
 	{
-		buffer[i] = alocate_memory(sizeof(int) * n_elem);
+		buffer[i] = allocate_memory(sizeof(int) * n_elem);
 		i++;
 	}
 	return (buffer);

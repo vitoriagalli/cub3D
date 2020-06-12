@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/11 21:35:31 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/12 02:17:54 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ void	assign_map(t_map *map)
 	map->num_rays = map->width / WALL_WIDTH;
 }
 
-void	alocate_map(t_vars *vars)
+void	allocate_map(t_vars *vars)
 {
-	vars->map = alocate_memory(sizeof(t_map));
+	vars->map = allocate_memory(sizeof(t_map));
 	vars->map->init_posit = NULL;
-	vars->map->color = alocate_memory(sizeof(t_color));
+	vars->map->color = allocate_memory(sizeof(t_color));
 	vars->map->color->ceilling = -1;
 	vars->map->color->ceilling = -1;
-	vars->map->path = alocate_memory(sizeof(char *) * 5);
+	vars->map->path = allocate_memory(sizeof(char *) * 5);
 	vars->map->path[north] = NULL;
 	vars->map->path[south] = NULL;
 	vars->map->path[east] = NULL;
@@ -81,7 +81,7 @@ void	alocate_map(t_vars *vars)
 	vars->map->init_posit = NULL;
 	vars->map->n_sprites = 0;
 
-	// vars->map->sprite_posit = alocate_memory(sizeof(t_point *) * 4); //por ex num de sprites alocar dyn depois
+	// vars->map->sprite_posit = allocate_memory(sizeof(t_point *) * 4); //por ex num de sprites alocar dyn depois
 
 	// vars->map->sprite_posit[0] = NULL;
 	// vars->map->sprite_posit[1] = NULL;
