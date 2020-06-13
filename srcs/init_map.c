@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 02:15:11 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 16:06:18 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	allocate_map(t_vars *vars)
 {
-	vars->map = allocate_memory(sizeof(t_map));
+	vars->map = ft_calloc(1, sizeof(t_map));
 	vars->map->init_posit = NULL;
-	vars->map->color = allocate_memory(sizeof(t_color));
+	vars->map->color = ft_calloc(1, sizeof(t_color));
 	vars->map->color->ceilling = -1;
 	vars->map->color->ceilling = -1;
-	vars->map->path = allocate_memory(sizeof(char *) * 5);
+	vars->map->path = ft_calloc(5, sizeof(char *));
 	vars->map->path[north] = NULL;
 	vars->map->path[south] = NULL;
 	vars->map->path[east] = NULL;

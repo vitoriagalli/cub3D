@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 03:31:06 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 17:02:44 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@
 # define WALL_2D_COLOR 0x000000
 # define VOID_2D_COLOR 0xffffff
 # define SPRITE_2D_COLOR 0x0ff00f
+# define RAYS_2D_COLOR 0xffff00
 # define FOV 1.1
 # define WALL_WIDTH 1
 # define MOVE_SPEED 20
 # define ROTAT_SPEED 0.1
-# define MAP2D_SCALE 0.12
+# define MAP2D_SCALE 0.15
 # define TILE_SIZE 64
 
 typedef enum	e_playerface
@@ -174,7 +175,6 @@ int				ft_path_error(t_vars *vars);
 ** geometry and aux functions
 */
 
-void			ft_circle(t_data *img, int *c, int radius, int color);
 void			ft_rectangle(t_data *img, t_point point, int l_width,
 				int l_height);
 void		 	ft_line(t_data *img, int *p0, int *p1, int color);
@@ -186,9 +186,9 @@ int				is_end_window(t_map *map, float x, float y);
 int				ft_c_is_in(char c, char *str);
 void			check_n_free(void *ptr);
 void			**allocate_dynamic(void **buffer, int size, int m);
-void			*allocate_memory(int sizeof_type);
 void			clean_buffer(void **buffer, int n_arrays);
 void			free_tex(void *mlx, t_tex **tex);
+
 /*
 ** color and texture functions
 */
@@ -196,7 +196,6 @@ void			free_tex(void *mlx, t_tex **tex);
 t_tex			*get_texture(void *mlx_ptr, char *path);
 int				store_tex(t_vars *vars, int y, int i, float *limit);
 int				ft_rgb(int r, int g, int b);
-int				shade_wall(float dist, int r, int g, int b);	//funcao migué -> arrumar
 int				get_texture_color(t_tex *texture, int x, int y);
 
 /*
@@ -227,11 +226,9 @@ void			assign_point(t_point *point, int x, int y, int color);
 void			allocate_map(t_vars *vars);
 void			put_minimap(t_vars *vars);
 int				is_wall(t_map *map, int x, int y, char identf);
-void			put_player_minimap(t_vars *vars);
-void			ft_circle_player(t_data *img, t_player *player);
 
 /*
-** move player functions
+** key move player functions
 */
 
 int				move_player_press(int keycode, t_vars *vars);

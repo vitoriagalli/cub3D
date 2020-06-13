@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 00:19:46 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 03:30:10 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 16:01:59 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ t_ray	**ft_raycast(t_vars *vars)
 	float	ray_angle;
 	int		i;
 
-	ray = allocate_memory(sizeof(t_ray *) * (vars->map->num_rays));
+	ray = ft_calloc(vars->map->num_rays, sizeof(t_ray *));
 	ray_angle = vars->player->rotation_angle - (FOV / 2);
 	i = 0;
 	while (i < vars->map->num_rays)
 	{
 		ray_angle = ft_normalize_angle(ray_angle);
-		ray[i] = allocate_memory(sizeof(t_ray));
+		ray[i] = ft_calloc(1, sizeof(t_ray));
 		check_closest_wall(vars, ray[i], ray_angle);
 		ray_angle += FOV / vars->map->num_rays;
 		i++;

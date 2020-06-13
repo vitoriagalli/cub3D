@@ -6,22 +6,11 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 23:51:50 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 16:18:16 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_circle_player(t_data *img, t_player *player)
-{
-	int	posit[2];
-	int	radius;
-
-	posit[HORZ] = player->posit->x * MAP2D_SCALE;
-	posit[VERT] = player->posit->y * MAP2D_SCALE;
-	radius = 5 * MAP2D_SCALE;
-	ft_circle(img, posit, radius, player->posit->color);
-}
 
 void	put_rays(t_vars *vars)
 {
@@ -39,13 +28,6 @@ void	put_rays(t_vars *vars)
 		ft_line(vars->data, posit, collision, vars->player->posit->color);
 		i++;
 	}
-}
-
-void	put_player_minimap(t_vars *vars)
-{
-	vars->player->posit->color = ft_rgb(255, 255, 0);
-	ft_circle_player(vars->data, vars->player);
-	put_rays(vars);
 }
 
 void	put_minimap(t_vars *vars)

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 03:11:15 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/06 21:38:46 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 16:18:46 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,52 +116,5 @@ void	ft_line(t_data *img, int *p0, int *p1, int color)
 		dif[2] = dif[HORZ];						//	ds = dx
 		dif[3] = dif[HORZ] - dif[VERT];			//  dt = dx - dy
 		ft_increment_y(img, p0, p1, dif);
-	}
-}
-
-static void	ft_put_symmetry(t_data *img, int *center, int *p, int color)
-{
-	int xc;
-	int yc;
-	int x;
-	int yl;
-
-	xc = center[HORZ];
-	yc = center[VERT];
-	x = p[HORZ];
-	yl = p[VERT];
-	while (yl >= 0)
-	{
-		my_mlx_pixel_put(img, x + xc, yl + yc, color);
-		my_mlx_pixel_put(img, yl + xc, -x + yc, color);
-		my_mlx_pixel_put(img, x + xc, -yl + yc, color);
-		my_mlx_pixel_put(img, yl + xc, x + yc, color);
-		my_mlx_pixel_put(img, -x + xc, yl + yc, color);
-		my_mlx_pixel_put(img, -yl + xc, -x + yc, color);
-		my_mlx_pixel_put(img, -x + xc, -yl + yc, color);
-		my_mlx_pixel_put(img, -yl + xc, x + yc, color);
-		yl--;
-	}
-}
-
-void	ft_circle(t_data *img, int *center, int radius, int color)
-{
-	int p[2];
-	int h;
-
-	h = 1 - radius;
-	p[HORZ] = 0;
-	p[VERT] = radius;
-	while (p[VERT] > p[HORZ])
-	{
-		if (h < 0)
-			h = h + 2 * p[HORZ] + 3;
-		else
-		{
-			h = h + 2 * (p[HORZ] - p[VERT]) + 5;
-			p[VERT]--;
-		}
-		ft_put_symmetry(img, center, p, color);
-		p[HORZ]++;
 	}
 }

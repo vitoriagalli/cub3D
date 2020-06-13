@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 03:19:45 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 16:51:03 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ void	store_all_colors(t_vars *vars, float wall_proj_height, int i)
 	while (x < (i + 1) * WALL_WIDTH)
 	{
 		y = -1;
-		while (++y < limit_y[0] && y < vars->map->height)
+		while (++y <= limit_y[0] && y < vars->map->height)
 			my_mlx_pixel_put(vars->data, x, y, vars->map->color->ceilling);
-		while (++y < limit_y[1] && y < vars->map->height)
+		y--;
+		while (++y <= limit_y[1] && y < vars->map->height)
 			my_mlx_pixel_put(vars->data, x, y, store_tex(vars, y, i, limit_y));
-		while (++y < vars->map->height)
+		y--;
+		while (++y <= vars->map->height)
 			my_mlx_pixel_put(vars->data, x, y, vars->map->color->floor);
 		x++;
 	}
