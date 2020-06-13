@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 00:19:46 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 02:23:23 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 03:30:10 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ void	check_closest_wall(t_vars *vars, t_ray *ray, float ray_angle)
 	float	dist_horz;
 	float	dist_vert;
 
-	horz_intercept = cast_ray(vars, ray_angle, HORZ);
-	vert_intercept = cast_ray(vars, ray_angle, VERT);
-	dist_horz = is_end_window(vars->map, horz_intercept->x, horz_intercept->y) ? INT_MAX :
-	dist_btw_points(vars->player->posit->x, vars->player->posit->y,horz_intercept->x, horz_intercept->y);
-	dist_vert = is_end_window(vars->map, vert_intercept->x, vert_intercept->y) ? INT_MAX :
-	dist_btw_points(vars->player->posit->x, vars->player->posit->y, vert_intercept->x, vert_intercept->y);
+	horz_intercept = cast_ray(vars, ray_angle, HORZ, create_point(0, 0, 0));
+	vert_intercept = cast_ray(vars, ray_angle, VERT, create_point(0, 0, 0));
+	dist_horz = is_end_window(vars->map, horz_intercept->x, horz_intercept->y) ?
+	INT_MAX : dist_btw_points(vars->player->posit->x, vars->player->posit->y,
+	horz_intercept->x, horz_intercept->y);
+	dist_vert = is_end_window(vars->map, vert_intercept->x, vert_intercept->y) ?
+	INT_MAX : dist_btw_points(vars->player->posit->x, vars->player->posit->y,
+	vert_intercept->x, vert_intercept->y);
 	ray->ray_angle = ray_angle;
 	if (dist_horz < dist_vert)
 	{
@@ -62,5 +64,5 @@ t_ray	**ft_raycast(t_vars *vars)
 		ray_angle += FOV / vars->map->num_rays;
 		i++;
 	}
-	return(ray);
+	return (ray);
 }

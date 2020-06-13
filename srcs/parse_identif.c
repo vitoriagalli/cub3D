@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 20:06:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/08 22:37:45 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 00:07:55 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,5 @@ void	parse_resolution(char *str, t_map *map)
 		return ;
 	map->width = nb[0];
 	map->height = nb[1];
+	map->num_rays = map->width / WALL_WIDTH;
 }

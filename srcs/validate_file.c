@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 22:58:41 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 03:01:35 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,21 @@
 
 void	free_tex(void *mlx, t_tex **tex)
 {
-	if (tex[north])
+	int i;
+
+	i = north;
+	while (i <= sprite)
 	{
-		mlx_destroy_image(mlx, tex[north]->data->img);
-		free(tex[north]->data);
-		free(tex[north]);
-	}
-	if (tex[south])
-	{
-		mlx_destroy_image(mlx, tex[south]->data->img);
-		free(tex[south]->data);
-		free(tex[south]);
-	}
-	if (tex[east])
-	{
-		mlx_destroy_image(mlx, tex[east]->data->img);
-		free(tex[east]->data);
-		free(tex[east]);
-	}
-	if (tex[west])
-	{
-		mlx_destroy_image(mlx, tex[west]->data->img);
-		free(tex[west]->data);
-		free(tex[west]);
-	}
-	if (tex[sprite])
-	{
-		mlx_destroy_image(mlx, tex[sprite]->data->img);
-		free(tex[sprite]->data);
-		free(tex[sprite]);
+		if (tex[i])
+		{
+			mlx_destroy_image(mlx, tex[i]->data->img);
+			free(tex[i]->data);
+			free(tex[i]);
+		}
+		i++;
 	}
 	free(tex);
 }
-
 
 int		ft_path_error(t_vars *vars)
 {
@@ -60,29 +42,29 @@ int		ft_path_error(t_vars *vars)
 char		*error_messeges(int i)
 {
 	if (i == -1)
-		return("ERROR OPEN FILE");
+		return ("ERROR OPEN FILE");
 	if (i == -2)
-		return("ERROR INVALID CHAR");
+		return ("ERROR INVALID CHAR");
 	if (i == -3)
-		return("ERROR 2 PLAYERS");
+		return ("ERROR 2 PLAYERS");
 	if (i == -4)
-		return("ERROR CHECK LINES");
+		return ("ERROR CHECK LINES");
 	if (i == -5)
-		return("ERROR INVALID MAP");
+		return ("ERROR INVALID MAP");
 	if (i == -6)
-		return("ERROR CHECK RESOLUTION");
+		return ("ERROR CHECK RESOLUTION");
 	if (i == -7)
-		return("ERROR CHECK COLOR INFO");
+		return ("ERROR CHECK COLOR INFO");
 	if (i == -8)
-		return("ERROR CHECK TEXTURES PATH");
+		return ("ERROR CHECK TEXTURES PATH");
 	if (i == -9)
-		return("ERROR CHECK SPRITES INFO");
+		return ("ERROR CHECK SPRITES INFO");
 	if (i == -10)
-		return("ERROR CHECK INIT POSIT PLAYER");
+		return ("ERROR CHECK INIT POSIT PLAYER");
 	if (i == -11)
-		return("ERROR NO MAP");
+		return ("ERROR NO MAP");
 	if (i == -12)
-		return("ERROR THERE IS NO TEXTURE IN THIS PATH");
+		return ("ERROR THERE IS NO TEXTURE IN THIS PATH");
 	return (NULL);
 }
 
@@ -99,13 +81,13 @@ int	check_lack_info(t_map *map)
 		return (ft_error(map, -5));
 	else if (!map->width || !map->height)
 		return (ft_error(map, -6));
-	else if ( map->color->ceilling < 0 || map->color->floor < 0)
+	else if (map->color->ceilling < 0 || map->color->floor < 0)
 		return (ft_error(map, -7));
-	else if (!map->path[north] || !*map->path[north] ||	!map->path[south] ||
-			!*map->path[south] || !map->path[east] ||!*map->path[east] ||
+	else if (!map->path[north] || !*map->path[north] || !map->path[south] ||
+			!*map->path[south] || !map->path[east] || !*map->path[east] ||
 			!map->path[west] || !*map->path[west])
 		return (ft_error(map, -8));
-	else if (!*map->path[sprite] || !map->sprite_posit )
+	else if (!map->sprite_posit || !*map->path[sprite])
 		return (ft_error(map, -9));
 	else if (!map->init_posit)
 		return (ft_error(map, -10));
@@ -123,8 +105,7 @@ void	check_n_free(void *ptr)
 	}
 }
 
-
-int	free_map(t_map *map)
+int		free_map(t_map *map)
 {
 	check_n_free(map->path[north]);
 	check_n_free(map->path[south]);

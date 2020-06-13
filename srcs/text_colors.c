@@ -6,41 +6,11 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 16:42:31 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 22:45:17 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 02:43:19 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int		store_texture(t_vars *vars, int y, int i, float *limit)
-{
-	t_ray	*ray;
-	float	ymin;
-	float	ymax;
-
-	ray = NULL;
-	ymin = limit[0];
-	ymax = limit[1];
-	ray = vars->ray[i];
-	if (ray_facing(ray->ray_angle, ray_up) && ray->coord == HORZ)
-		return (get_texture_color(vars->tex[north],
-				(int)ray->collision->x % vars->tex[north]->width,
-				(y - ymin) * (vars->tex[north]->height - 0) / (ymax - ymin) + 0));
-	else if (ray_facing(ray->ray_angle, ray_down) && ray->coord == HORZ)
-		return (get_texture_color(vars->tex[south],
-				(int)ray->collision->x % vars->tex[north]->width,
-				(y - ymin) * (vars->tex[south]->height - 0) / (ymax - ymin) + 0));
-	else if (ray_facing(ray->ray_angle, ray_right) && ray->coord == VERT)
-		return (get_texture_color(vars->tex[east],
-				(int)ray->collision->y % vars->tex[north]->width,
-				(y - ymin) * (vars->tex[east]->height - 0) / (ymax - ymin) + 0));
-	else if (ray_facing(ray->ray_angle, ray_left) && ray->coord == VERT)
-		return (get_texture_color(vars->tex[west],
-				(int)ray->collision->y % vars->tex[north]->width,
-				(y - ymin) * (vars->tex[west]->height - 0) / (ymax - ymin) + 0));
-	else
-		return (-1);
-}
 
 //funcao que pega a cor do pixel da posicao data
 int get_texture_color (t_tex *texture, int x, int y)
@@ -91,8 +61,8 @@ t_tex	*get_texture(void *mlx_ptr, char *path)
 	&texture->height);
 	if (!(data->img))
 	{
-		free(data);
-		free(texture);
+		check_n_free(data);
+		check_n_free(texture);
 		return (NULL);
 	}
 	data->addr = mlx_get_data_addr(data->img, &data->bpp,

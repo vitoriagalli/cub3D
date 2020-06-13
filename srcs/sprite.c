@@ -6,13 +6,13 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 16:28:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 02:36:08 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 02:43:48 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	project_sprite(t_vars *vars)
+void	put_sprites(t_vars *vars)
 {
 	int i;
 
@@ -24,8 +24,6 @@ void	project_sprite(t_vars *vars)
 		i++;
 	}
 }
-
-
 
 void	calculate_sprite(t_vars *vars, int s)
 {

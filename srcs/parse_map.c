@@ -6,29 +6,12 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 21:40:53 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 00:15:16 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
-
-int		get_map_info(t_map *map, char *line, int *row)
-{
-	int	n_col;
-	int	i;
-
-	i = *row;
-	n_col = 0;
-	map->map_grid = (char **)allocate_dynamic((void **)map->map_grid, sizeof(char *), i);
-	if (!(n_col = parse_row_map(map, line, map->n_row)) || n_col < 0)
-		return (n_col);
-	map->n_column = n_col > map->n_column ? n_col : map->n_column;
-	map->n_row++;
-	i++;
-	*row = i;
-	return (n_col);
-}
 
 int		parse_row_map(t_map *map, char *line, int row)
 {
@@ -48,7 +31,8 @@ int		parse_row_map(t_map *map, char *line, int row)
 				return (-3);
 		if (line[i] == '2')
 		{
-			map->sprite_posit =(t_point **)allocate_dynamic((void **)map->sprite_posit, sizeof(t_point *), map->n_sprites);
+			map->sprite_posit = (t_point **)allocate_dynamic(
+				(void **)map->sprite_posit, sizeof(t_point *), map->n_sprites);
 			map->sprite_posit[map->n_sprites] = create_point(i, row, 0);
 			map->n_sprites++;
 		}
@@ -59,8 +43,10 @@ int		parse_row_map(t_map *map, char *line, int row)
 int		parse_player_location(t_map *map, char c, int row, int column)
 {
 	if (map->init_posit != NULL)
-		return (-1);						//erro caso ja tenha alocado jogador
+		return (-1);
 	map->init_posit = create_point(column, row, 0);
+	map->init_posit->x = map->init_posit->x * TILE_SIZE + 1;
+	map->init_posit->y = map->init_posit->y * TILE_SIZE + 1;
 	map->rotation_angle = (c == 'N') ? NORTH : 0;
 	map->rotation_angle = (c == 'S') ? SOUTH : map->rotation_angle;
 	map->rotation_angle = (c == 'E') ? EAST : map->rotation_angle;

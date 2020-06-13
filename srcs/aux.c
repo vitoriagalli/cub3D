@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/12 20:00:57 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/13 00:15:52 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int		ray_facing(float angle, int way)
 
 int		is_end_window(t_map *map, float x, float y)
 {
-	if (x < 0 || x >= map->n_column * TILE_SIZE || y < 0 || y >= map->n_row * TILE_SIZE)
+	if (x < 0 || x >= map->n_column * TILE_SIZE ||
+		y < 0 || y >= map->n_row * TILE_SIZE)
 		return (1);
 	return (0);
 }
@@ -63,67 +64,6 @@ float	dist_btw_points(float x0, float y0, float x1, float y1)
 {
 	return (sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)));
 }
-
-void	**allocate_dynamic(void **buffer, int size, int m)
-{
-	void	**new_buffer;
-	int		i;
-
-	new_buffer = allocate_memory(size * (m + 2));
-	i = 0;
-	while (i < m)
-	{
-		new_buffer[i] = buffer[i];
-		i++;
-	}
-	if (m > 0)
-		free(buffer);
-	return (new_buffer);
-}
-
-
-void	*allocate_memory(int sizeof_type)
-{
-	void	*variable;
-
-	if (!(variable = malloc(sizeof_type * 1)))
-		return (NULL);
-	return (variable);
-}
-
-int		**allocate_buffer(int n_arrays, int n_elem)
-{
-	int	**buffer;
-	int i;
-
-	i = 0;
-	buffer = allocate_memory(sizeof(int *) * n_arrays);
-	while (i < n_arrays)
-	{
-		buffer[i] = allocate_memory(sizeof(int) * n_elem);
-		i++;
-	}
-	return (buffer);
-}
-
-void	clean_buffer(void **buffer, int n_arrays)
-{
-	int i;
-
-	i = 0;
-	while (i < n_arrays && buffer[i])
-	{
-		free(buffer[i]);
-		buffer[i] = NULL;
-		i++;
-	}
-	if (buffer)
-	{
-		free(buffer);
-		buffer = NULL;
-	}
-}
-
 
 int		ft_c_is_in(char c, char *str)
 {
