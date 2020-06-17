@@ -1,15 +1,12 @@
-
-S  ./img/earth.xpm
-F 122 ,	122 , 80
-
-SO 	./img/eagle.xpm
-
-R    950   500
-NO  ./img/eagle.xpm
-WE ./img/eagle.xpm
-EA  ./img/eagle.xpm
-
+R 1150 630
+NO ./img/space/42sp.xpm
+WE ./img/space/space5.xpm
+EA ./img/space/dark2.xpm
+SO ./img/space/space1.xpm
+S ./img/space/astro.xpm
+F 122, 122, 80
 C 0,0,102
+
 
 
             1111111111111111

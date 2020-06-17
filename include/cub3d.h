@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 17:02:44 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 04:41:12 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h> // tirar depois
 
 # define INT_MAX 2147483647
-# define PI 3.14159265359
+# define PI 3.1416
 # define W_KEY 0x0077
 # define S_KEY 0x0073
 # define A_KEY 0x0061
@@ -31,8 +31,8 @@
 # define LEFT_ARROW_KEY 0x00ff51
 # define M_KEY 0x006d
 # define ESC_KEY 0x00ff1b
-# define NORTH 4.71238898
-# define SOUTH 1.570796327
+# define NORTH 4.71
+# define SOUTH 1.57
 # define EAST 0
 # define WEST PI
 # define HORZ 0
@@ -76,8 +76,8 @@ typedef struct	s_data {
 }				t_data;
 
 typedef struct	s_point {
-	float		x;
-	float		y;
+	double		x;
+	double		y;
 	int			color;
 }				t_point;
 
@@ -93,7 +93,7 @@ typedef struct	s_map {
 	int			n_column;
 	int			n_row;
 	t_point		*init_posit;
-	float		rotation_angle;
+	double		rotation_angle;
 	int			num_rays;
 	t_color		*color;
 	char		**path;
@@ -105,16 +105,16 @@ typedef struct	s_player {
 	t_point		*posit;
 	int			turn_direction;
 	int			walk_direction;
-	float		rotation_angle;
+	double		rotation_angle;
 	int			move_speed;
-	float		rotation_speed;
-	float		dist_proj_plane;
+	double		rotation_speed;
+	double		dist_proj_plane;
 }				t_player;
 
 typedef struct	s_ray {
 	t_point		*collision;
-	float		dist_wall;
-	float		ray_angle;
+	double		dist_wall;
+	double		ray_angle;
 	int			coord;
 }				t_ray;
 
@@ -127,11 +127,11 @@ typedef struct	s_tex {
 typedef struct	s_sprite
 {
 	t_point		*posit;
-	float		angle;
-	float		angle_dif;
-	float		dist;
-	float		height;
-	float		width;
+	double		angle;
+	double		angle_dif;
+	double		dist;
+	double		height;
+	double		width;
 	int			ray_facing;
 }				t_sprite;
 
@@ -152,6 +152,7 @@ typedef struct	s_vars {
 ** validate and parse input functions
 */
 
+int				check_args(int argc, char **argv);
 int				read_file(char *file, t_map *map);
 int				get_map_info(t_map *map, char *line, int *row);
 void			get_identifier(t_map *map, char *line);
@@ -166,47 +167,54 @@ int				fill_columns(t_map *map);
 int				is_empty_line(char *line);
 int				validate_map(t_map *map);
 int				check_lack_info(t_map *map);
-int				ft_error(t_map *map, int i);
+
+/*
+** error functions
+*/
+
 char			*error_messeges(int i);
 int				free_map(t_map *map);
+int				ft_error(t_map *map, int i);
 int				ft_path_error(t_vars *vars);
+int				ft_arg_error(int i);
 
 /*
 ** geometry and aux functions
 */
 
-void			ft_rectangle(t_data *img, t_point point, int l_width,
-				int l_height);
+void			ft_rectangle(t_data *img, t_point point, int width, int height);
 void		 	ft_line(t_data *img, int *p0, int *p1, int color);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
-float			ft_normalize_angle(float angle);
-int				ray_facing(float angle, int way);
-float			dist_btw_points(float x0, float y0, float x1, float y1);
-int				is_end_window(t_map *map, float x, float y);
+double			ft_normalize_angle(double angle);
+double			dist_btw_points(double x0, double y0, double x1, double y1);
+int				is_end_window(t_map *map, double x, double y);
 int				ft_c_is_in(char c, char *str);
 void			check_n_free(void *ptr);
 void			**allocate_dynamic(void **buffer, int size, int m);
 void			clean_buffer(void **buffer, int n_arrays);
 void			free_tex(void *mlx, t_tex **tex);
+int				**alocate_buffer(int n_arrays, int n_elem);
+
 
 /*
 ** color and texture functions
 */
 
-t_tex			*get_texture(void *mlx_ptr, char *path);
-int				store_tex(t_vars *vars, int y, int i, float *limit);
+t_tex			*load_texture(void *mlx_ptr, char *path);
+int				put_texture(t_vars *vars, int y, int i, double *limit);
 int				ft_rgb(int r, int g, int b);
-int				get_texture_color(t_tex *texture, int x, int y);
+int				get_texture_color(t_tex *tex, int x, int y);
 
 /*
 ** init and finish game functions
 */
 
 int				create_n_check(t_vars *vars);
-void			init_game(t_vars *vars);
+void			init_game(t_vars *vars, int argc);
 void			put_game(t_vars *vars);
 void			clean_ray_struct(t_vars *vars);
-int				close_program(t_vars *vars);
+int				clean_before_close(t_vars *vars);
+int				close_program(void);
 
 /*
 ** setup, crate and assign variables
@@ -214,18 +222,20 @@ int				close_program(t_vars *vars);
 
 t_data			*create_image(void *mlx_ptr, t_map *map);
 t_point			*create_point(int x, int y, int color);
-t_player		*create_player(t_map *map, int move_speed, float rotat_speed);
+t_player		*create_player(t_map *map, int move_speed, double rotat_speed);
 t_tex			**create_texture(void *mlx_ptr, char **path);
 t_sprite 		**create_sprite(t_map *map);
 void			assign_point(t_point *point, int x, int y, int color);
 
 /*
-** mini map and player functions
+** render 2d and 3d functions
 */
 
 void			allocate_map(t_vars *vars);
 void			put_minimap(t_vars *vars);
 int				is_wall(t_map *map, int x, int y, char identf);
+void			put_3dmap(t_vars *vars);
+void			put_colors(t_vars *vars, double wall_proj_height, int i);
 
 /*
 ** key move player functions
@@ -240,21 +250,15 @@ int				update_new_position(t_vars *vars);
 ** raycast calculation
 */
 
+int				ray_facing(double angle, int way);
 t_ray			**ft_raycast(t_vars *vars);
-void			check_closest_wall(t_vars *vars, t_ray *ray, float ray_angle);
-void			assign_ray(t_ray *ray, t_point *collision, float dist_wall,
+void			check_closest_wall(t_vars *vars, t_ray *ray, double ray_angle);
+void			assign_ray(t_ray *ray, t_point *collision, double dist_wall,
 				int coord);
-t_point			*cast_ray(t_vars *vars, float ray_angle, int coord, t_point *next);
-t_point			*horz_inter(t_vars *vars, t_point *intercept, float ray_angle);
-t_point			*vert_inter(t_vars *vars, t_point *intercept, float ray_angle);
+t_point			*cast_ray(t_vars *vars, double ray_angle, int coord, t_point *next);
+t_point			*horz_inter(t_vars *vars, t_point *intercept, double ray_angle);
+t_point			*vert_inter(t_vars *vars, t_point *intercept, double ray_angle);
 void			put_rays(t_vars *vars);
-
-/*
-** render 3d map
-*/
-
-void			put_3dmap(t_vars *vars);
-void			store_all_colors(t_vars *vars, float wall_proj_height, int i);
 
 /*
 ** sprites functions
@@ -264,5 +268,14 @@ void			put_sprites(t_vars *vars);
 void			calculate_sprite(t_vars *vars, int s);
 void			draw_sprite(t_vars *vars, int s, int x);
 void			sort_sprite(t_vars *vars);
+
+/*
+** convert to bpm functions
+*/
+
+int				render_bpm(t_vars *vars);
+void			bpm_header(t_vars *vars, int fd);
+void			little_endian(unsigned char *addr, unsigned int value, size_t size);
+int				store_color(t_vars *vars, int x, int y);
 
 #endif

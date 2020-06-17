@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_vars.c                                      :+:      :+:    :+:   */
+/*   vars_create.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 16:25:43 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:15:31 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	create_n_check(t_vars *vars)
-{
-	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, vars->map->width,
-				vars->map->height, "MAP");
-	if (!(vars->tex = create_texture(vars->mlx, vars->map->path)))
-		return (ft_path_error(vars));
-	vars->data = create_image(vars->mlx, vars->map);
-	vars->point = create_point(0, 0, 0);
-	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
-	vars->sprite = create_sprite(vars->map);
-	vars->minimap = TRUE;
-	return (1);
-}
-
-void		assign_point(t_point *point, int x, int y, int color)
-{
-	point->x = x;
-	point->y = y;
-	point->color = color;
-}
-
-t_player	*create_player(t_map *map, int move_speed, float rotat_speed)
+t_player	*create_player(t_map *map, int move_speed, double rotat_speed)
 {
 	t_player	*player;
 
@@ -76,11 +54,11 @@ t_tex		**create_texture(void *mlx_ptr, char **path)
 	t_tex	**texture;
 
 	texture = ft_calloc(5, sizeof(t_tex *));
-	texture[north] = get_texture(mlx_ptr, path[north]);
-	texture[south] = get_texture(mlx_ptr, path[south]);
-	texture[east] = get_texture(mlx_ptr, path[east]);
-	texture[west] = get_texture(mlx_ptr, path[west]);
-	texture[sprite] = get_texture(mlx_ptr, path[sprite]);
+	texture[north] = load_texture(mlx_ptr, path[north]);
+	texture[south] = load_texture(mlx_ptr, path[south]);
+	texture[east] = load_texture(mlx_ptr, path[east]);
+	texture[west] = load_texture(mlx_ptr, path[west]);
+	texture[sprite] = load_texture(mlx_ptr, path[sprite]);
 	if (!(texture[north]) || !(texture[south]) || !(texture[east]) ||
 	!(texture[west]) || !(texture[sprite]))
 	{

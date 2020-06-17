@@ -1,102 +1,94 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   geometry.c                                         :+:      :+:    :+:   */
+/*   geometry_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 03:11:15 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 16:18:46 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/14 23:08:27 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_rectangle(t_data *img, t_point point, int l_width, int l_height)
+static void	loop_ray_x(t_data *img, int *p1, int *dif, t_point coord)
 {
-	int x;
-	int y;
-
-	x = 0;
-	while (x < l_width)
-	{
-		y = 0;
-		while (y < l_height)
-		{
-			my_mlx_pixel_put(img, point.x + x, point.y + y, point.color);
-			y++;
-		}
-		x++;
-	}
-}
-
-void	ft_increment_x(t_data *img, int *p0, int *p1, int *dif)
-{
-	int x;
-	int	y;
-	int d;
+	int	d;
 
 	d = dif[VERT] - dif[HORZ];
+	while (coord.x <= p1[HORZ])
+	{
+		if (d < 0)
+			d += dif[2];
+		else
+		{
+			d += dif[3];
+			coord.y += (coord.y < p1[VERT]) ? 1 : -1;
+		}
+		coord.x++;
+		my_mlx_pixel_put(img, coord.x, coord.y, dif[4]);
+	}
+}
+
+static void	ft_increment_x(t_data *img, int *p0, int *p1, int *dif)
+{
+	t_point	coord;
+
 	if (p0[HORZ] < p1[HORZ])
 	{
-		x = p0[HORZ];
-		y = p0[VERT];
+		coord.x = p0[HORZ];
+		coord.y = p0[VERT];
 	}
 	else
 	{
 		ft_swap(&p0[HORZ], &p1[HORZ]);
 		ft_swap(&p0[VERT], &p1[VERT]);
-		x = p0[HORZ];
-		y = p0[VERT];
+		coord.x = p0[HORZ];
+		coord.y = p0[VERT];
 	}
-	while(x <= p1[HORZ])
-	{
-		if (d < 0)
-			d += dif[2];
-		else
-		{
-			d += dif[3];
-			y += (y < p1[VERT]) ? 1 : -1;
-		}
-		x++;
-		my_mlx_pixel_put(img, x, y, dif[4]);
-	}
+	loop_ray_x(img, p1, dif, coord);
 }
 
-void	ft_increment_y(t_data *img, int *p0, int *p1, int *dif)
+static void	loop_ray_y(t_data *img, int *p1, int *dif, t_point coord)
 {
-	int x;
-	int y;
-	int d;
+	int	d;
 
 	d = dif[HORZ] - dif[VERT];
-	if (p0[VERT] < p1[VERT])
-	{
-		x = p0[HORZ];
-		y = p0[VERT];
-	}
-	else
-	{
-		ft_swap(&p0[HORZ], &p1[HORZ]);
-		ft_swap(&p0[VERT], &p1[VERT]);
-		x = p0[HORZ];
-		y = p0[VERT];
-	}
-	while(y <= p1[VERT])
+	while (coord.y <= p1[VERT])
 	{
 		if (d < 0)
 			d += dif[2];
 		else
 		{
 			d += dif[3];
-			x += (x < p1[HORZ]) ? 1 : -1;
+			coord.x += (coord.x < p1[HORZ]) ? 1 : -1;
 		}
-		y++;
-		my_mlx_pixel_put(img, x, y, dif[4]);
+		coord.y++;
+		my_mlx_pixel_put(img, coord.x, coord.y, dif[4]);
 	}
 }
 
-void	ft_line(t_data *img, int *p0, int *p1, int color)
+static void	ft_increment_y(t_data *img, int *p0, int *p1, int *dif)
+{
+	t_point	coord;
+
+	if (p0[VERT] < p1[VERT])
+	{
+		coord.x = p0[HORZ];
+		coord.y = p0[VERT];
+	}
+	else
+	{
+		ft_swap(&p0[HORZ], &p1[HORZ]);
+		ft_swap(&p0[VERT], &p1[VERT]);
+		coord.x = p0[HORZ];
+		coord.y = p0[VERT];
+	}
+	loop_ray_y(img, p1, dif, coord);
+}
+
+void		ft_line(t_data *img, int *p0, int *p1, int color)
 {
 	int	dif[5];
 
@@ -107,14 +99,14 @@ void	ft_line(t_data *img, int *p0, int *p1, int color)
 	dif[VERT] *= (dif[VERT] > 0) ? 1 : -1;
 	if (dif[HORZ] >= dif[VERT])
 	{
-		dif[2] = dif[VERT]; 					//	ds = dy
-		dif[3] = dif[VERT] - dif[HORZ];			//  dt = dy - dx
+		dif[2] = dif[VERT];
+		dif[3] = dif[VERT] - dif[HORZ];
 		ft_increment_x(img, p0, p1, dif);
 	}
 	else
 	{
-		dif[2] = dif[HORZ];						//	ds = dx
-		dif[3] = dif[HORZ] - dif[VERT];			//  dt = dx - dy
+		dif[2] = dif[HORZ];
+		dif[3] = dif[HORZ] - dif[VERT];
 		ft_increment_y(img, p0, p1, dif);
 	}
 }

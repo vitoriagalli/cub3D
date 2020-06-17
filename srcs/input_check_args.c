@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   input_check_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:41:31 by vscabell         ###   ########.fr       */
+/*   Created: 2020/06/17 01:30:01 by vscabell          #+#    #+#             */
+/*   Updated: 2020/06/17 04:45:09 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+static int		ft_is_cub(char *str)
 {
-	t_vars	vars;
+	size_t	i;
 
-	check_args(argc, argv);
-	allocate_map(&vars);
-	if (!read_file(argv[1], vars.map) || !(create_n_check(&vars)))
+	i = ft_strlen(str) - 4;
+	if (ft_memcmp(&str[i], ".cub", 4))
 		return (0);
-	init_game(&vars, argc);
-	mlx_hook(vars.win, 2, (1l << 0), move_player_press, &vars);
-	mlx_loop(vars.mlx);
+	return (1);
+}
+
+int				check_args(int argc, char **argv)
+{
+	if (argc == 1)
+		return (ft_arg_error(-1));
+	else if (argc > 3)
+		return (ft_arg_error(-2));
+	else if (!(ft_is_cub(argv[1])))
+		return (ft_arg_error(-3));
+	else if (argc == 3 && ft_memcmp(argv[2], "--save", 6))
+		return (ft_arg_error(-4));
 	return (0);
 }

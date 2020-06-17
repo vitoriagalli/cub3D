@@ -1,12 +1,12 @@
-R 1000 610
-NO ./img/wood.xpm
-SO ./img/bluestone.xpm
-WE ./img/greystone.xpm
-EA ./img/redbrick.xpm
+R
+NO ./img/orig/wood.xpm
+SO ./img/orig/bluestone.xpm
+WE ./img/orig/greystone.xpm
+EA ./img/orig/redbrick.xpm
 
-S  ./img/pillar.xpm
+S  ./img/orig/pillar.xpm
 
-F 200,200,80
+F 173 , 97, 21
 C 0,255,255
 
 

@@ -1,27 +1,31 @@
-NAME = a.out
+NAME = cub3d
 
 SRC_DIR = srcs
 GNL_DIR = gnl
 LIBFT_DIR = libft
 
 SRC =	$(SRC_DIR)/main.c \
-		$(SRC_DIR)/init_map.c \
-		$(SRC_DIR)/create_vars.c \
+		$(SRC_DIR)/geometry_line.c \
+		$(SRC_DIR)/geometry_rect.c \
+		$(SRC_DIR)/input_check_args.c \
+		$(SRC_DIR)/input_read_n_validate.c \
+		$(SRC_DIR)/input_parse_identif.c \
+		$(SRC_DIR)/input_parse_map.c \
+		$(SRC_DIR)/vars_init.c \
+		$(SRC_DIR)/vars_create.c \
 		$(SRC_DIR)/game.c \
-		$(SRC_DIR)/raycast.c \
-		$(SRC_DIR)/calculate_interception.c \
-		$(SRC_DIR)/put_2dmap.c \
-		$(SRC_DIR)/projection3d.c \
 		$(SRC_DIR)/key_update.c \
-		$(SRC_DIR)/text_colors.c \
+		$(SRC_DIR)/raycast.c \
+		$(SRC_DIR)/raycast_intercept.c \
+		$(SRC_DIR)/render_2d.c \
+		$(SRC_DIR)/render_3d.c \
 		$(SRC_DIR)/sprite.c \
-		$(SRC_DIR)/geometry.c \
-		$(SRC_DIR)/aux.c \
-		$(SRC_DIR)/aux_memory.c \
-		$(SRC_DIR)/validate_file.c \
-		$(SRC_DIR)/parse_identif.c \
-		$(SRC_DIR)/parse_map.c \
+		$(SRC_DIR)/mlx_funct.c \
+		$(SRC_DIR)/auxiliar_funct.c \
+		$(SRC_DIR)/free_info.c \
+		$(SRC_DIR)/error.c \
 		$(GNL_DIR)/get_next_line.c \
+		$(SRC_DIR)/render_bpm.c \
 
 OBJ = $(SRC:.c=.o)
 

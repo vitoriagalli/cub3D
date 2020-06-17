@@ -1,13 +1,13 @@
 
-S  ./img/pillar.xpm
+S  ./img/space/astro.xpm
 F 		200    ,			200  , 80
 
-SO 			./img/eagle.xpm
+SO 			./img/space/42sp.xpm
 
 R    900   600
-NO       ./img/eagle.xpm
-WE   ./img/eagle.xpm
-EA  ./img/eagle.xpm
+NO       ./img/space/42.xpm
+WE   ./img/space/dark.xpm
+EA  ./img/space/dark2.xpm
 
 C 0,255,255
 

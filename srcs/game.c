@@ -6,16 +6,22 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 16:17:43 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 04:42:45 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_game(t_vars *vars)
+void	init_game(t_vars *vars, int argc)
 {
 	put_game(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
+	if (argc == 2)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
+	else
+	{
+		render_bpm(vars);		//fix the window
+		close_program();
+	}
 }
 
 void	put_game(t_vars *vars)
@@ -48,11 +54,11 @@ void	clean_ray_struct(t_vars *vars)
 	vars->ray = NULL;
 }
 
-int		close_program(t_vars *vars)
+int		clean_before_close(t_vars *vars)
 {
 	clean_buffer((void **)vars->map->map_grid, vars->map->n_row);
 	clean_buffer((void **)vars->map->path, 5);
-	free_tex(vars->mlx, vars->tex);;
+	free_tex(vars->mlx, vars->tex);
 	free(vars->map->color);
 	free(vars->map);
 	free(vars->point);
@@ -60,6 +66,11 @@ int		close_program(t_vars *vars)
 	free(vars->player);
 	mlx_destroy_image(vars->mlx, vars->data->img);
 	mlx_destroy_window(vars->mlx, vars->win);
+	return (close_program());
+}
+
+int		close_program(void)
+{
 	exit(0);
 	return (0);
 }

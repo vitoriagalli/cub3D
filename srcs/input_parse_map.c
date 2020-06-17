@@ -1,17 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   input_parse_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 00:15:16 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 04:27:00 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
+
+int		get_map_info(t_map *map, char *line, int *row)
+{
+	int	n_col;
+	int	i;
+
+	i = *row;
+	n_col = 0;
+	map->map_grid = (char **)allocate_dynamic((void **)map->map_grid,
+					sizeof(char *), i);
+	if (!(n_col = parse_row_map(map, line, map->n_row)) || n_col < 0)
+	{
+		free(line);
+		return (n_col);
+	}
+	map->n_column = n_col > map->n_column ? n_col : map->n_column;
+	map->n_row++;
+	i++;
+	*row = i;
+	return (n_col);
+}
 
 int		parse_row_map(t_map *map, char *line, int row)
 {
@@ -25,10 +45,10 @@ int		parse_row_map(t_map *map, char *line, int row)
 	{
 		map->map_grid[row][i] = line[i];
 		if (!(ft_c_is_in(line[i], "NSEW 012")))
-			return (-2);
+			return (-6);
 		if (ft_c_is_in(line[i], "NSEW"))
 			if (parse_player_location(map, line[i], row, i) < 0)
-				return (-3);
+				return (-7);
 		if (line[i] == '2')
 		{
 			map->sprite_posit = (t_point **)allocate_dynamic(
@@ -61,7 +81,7 @@ int		fill_columns(t_map *map)
 	int	j;
 
 	i = 0;
-	while (map->map_grid[i] && i < map->n_row)
+	while (i < map->n_row && map->map_grid[i])
 	{
 		j = 0;
 		while (map->map_grid[i][j])
@@ -82,17 +102,10 @@ int		is_empty_line(char *line)
 	while (*line && line[i] == ' ')
 		i++;
 	if (line[i] != '\0')
+	{
+		free(line);
 		return (0);
+	}
+	free(line);
 	return (1);
-}
-
-int		is_identifier(char *line)
-{
-	if (ft_c_is_in(line[0], "RCFS") ||
-		(line[0] == 'N' && line[1] == 'O') ||
-		(line[0] == 'W' && line[1] == 'E') ||
-		(line[0] == 'E' && line[1] == 'A') ||
-		(line[0] == 'S' && line[1] == '0'))
-		return (1);
-	return (0);
 }

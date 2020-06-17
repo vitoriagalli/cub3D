@@ -1,18 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calculate_interception.c                           :+:      :+:    :+:   */
+/*   raycast_intercept.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 01:53:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 03:32:37 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/15 02:48:21 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_point	*horz_inter(t_vars *vars, t_point *intercept, float ray_angle)
+int		ray_facing(double angle, int way)
+{
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+
+	down = (angle > 0 && angle < PI) ? TRUE : FALSE;
+	up = !(down) ? TRUE : FALSE;
+	left = (angle > PI / 2 && angle < 3 * PI / 2) ? TRUE : FALSE;
+	right = !left ? TRUE : FALSE;
+	if (way == ray_up)
+		return (up);
+	else if (way == ray_down)
+		return (down);
+	else if (way == ray_left)
+		return (left);
+	else if (way == ray_right)
+		return (right);
+	return (-1);
+}
+
+t_point	*horz_inter(t_vars *vars, t_point *intercept, double ray_angle)
 {
 	t_point	*step;
 
@@ -29,7 +51,7 @@ t_point	*horz_inter(t_vars *vars, t_point *intercept, float ray_angle)
 	return (step);
 }
 
-t_point	*vert_inter(t_vars *vars, t_point *intercept, float ray_angle)
+t_point	*vert_inter(t_vars *vars, t_point *intercept, double ray_angle)
 {
 	t_point	*step;
 
@@ -46,11 +68,11 @@ t_point	*vert_inter(t_vars *vars, t_point *intercept, float ray_angle)
 	return (step);
 }
 
-t_point	*cast_ray(t_vars *vars, float ray_angle, int coord, t_point *next)
+t_point	*cast_ray(t_vars *vars, double ray_angle, int coord, t_point *next)
 {
 	t_point	*step;
-	float	x_chk;
-	float	y_chk;
+	double	x_chk;
+	double	y_chk;
 
 	step = (coord == HORZ) ? horz_inter(vars, next, ray_angle) :
 							vert_inter(vars, next, ray_angle);

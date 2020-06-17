@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_2dmap.c                                        :+:      :+:    :+:   */
+/*   render_2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 16:18:16 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/15 02:43:48 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,12 @@ int		is_wall(t_map *map, int x, int y, char identf)
 	if (map->map_grid[grid_y][grid_x] == identf)
 		return (TRUE);
 	return (FALSE);
+}
+
+int		is_end_window(t_map *map, double x, double y)
+{
+	if (x < 0 || x >= map->n_column * TILE_SIZE ||
+		y < 0 || y >= map->n_row * TILE_SIZE)
+		return (1);
+	return (0);
 }

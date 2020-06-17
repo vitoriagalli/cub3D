@@ -6,25 +6,25 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 00:19:46 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 16:01:59 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/15 02:49:48 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	assign_ray(t_ray *ray, t_point *collision, float dist_wall, int coord)
+void	assign_ray(t_ray *ray, t_point *collision, double dist_wall, int coord)
 {
 	ray->collision = collision;
 	ray->dist_wall = dist_wall;
 	ray->coord = coord;
 }
 
-void	check_closest_wall(t_vars *vars, t_ray *ray, float ray_angle)
+void	check_closest_wall(t_vars *vars, t_ray *ray, double ray_angle)
 {
 	t_point	*horz_intercept;
 	t_point *vert_intercept;
-	float	dist_horz;
-	float	dist_vert;
+	double	dist_horz;
+	double	dist_vert;
 
 	horz_intercept = cast_ray(vars, ray_angle, HORZ, create_point(0, 0, 0));
 	vert_intercept = cast_ray(vars, ray_angle, VERT, create_point(0, 0, 0));
@@ -50,7 +50,7 @@ void	check_closest_wall(t_vars *vars, t_ray *ray, float ray_angle)
 t_ray	**ft_raycast(t_vars *vars)
 {
 	t_ray	**ray;
-	float	ray_angle;
+	double	ray_angle;
 	int		i;
 
 	ray = ft_calloc(vars->map->num_rays, sizeof(t_ray *));

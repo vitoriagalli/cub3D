@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection3d.c                                     :+:      :+:    :+:   */
+/*   render_3d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 16:51:03 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/16 22:32:10 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	put_3dmap(t_vars *vars)
 {
-	float	correct_dist_plane;
-	float	wall_proj_height;
+	double	correct_dist_plane;
+	double	wall_proj_height;
 	int		i;
 
 	i = 0;
@@ -28,14 +28,14 @@ void	put_3dmap(t_vars *vars)
 							vars->player->dist_proj_plane;
 		wall_proj_height = (wall_proj_height < vars->map->height) ?
 							wall_proj_height : vars->map->height;
-		store_all_colors(vars, wall_proj_height, i);
+		put_colors(vars, wall_proj_height, i);
 		i++;
 	}
 }
 
-void	store_all_colors(t_vars *vars, float wall_proj_height, int i)
+void	put_colors(t_vars *vars, double wall_proj_height, int i)
 {
-	float	limit_y[2];
+	double	limit_y[2];
 	int		x;
 	int		y;
 
@@ -49,7 +49,7 @@ void	store_all_colors(t_vars *vars, float wall_proj_height, int i)
 			my_mlx_pixel_put(vars->data, x, y, vars->map->color->ceilling);
 		y--;
 		while (++y <= limit_y[1] && y < vars->map->height)
-			my_mlx_pixel_put(vars->data, x, y, store_tex(vars, y, i, limit_y));
+			my_mlx_pixel_put(vars->data, x, y, put_texture(vars, y, i, limit_y));
 		y--;
 		while (++y <= vars->map->height)
 			my_mlx_pixel_put(vars->data, x, y, vars->map->color->floor);
@@ -57,11 +57,11 @@ void	store_all_colors(t_vars *vars, float wall_proj_height, int i)
 	}
 }
 
-int		store_tex(t_vars *vars, int y, int i, float *limit)
+int		put_texture(t_vars *vars, int y, int i, double *limit)
 {
 	t_ray	*ray;
-	float	ymin;
-	float	ymax;
+	double	ymin;
+	double	ymax;
 
 	ray = NULL;
 	ymin = limit[0];

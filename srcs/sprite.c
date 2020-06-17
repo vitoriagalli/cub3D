@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 16:28:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 02:43:48 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 04:52:58 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,24 @@ void	calculate_sprite(t_vars *vars, int s)
 	int xi;
 
 	xi = 0;
-	vars->sprite[s]->angle = atan2((vars->sprite[s]->posit->y - vars->player->posit->y),(vars->sprite[s]->posit->x - vars->player->posit->x));
-	vars->sprite[s]->angle_dif = (vars->player->rotation_angle - vars->sprite[s]->angle);
+	vars->sprite[s]->angle = atan2((vars->sprite[s]->posit->y - vars->player->
+	posit->y), (vars->sprite[s]->posit->x - vars->player->posit->x));
+	vars->sprite[s]->angle_dif = (vars->player->rotation_angle - vars->sprite[s]
+	->angle);
 	if (vars->sprite[s]->angle_dif < -1 * PI)
-	 	vars->sprite[s]->angle_dif += 2 * PI;
+		vars->sprite[s]->angle_dif += 2 * PI;
 	if (vars->sprite[s]->angle_dif > PI)
 		vars->sprite[s]->angle_dif -= 2 * PI;
 	vars->sprite[s]->angle_dif = fabs(vars->sprite[s]->angle_dif);
 	vars->sprite[s]->dist *= (cos(vars->sprite[s]->angle_dif));
 	if (vars->sprite[s]->angle_dif < FOV / 2)
 	{
-		vars->sprite[s]->height = (TILE_SIZE * vars->player->dist_proj_plane / vars->sprite[s]->dist);
-		vars->sprite[s]->width = (vars->sprite[s]->height * vars->tex[sprite]->width / vars->tex[sprite]->height);
-		xi = tan(vars->sprite[s]->angle - vars->player->rotation_angle) * vars->player->dist_proj_plane + (vars->map->width / 2);
+		vars->sprite[s]->height = (TILE_SIZE * vars->player->dist_proj_plane /
+		vars->sprite[s]->dist);
+		vars->sprite[s]->width = (vars->sprite[s]->height * vars->tex[sprite]->
+		width / vars->tex[sprite]->height);
+		xi = tan(vars->sprite[s]->angle - vars->player->rotation_angle) * vars->
+		player->dist_proj_plane + (vars->map->width / 2);
 		draw_sprite(vars, s, xi);
 	}
 }
@@ -58,14 +63,19 @@ void	draw_sprite(t_vars *vars, int s, int x)
 	start.x = i.x;
 	while (i.x < x + vars->sprite[s]->width / 2 && vars->sprite[s]->posit->x)
 	{
-		tex.x = vars->tex[sprite]->width * (i.x - start.x) / vars->sprite[s]->width;
-		i.y = (vars->map->height / 2) - (vars->sprite[s]->width/ 2);
+		tex.x = vars->tex[sprite]->width * (i.x - start.x) /
+		vars->sprite[s]->width;
+		i.y = (vars->map->height / 2) - (vars->sprite[s]->width / 2);
 		start.y = i.y;
-		while (i.y < (vars->map->height / 2) + (vars->sprite[s]->height / 2) && i.x >= 0 && i.x <= vars->map->width)
+		while (i.y < (vars->map->height / 2) + (vars->sprite[s]->height / 2) &&
+		i.x >= 0 && i.x <= vars->map->width)
 		{
-			tex.y = vars->tex[sprite]->height * (i.y - start.y) / vars->sprite[s]->height;
-			if (i.x > 0 && i.x < vars->map->width && i.y > 0 && i.y < vars->map->height && vars->sprite[s]->dist < vars->ray[(int)i.x]->dist_wall)
-				((color = get_texture_color(vars->tex[sprite], tex.x, tex.y)) & 0x00FFFFFF) ? my_mlx_pixel_put(vars->data, i.x, i.y, color) : 0;
+			tex.y = vars->tex[sprite]->height * (i.y - start.y) /
+			vars->sprite[s]->height;
+			if (i.x > 0 && i.x < vars->map->width && i.y > 0 && i.y < vars->map
+			->height && vars->sprite[s]->dist < vars->ray[(int)i.x]->dist_wall)
+				((color = get_texture_color(vars->tex[sprite], tex.x, tex.y)) &
+				0x00FFFFFF) ? my_mlx_pixel_put(vars->data, i.x, i.y, color) : 0;
 			i.y++;
 		}
 		i.x++;

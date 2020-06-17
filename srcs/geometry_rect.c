@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   geometry_rect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:41:31 by vscabell         ###   ########.fr       */
+/*   Created: 2020/06/01 03:11:15 by vscabell          #+#    #+#             */
+/*   Updated: 2020/06/14 23:08:22 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+void	ft_rectangle(t_data *img, t_point point, int width, int height)
 {
-	t_vars	vars;
+	int x;
+	int y;
 
-	check_args(argc, argv);
-	allocate_map(&vars);
-	if (!read_file(argv[1], vars.map) || !(create_n_check(&vars)))
-		return (0);
-	init_game(&vars, argc);
-	mlx_hook(vars.win, 2, (1l << 0), move_player_press, &vars);
-	mlx_loop(vars.mlx);
-	return (0);
+	x = 0;
+	while (x < width)
+	{
+		y = 0;
+		while (y < height)
+		{
+			my_mlx_pixel_put(img, point.x + x, point.y + y, point.color);
+			y++;
+		}
+		x++;
+	}
 }
