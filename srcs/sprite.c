@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 16:28:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:52:58 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 18:02:14 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,26 +56,25 @@ void	draw_sprite(t_vars *vars, int s, int x)
 {
 	t_point			i;
 	t_point			tex;
-	t_point			start;
+	t_point			p;
 	unsigned int	color;
 
 	i.x = x - vars->sprite[s]->width / 2;
-	start.x = i.x;
+	p.x = i.x;
 	while (i.x < x + vars->sprite[s]->width / 2 && vars->sprite[s]->posit->x)
 	{
-		tex.x = vars->tex[sprite]->width * (i.x - start.x) /
-		vars->sprite[s]->width;
+		tex.x = vars->tex[sprite]->width * (i.x - p.x) / vars->sprite[s]->width;
 		i.y = (vars->map->height / 2) - (vars->sprite[s]->width / 2);
-		start.y = i.y;
+		p.y = i.y;
 		while (i.y < (vars->map->height / 2) + (vars->sprite[s]->height / 2) &&
 		i.x >= 0 && i.x <= vars->map->width)
 		{
-			tex.y = vars->tex[sprite]->height * (i.y - start.y) /
+			tex.y = vars->tex[sprite]->height * (i.y - p.y) /
 			vars->sprite[s]->height;
 			if (i.x > 0 && i.x < vars->map->width && i.y > 0 && i.y < vars->map
 			->height && vars->sprite[s]->dist < vars->ray[(int)i.x]->dist_wall)
-				((color = get_texture_color(vars->tex[sprite], tex.x, tex.y)) &
-				0x00FFFFFF) ? my_mlx_pixel_put(vars->data, i.x, i.y, color) : 0;
+				(color = get_texture_color(vars->tex[sprite], tex.x, tex.y)) ?
+				my_mlx_pixel_put(vars->data, i.x, i.y, color) : 0;
 			i.y++;
 		}
 		i.x++;

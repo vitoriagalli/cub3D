@@ -1,18 +1,18 @@
 F 		200,		200,   80
 
 
-SO 			./img/orig/bluestone.xpm
+SO 			./text/orig/bluestone.xpm
 
 
 R    1100    600
-NO       ./img/orig/wood.xpm
-WE   ./img/orig/greystone.xpm
-EA		./img/orig/eagle.xpm
+NO       ./text/orig/wood.xpm
+WE   ./text/orig/greystone.xpm
+EA		./text/orig/eagle.xpm
 
 
 C 0,255,255
 
-S  ./img/orig/pillar.xpm
+S  ./text/orig/pillar.xpm
 
 11111111111111111111
 10000000000000000001

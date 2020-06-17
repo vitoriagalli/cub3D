@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_identif.c                                    :+:      :+:    :+:   */
+/*   input_parse_identif.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 20:06:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/13 00:07:55 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:21:27 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	parse_resolution(char *str, t_map *map)
 	}
 	if (j < 2 || (str[i] != ' ' && str[i] != '\0'))
 		return ;
-	map->width = nb[0];
-	map->height = nb[1];
+	map->width = nb[0] > MAX_DISPLAY_WIDTH ? MAX_DISPLAY_WIDTH : nb[0];
+	map->height = nb[1] > MAX_DISPLAY_HEIGHT ? MAX_DISPLAY_HEIGHT : nb[1];
 	map->num_rays = map->width / WALL_WIDTH;
 }

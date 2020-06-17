@@ -63,14 +63,11 @@ to create the original color. Theses three values must be set inside the
 integer to display the right color. The three least significant bytes of
 this integer are filled as shown in the picture below:
 
-.TS
-allbox;
-c	s	s	s	s
-r	c	c	c	c.
-Color Integer
-Interpretation	\[*a]	R	G	B
-Bit numbers	31..24	23..16	15..8	7..0
-.TE
+.nf
+        | 0 | R | G | B |   color integer
+        +---+---+---+---+
+.fi
+
 
 While filling the integer, make sure you avoid endian problems. Remember
 that the "blue" byte should always be the least significant one.

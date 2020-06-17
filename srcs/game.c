@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:42:45 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:52:06 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_game(t_vars *vars, int argc)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 	else
 	{
-		render_bpm(vars);		//fix the window
+		render_bpm(vars);
 		close_program();
 	}
 }

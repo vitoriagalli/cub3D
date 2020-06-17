@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 16:42:31 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:46:19 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:53:46 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_tex	*load_texture(void *mlx_ptr, char *path)
 	return (tex);
 }
 
-int	get_texture_color(t_tex *tex, int x, int y)
+int		get_texture_color(t_tex *tex, int x, int y)
 {
 	int		offset;
 

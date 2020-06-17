@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:40:56 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:55:07 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:50:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	bpm_header(t_vars *vars, int fd)
 	unsigned char c[54];
 
 	ft_bzero(&c, 54);
-	c[0] = 'B';							//file type
-	c[1] = 'M';							//file type
-	little_endian(&c[10], 54, 4);		//pixel data offset
-	little_endian(&c[14], 40, 4); 		//header size wich is 40
-	little_endian(&c[18], vars->map->width, 4);		//width final image
-	little_endian(&c[22], vars->map->height, 4);	//height final image
-	little_endian(&c[26], 1, 2);		//numb of color planes
-	little_endian(&c[28], 32, 2);		//numb of bits a pixel takes to represent a color
+	c[0] = 'B';
+	c[1] = 'M';
+	little_endian(&c[10], 54, 4);
+	little_endian(&c[14], 40, 4);
+	little_endian(&c[18], vars->map->width, 4);
+	little_endian(&c[22], vars->map->height, 4);
+	little_endian(&c[26], 1, 2);
+	little_endian(&c[28], 32, 2);
 	write(fd, c, 54);
 }
 

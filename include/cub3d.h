@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:41:12 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:51:21 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@
 # define TRUE 1
 # define WALL_2D_COLOR 0x000000
 # define VOID_2D_COLOR 0xffffff
-# define SPRITE_2D_COLOR 0x0ff00f
+# define MAX_DISPLAY_HEIGHT 630
+# define MAX_DISPLAY_WIDTH 1368
 # define RAYS_2D_COLOR 0xffff00
 # define FOV 1.1
 # define WALL_WIDTH 1
 # define MOVE_SPEED 20
 # define ROTAT_SPEED 0.1
-# define MAP2D_SCALE 0.15
+# define MAP2D_SCALE 0.12
 # define TILE_SIZE 64
 
 typedef enum	e_playerface
@@ -201,7 +202,7 @@ int				**alocate_buffer(int n_arrays, int n_elem);
 */
 
 t_tex			*load_texture(void *mlx_ptr, char *path);
-int				put_texture(t_vars *vars, int y, int i, double *limit);
+int				put_text(t_vars *vars, int y, int i, double *limit);
 int				ft_rgb(int r, int g, int b);
 int				get_texture_color(t_tex *tex, int x, int y);
 

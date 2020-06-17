@@ -1,8 +1,8 @@
 NAME = cub3d
 
 SRC_DIR = srcs
-GNL_DIR = gnl
 LIBFT_DIR = libft
+MLX_DIR = minilibx-linux
 
 SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/geometry_line.c \
@@ -24,7 +24,7 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/auxiliar_funct.c \
 		$(SRC_DIR)/free_info.c \
 		$(SRC_DIR)/error.c \
-		$(GNL_DIR)/get_next_line.c \
+		$(SRC_DIR)/get_next_line.c \
 		$(SRC_DIR)/render_bpm.c \
 
 OBJ = $(SRC:.c=.o)
@@ -35,8 +35,9 @@ CC = clang
 
 CFLAGS =	-Wall -Werror -Wextra -g -fsanitize=address
 
-LFLAGS =	-lbsd -lmlx -lm -lX11 -lXext \
+LFLAGS =	-lbsd -lm -lX11 -lXext \
 			-L ./$(LIBFT_DIR) -lft
+			-L ./$(MLX_DIR) -lmlx
 
 RM = /bin/rm -f
 

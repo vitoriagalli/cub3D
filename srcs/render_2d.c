@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/15 02:43:48 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:36:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	put_minimap(t_vars *vars)
 			{
 				vars->point->color = vars->map->map_grid[i][j] == '1' ?
 				WALL_2D_COLOR : VOID_2D_COLOR;
-				vars->point->color = vars->map->map_grid[i][j] == '2' ?
-				SPRITE_2D_COLOR : vars->point->color;
 				ft_rectangle(vars->data, *vars->point,
 				TILE_SIZE * MAP2D_SCALE, TILE_SIZE * MAP2D_SCALE);
 			}
