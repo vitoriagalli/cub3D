@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 17:51:21 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/29 19:02:52 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # define S_KEY 0x0073
 # define A_KEY 0x0061
 # define D_KEY 0x0064
-# define UP_ARROW_KEY 0x00ff52
-# define DOWN_ARROW_KEY 0x00ff54
 # define RIGHT_ARROW_KEY 0x00ff53
 # define LEFT_ARROW_KEY 0x00ff51
 # define M_KEY 0x006d
@@ -245,6 +243,7 @@ void			put_colors(t_vars *vars, double wall_proj_height, int i);
 int				move_player_press(int keycode, t_vars *vars);
 void			replace_image(t_vars *vars, t_data *new_img);
 int				new_position_player(int keycode, t_vars *vars);
+void			calculate_offset_player(int keycode, t_vars *vars);
 int				update_new_position(t_vars *vars);
 
 /*

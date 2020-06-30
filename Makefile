@@ -27,8 +27,6 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/get_next_line.c \
 		$(SRC_DIR)/render_bpm.c \
 
-OBJ = $(SRC:.c=.o)
-
 INCLUDES = include
 
 CC = clang
@@ -36,24 +34,26 @@ CC = clang
 CFLAGS =	-Wall -Werror -Wextra -g -fsanitize=address
 
 LFLAGS =	-lbsd -lm -lX11 -lXext \
-			-L ./$(LIBFT_DIR) -lft
+			-L ./$(LIBFT_DIR) -lft \
 			-L ./$(MLX_DIR) -lmlx
 
 RM = /bin/rm -f
 
-$(NAME):
-	@ make -C $(LIBFT_DIR)
-	@ $(CC) $(SRC) -I $(INCLUDES) $(CFLAGS) $(LFLAGS) -o a.out
+$(NAME):  $(SRC)
+	make -C $(LIBFT_DIR)
+	make -C $(MLX_DIR)
+	$(CC) $(SRC) -I $(INCLUDES) $(CFLAGS) $(LFLAGS) -o $(NAME)
 
 all: $(NAME)
 
 clean:
-	@ make clean -C $(LIBFT_DIR)
-	@ $(RM) $(OBJ)
+	make clean -C $(LIBFT_DIR)
+	make clean -C $(MLX_DIR)
+	$(RM) $(OBJ)
 
 fclean: clean
-	@ make fclean -C $(LIBFT_DIR)
-	@ $(RM) $(NAME)
+	make fclean -C $(LIBFT_DIR)
+	$(RM) $(NAME)
 
 re: fclean all
 

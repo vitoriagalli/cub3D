@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 16:28:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 18:02:14 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/06/29 21:28:28 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	draw_sprite(t_vars *vars, int s, int x)
 
 	i.x = x - vars->sprite[s]->width / 2;
 	p.x = i.x;
-	while (i.x < x + vars->sprite[s]->width / 2 && vars->sprite[s]->posit->x)
+	while (i.x < x + vars->sprite[s]->width / 2)
 	{
 		tex.x = vars->tex[sprite]->width * (i.x - p.x) / vars->sprite[s]->width;
-		i.y = (vars->map->height / 2) - (vars->sprite[s]->width / 2);
+		i.y = (vars->map->height / 2) - (vars->sprite[s]->height / 2);
 		p.y = i.y;
 		while (i.y < (vars->map->height / 2) + (vars->sprite[s]->height / 2) &&
 		i.x >= 0 && i.x <= vars->map->width)
