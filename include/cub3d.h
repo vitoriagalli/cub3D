@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/29 19:02:52 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:05:37 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,6 @@ void			clean_buffer(void **buffer, int n_arrays);
 void			free_tex(void *mlx, t_tex **tex);
 int				**alocate_buffer(int n_arrays, int n_elem);
 
-
 /*
 ** color and texture functions
 */
@@ -270,11 +269,11 @@ void			draw_sprite(t_vars *vars, int s, int x);
 void			sort_sprite(t_vars *vars);
 
 /*
-** convert to bpm functions
+** convert to bmp functions
 */
 
-int				render_bpm(t_vars *vars);
-void			bpm_header(t_vars *vars, int fd);
+int				render_bmp(t_vars *vars);
+void			bmp_header(t_vars *vars, int fd);
 void			little_endian(unsigned char *addr, unsigned int value, size_t size);
 int				store_color(t_vars *vars, int x, int y);
 

@@ -25,7 +25,7 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/free_info.c \
 		$(SRC_DIR)/error.c \
 		$(SRC_DIR)/get_next_line.c \
-		$(SRC_DIR)/render_bpm.c \
+		$(SRC_DIR)/render_bmp.c \
 
 INCLUDES = include
 

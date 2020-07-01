@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 16:42:31 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 17:53:46 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/01 16:28:32 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int		get_texture_color(t_tex *tex, int x, int y)
 	int		offset;
 
 	offset = (y * tex->data->size_line + x * (tex->data->bpp / 8));
-	return (*(unsigned int *)(tex->data->addr + offset + 3) << 24 |
-			*(unsigned int *)(tex->data->addr + offset + 2) << 16 |
+	return (*(unsigned int *)(tex->data->addr + offset + 2) << 16 |
 			*(unsigned int *)(tex->data->addr + offset + 1) << 8 |
 			*(unsigned int *)(tex->data->addr + offset + 0) << 0);
 }

@@ -6,30 +6,30 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:40:56 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 17:50:25 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:05:19 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		render_bpm(t_vars *vars)
+int		render_bmp(t_vars *vars)
 {
 	int		fd;
-	int		bpm[vars->map->height][vars->map->width];
+	int		bmp[vars->map->height][vars->map->width];
 	int		x;
 	int		y;
 
-	if (!(fd = open("./img.bpm", O_WRONLY | O_APPEND | O_CREAT | O_TRUNC, 777)))
+	if (!(fd = open("./img.bmp", O_WRONLY | O_APPEND | O_CREAT | O_TRUNC, 777)))
 		return (0);
-	bpm_header(vars, fd);
+	bmp_header(vars, fd);
 	y = vars->map->height - 1;
 	while (y >= 0)
 	{
 		x = 0;
 		while (x < vars->map->width)
 		{
-			bpm[y][x] = store_color(vars, x, y);
-			write(fd, &bpm[y][x], 4);
+			bmp[y][x] = store_color(vars, x, y);
+			write(fd, &bmp[y][x], 4);
 			x++;
 		}
 		y--;
@@ -38,7 +38,7 @@ int		render_bpm(t_vars *vars)
 	return (0);
 }
 
-void	bpm_header(t_vars *vars, int fd)
+void	bmp_header(t_vars *vars, int fd)
 {
 	unsigned char c[54];
 
