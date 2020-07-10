@@ -6,11 +6,21 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:13 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:44:00 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/10 01:03:23 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+	int		offset;
+
+	offset = (y * data->size_line + x * (data->bpp / 8));
+	dst = data->addr + offset;
+	*(unsigned int*)dst = color;
+}
 
 double	ft_normalize_angle(double angle)
 {
@@ -23,11 +33,6 @@ double	ft_normalize_angle(double angle)
 double	dist_btw_points(double x0, double y0, double x1, double y1)
 {
 	return (sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)));
-}
-
-int		ft_rgb(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
 }
 
 int		ft_c_is_in(char c, char *str)

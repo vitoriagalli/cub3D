@@ -6,34 +6,13 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 20:06:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 17:21:27 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/10 04:51:57 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_identifier(t_map *map, char *line)
-{
-	if (line[0] == 'R')
-		parse_resolution(&line[1], map);
-	else if (line[0] == 'C')
-		map->color->ceilling = parse_color(&line[1]);
-	else if (line[0] == 'F')
-		map->color->floor = parse_color(&line[1]);
-	else if (line[0] == 'S' && line[1] == ' ')
-		map->path[sprite] = parse_path(&line[2]);
-	if (line[0] == 'N' && line[1] == 'O')
-		map->path[north] = parse_path(&line[2]);
-	else if (line[0] == 'S' && line[1] == 'O')
-		map->path[south] = parse_path(&line[2]);
-	else if (line[0] == 'W' && line[1] == 'E')
-		map->path[west] = parse_path(&line[2]);
-	else if (line[0] == 'E' && line[1] == 'A')
-		map->path[east] = parse_path(&line[2]);
-	free(line);
-}
-
-char	*parse_path(char *path)
+static char	*parse_path(char *path)
 {
 	int i;
 
@@ -47,7 +26,7 @@ char	*parse_path(char *path)
 	return (NULL);
 }
 
-int		get_additive_color(char *str, int i, int *num)
+static int	get_additive_color(char *str, int i, int *num)
 {
 	int n;
 
@@ -70,7 +49,7 @@ int		get_additive_color(char *str, int i, int *num)
 	return (i);
 }
 
-int		parse_color(char *str)
+static int	parse_color(char *str)
 {
 	int	nb[3];
 	int	i;
@@ -85,7 +64,7 @@ int		parse_color(char *str)
 		i = get_additive_color(&str[0], i, &nb[j]);
 		while (ft_isspace(str[i]))
 			i++;
-		if (str[i] == ',')
+		if (str[i] == ',' && j < 2)
 			i++;
 		else if (str[i] != '\0')
 			return (-1);
@@ -93,10 +72,10 @@ int		parse_color(char *str)
 	}
 	if (nb[0] > 255 || nb[1] > 255 || nb[2] > 255 || j < 3 || str[i] != '\0')
 		return (-1);
-	return (ft_rgb(nb[0], nb[1], nb[2]));
+	return ((nb[0] << 16 | nb[1] << 8 | nb[2]));
 }
 
-void	parse_resolution(char *str, t_map *map)
+static void	parse_resolution(char *str, t_map *map)
 {
 	int	nb[2];
 	int	i;
@@ -109,9 +88,30 @@ void	parse_resolution(char *str, t_map *map)
 		i = get_additive_color(&str[0], i, &nb[j]);
 		j++;
 	}
-	if (j < 2 || (str[i] != ' ' && str[i] != '\0'))
+	if (j < 2 || str[i] != '\0')
 		return ;
 	map->width = nb[0] > MAX_DISPLAY_WIDTH ? MAX_DISPLAY_WIDTH : nb[0];
 	map->height = nb[1] > MAX_DISPLAY_HEIGHT ? MAX_DISPLAY_HEIGHT : nb[1];
 	map->num_rays = map->width / WALL_WIDTH;
+}
+
+void		get_identifier(t_map *map, char *line)
+{
+	if (line[0] == 'R')
+		parse_resolution(&line[1], map);
+	else if (line[0] == 'C')
+		map->color->ceilling = parse_color(&line[1]);
+	else if (line[0] == 'F')
+		map->color->floor = parse_color(&line[1]);
+	else if (line[0] == 'S' && line[1] == ' ')
+		map->path[sprite] = parse_path(&line[2]);
+	if (line[0] == 'N' && line[1] == 'O')
+		map->path[north] = parse_path(&line[2]);
+	else if (line[0] == 'S' && line[1] == 'O')
+		map->path[south] = parse_path(&line[2]);
+	else if (line[0] == 'W' && line[1] == 'E')
+		map->path[west] = parse_path(&line[2]);
+	else if (line[0] == 'E' && line[1] == 'A')
+		map->path[east] = parse_path(&line[2]);
+	free(line);
 }

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/01 17:05:37 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/10 04:15:10 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,96 +154,54 @@ typedef struct	s_vars {
 int				check_args(int argc, char **argv);
 int				read_file(char *file, t_map *map);
 int				get_map_info(t_map *map, char *line, int *row);
-void			get_identifier(t_map *map, char *line);
-char			*parse_path(char *path);
-void			parse_resolution(char *str, t_map *map);
-int				parse_color(char *str);
-int				get_additive_color(char *str, int i, int *num);
-int				parse_row_map(t_map *map, char *line, int row);
-int				parse_player_location(t_map *map, char c, int row, int column);
-int				is_identifier(char *line);
-int				fill_columns(t_map *map);
-int				is_empty_line(char *line);
 int				validate_map(t_map *map);
-int				check_lack_info(t_map *map);
-
-/*
-** error functions
-*/
-
-char			*error_messeges(int i);
-int				free_map(t_map *map);
+void			get_identifier(t_map *map, char *line);
 int				ft_error(t_map *map, int i);
 int				ft_path_error(t_vars *vars);
 int				ft_arg_error(int i);
 
 /*
-** geometry and aux functions
+** geometry and auxiliar functions
 */
 
 void			ft_rectangle(t_data *img, t_point point, int width, int height);
-void		 	ft_line(t_data *img, int *p0, int *p1, int color);
+void			ft_line(t_data *img, int *p0, int *p1, int color);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 double			ft_normalize_angle(double angle);
 double			dist_btw_points(double x0, double y0, double x1, double y1);
-int				is_end_window(t_map *map, double x, double y);
 int				ft_c_is_in(char c, char *str);
-void			check_n_free(void *ptr);
 void			**allocate_dynamic(void **buffer, int size, int m);
-void			clean_buffer(void **buffer, int n_arrays);
-void			free_tex(void *mlx, t_tex **tex);
-int				**alocate_buffer(int n_arrays, int n_elem);
 
 /*
-** color and texture functions
+**  game functions
 */
 
-t_tex			*load_texture(void *mlx_ptr, char *path);
-int				put_text(t_vars *vars, int y, int i, double *limit);
-int				ft_rgb(int r, int g, int b);
-int				get_texture_color(t_tex *tex, int x, int y);
-
-/*
-** init and finish game functions
-*/
-
-int				create_n_check(t_vars *vars);
 void			init_game(t_vars *vars, int argc);
+int				move_player_press(int keycode, t_vars *vars);
 void			put_game(t_vars *vars);
-void			clean_ray_struct(t_vars *vars);
 int				clean_before_close(t_vars *vars);
 int				close_program(void);
 
 /*
-** setup, crate and assign variables
+** setup, create and assign variables
 */
 
-t_data			*create_image(void *mlx_ptr, t_map *map);
+int				create_n_check(t_vars *vars);
 t_point			*create_point(int x, int y, int color);
-t_player		*create_player(t_map *map, int move_speed, double rotat_speed);
-t_tex			**create_texture(void *mlx_ptr, char **path);
-t_sprite 		**create_sprite(t_map *map);
+t_data			*create_image(void *mlx_ptr, t_map *map);
 void			assign_point(t_point *point, int x, int y, int color);
 
 /*
 ** render 2d and 3d functions
 */
 
-void			allocate_map(t_vars *vars);
-void			put_minimap(t_vars *vars);
 int				is_wall(t_map *map, int x, int y, char identf);
+int				is_end_window(t_map *map, double x, double y);
+void			put_minimap(t_vars *vars);
+void			put_rays(t_vars *vars);
 void			put_3dmap(t_vars *vars);
-void			put_colors(t_vars *vars, double wall_proj_height, int i);
-
-/*
-** key move player functions
-*/
-
-int				move_player_press(int keycode, t_vars *vars);
-void			replace_image(t_vars *vars, t_data *new_img);
-int				new_position_player(int keycode, t_vars *vars);
-void			calculate_offset_player(int keycode, t_vars *vars);
-int				update_new_position(t_vars *vars);
+void			put_sprites(t_vars *vars);
+int				get_texture_color(t_tex *tex, int x, int y);
 
 /*
 ** raycast calculation
@@ -251,30 +209,22 @@ int				update_new_position(t_vars *vars);
 
 int				ray_facing(double angle, int way);
 t_ray			**ft_raycast(t_vars *vars);
-void			check_closest_wall(t_vars *vars, t_ray *ray, double ray_angle);
-void			assign_ray(t_ray *ray, t_point *collision, double dist_wall,
-				int coord);
-t_point			*cast_ray(t_vars *vars, double ray_angle, int coord, t_point *next);
-t_point			*horz_inter(t_vars *vars, t_point *intercept, double ray_angle);
-t_point			*vert_inter(t_vars *vars, t_point *intercept, double ray_angle);
-void			put_rays(t_vars *vars);
+t_point			*cast_ray(t_vars *vars, double ray_angle, int coord,
+				t_point *next);
 
 /*
-** sprites functions
+** clear data functions
 */
 
-void			put_sprites(t_vars *vars);
-void			calculate_sprite(t_vars *vars, int s);
-void			draw_sprite(t_vars *vars, int s, int x);
-void			sort_sprite(t_vars *vars);
+void			free_tex(void *mlx, t_tex **tex);
+void			check_n_free(void *ptr);
+int				free_map(t_map *map);
+void			clean_buffer(void **buffer, int n_arrays);
 
 /*
-** convert to bmp functions
+** convert to bmp function
 */
 
-int				render_bmp(t_vars *vars);
-void			bmp_header(t_vars *vars, int fd);
-void			little_endian(unsigned char *addr, unsigned int value, size_t size);
-int				store_color(t_vars *vars, int x, int y);
+int				save_bmp_file(t_vars *vars);
 
 #endif

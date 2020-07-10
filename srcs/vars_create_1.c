@@ -6,50 +6,31 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/29 19:02:54 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/10 01:00:44 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_player	*create_player(t_map *map, int move_speed, double rotat_speed)
+static t_tex	*load_texture(void *mlx_ptr, char *path)
 {
-	t_player	*player;
+	t_tex	*tex;
 
-	player = ft_calloc(1, sizeof(t_player));
-	player->posit = ft_calloc(1, sizeof(t_point));
-	player->turn_direction = 0;
-	player->walk_direction = 0;
-	player->move_speed = move_speed;
-	player->rotation_speed = rotat_speed;
-	player->rotation_angle = map->rotation_angle;
-	assign_point(player->posit, map->init_posit->x, map->init_posit->y,
-	RAYS_2D_COLOR);
-	check_n_free(map->init_posit);
-	return (player);
+	tex = ft_calloc(1, sizeof(t_tex));
+	tex->data = ft_calloc(1, sizeof(t_data));
+	if (!(tex->data->img = mlx_xpm_file_to_image(mlx_ptr, path, &tex->width,
+	&tex->height)))
+	{
+		free(tex->data);
+		free(tex);
+		return (NULL);
+	}
+	tex->data->addr = mlx_get_data_addr(tex->data->img, &tex->data->bpp,
+	&tex->data->size_line, &tex->data->endian);
+	return (tex);
 }
 
-t_point		*create_point(int x, int y, int color)
-{
-	t_point	*point;
-
-	point = ft_calloc(1, sizeof(t_point));
-	assign_point(point, x, y, color);
-	return (point);
-}
-
-t_data		*create_image(void *mlx_ptr, t_map *map)
-{
-	t_data	*img;
-
-	img = ft_calloc(1, sizeof(t_data));
-	img->img = mlx_new_image(mlx_ptr, map->width, map->height);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->size_line,
-	&img->endian);
-	return (img);
-}
-
-t_tex		**create_texture(void *mlx_ptr, char **path)
+static t_tex	**create_texture(void *mlx_ptr, char **path)
 {
 	t_tex	**texture;
 
@@ -68,7 +49,24 @@ t_tex		**create_texture(void *mlx_ptr, char **path)
 	return (texture);
 }
 
-t_sprite	**create_sprite(t_map *map)
+static t_player	*create_player(t_map *map, int move_speed, double rotat_speed)
+{
+	t_player	*player;
+
+	player = ft_calloc(1, sizeof(t_player));
+	player->posit = ft_calloc(1, sizeof(t_point));
+	player->turn_direction = 0;
+	player->walk_direction = 0;
+	player->move_speed = move_speed;
+	player->rotation_speed = rotat_speed;
+	player->rotation_angle = map->rotation_angle;
+	assign_point(player->posit, map->init_posit->x, map->init_posit->y,
+	RAYS_2D_COLOR);
+	check_n_free(map->init_posit);
+	return (player);
+}
+
+static t_sprite	**create_sprite(t_map *map)
 {
 	t_sprite	**spr;
 	int			i;
@@ -86,4 +84,20 @@ t_sprite	**create_sprite(t_map *map)
 	}
 	check_n_free(map->sprite_posit);
 	return (spr);
+}
+
+int				create_n_check(t_vars *vars)
+{
+	if (!(vars->mlx = mlx_init()))
+		return (ft_error(vars->map, -16));
+	vars->win = mlx_new_window(vars->mlx, vars->map->width,
+				vars->map->height, "CUB3D");
+	if (!(vars->tex = create_texture(vars->mlx, vars->map->path)))
+		return (ft_path_error(vars));
+	vars->data = create_image(vars->mlx, vars->map);
+	vars->point = create_point(0, 0, 0);
+	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
+	vars->sprite = create_sprite(vars->map);
+	vars->minimap = TRUE;
+	return (1);
 }

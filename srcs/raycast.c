@@ -6,20 +6,20 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 00:19:46 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/15 02:49:48 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/09 19:56:49 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	assign_ray(t_ray *ray, t_point *collision, double dist_wall, int coord)
+static void	assign_ray(t_ray *ray, t_point *collis, double dist_wall, int coord)
 {
-	ray->collision = collision;
+	ray->collision = collis;
 	ray->dist_wall = dist_wall;
 	ray->coord = coord;
 }
 
-void	check_closest_wall(t_vars *vars, t_ray *ray, double ray_angle)
+static void	check_closest_wall(t_vars *vars, t_ray *ray, double ray_angle)
 {
 	t_point	*horz_intercept;
 	t_point *vert_intercept;
@@ -47,7 +47,7 @@ void	check_closest_wall(t_vars *vars, t_ray *ray, double ray_angle)
 	}
 }
 
-t_ray	**ft_raycast(t_vars *vars)
+t_ray		**ft_raycast(t_vars *vars)
 {
 	t_ray	**ray;
 	double	ray_angle;

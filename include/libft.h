@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:11:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/10 03:37:29 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/10 04:15:32 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,9 @@ void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 		void(*del)(void *));
-
 char				*ft_strjoin_n_free(char *s1, char *s2);
 void				*ft_calloc_char(size_t count, char c);
 char				*ft_itoa_base(int n, char *base, int size_base);
 void				ft_swap(int *a, int *b);
-
 
 #endif

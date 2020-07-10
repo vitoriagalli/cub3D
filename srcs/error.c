@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 02:02:45 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 17:53:06 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/09 20:58:01 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*error_messeges_continue(int i)
 	return (NULL);
 }
 
-char		*error_messeges(int i)
+static char	*error_messeges(int i)
 {
 	if (i == -1)
 		return ("\e[31mERROR\e[39m\nNo argument");

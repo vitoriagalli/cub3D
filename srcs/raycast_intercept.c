@@ -6,13 +6,13 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 01:53:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/15 02:48:21 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/09 19:46:34 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ray_facing(double angle, int way)
+int				ray_facing(double angle, int way)
 {
 	int	up;
 	int	down;
@@ -34,7 +34,7 @@ int		ray_facing(double angle, int way)
 	return (-1);
 }
 
-t_point	*horz_inter(t_vars *vars, t_point *intercept, double ray_angle)
+static t_point	*horz_inter(t_vars *vars, t_point *intercept, double ray_angle)
 {
 	t_point	*step;
 
@@ -51,7 +51,7 @@ t_point	*horz_inter(t_vars *vars, t_point *intercept, double ray_angle)
 	return (step);
 }
 
-t_point	*vert_inter(t_vars *vars, t_point *intercept, double ray_angle)
+static t_point	*vert_inter(t_vars *vars, t_point *intercept, double ray_angle)
 {
 	t_point	*step;
 
@@ -68,7 +68,8 @@ t_point	*vert_inter(t_vars *vars, t_point *intercept, double ray_angle)
 	return (step);
 }
 
-t_point	*cast_ray(t_vars *vars, double ray_angle, int coord, t_point *next)
+t_point			*cast_ray(t_vars *vars, double ray_angle, int coord,
+							t_point *next)
 {
 	t_point	*step;
 	double	x_chk;

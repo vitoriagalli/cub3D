@@ -6,13 +6,13 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 01:30:01 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:45:09 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/09 20:49:54 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		ft_is_cub(char *str)
+static int	ft_is_cub(char *str)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ static int		ft_is_cub(char *str)
 	return (1);
 }
 
-int				check_args(int argc, char **argv)
+int			check_args(int argc, char **argv)
 {
 	if (argc == 1)
 		return (ft_arg_error(-1));

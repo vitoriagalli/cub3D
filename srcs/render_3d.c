@@ -6,58 +6,23 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/01 16:26:56 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/10 01:05:58 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_3dmap(t_vars *vars)
+int			get_texture_color(t_tex *tex, int x, int y)
 {
-	double	correct_dist_plane;
-	double	wall_proj_height;
-	int		i;
+	int		offset;
 
-	i = 0;
-	vars->player->dist_proj_plane = (vars->map->width / 2) / (tan(FOV / 2));
-	while (i < vars->map->num_rays)
-	{
-		correct_dist_plane = vars->ray[i]->dist_wall *
-					cos(vars->ray[i]->ray_angle - vars->player->rotation_angle);
-		wall_proj_height = TILE_SIZE / correct_dist_plane *
-							vars->player->dist_proj_plane;
-		wall_proj_height = (wall_proj_height < vars->map->height) ?
-							wall_proj_height : vars->map->height;
-		put_colors(vars, wall_proj_height, i);
-		i++;
-	}
+	offset = (y * tex->data->size_line + x * (tex->data->bpp / 8));
+	return (*(unsigned int *)(tex->data->addr + offset + 2) << 16 |
+			*(unsigned int *)(tex->data->addr + offset + 1) << 8 |
+			*(unsigned int *)(tex->data->addr + offset + 0) << 0);
 }
 
-void	put_colors(t_vars *vars, double wall_proj_height, int i)
-{
-	double	limit_y[2];
-	int		x;
-	int		y;
-
-	limit_y[0] = (vars->map->height / 2) - (wall_proj_height / 2);
-	limit_y[1] = (vars->map->height / 2) + (wall_proj_height / 2);
-	x = i * WALL_WIDTH;
-	while (x < (i + 1) * WALL_WIDTH)
-	{
-		y = -1;
-		while (++y <= limit_y[0] && y < vars->map->height)
-			my_mlx_pixel_put(vars->data, x, y, vars->map->color->ceilling);
-		y--;
-		while (++y <= limit_y[1] && y < vars->map->height)
-			my_mlx_pixel_put(vars->data, x, y, put_text(vars, y, i, limit_y));
-		y--;
-		while (++y <= vars->map->height)
-			my_mlx_pixel_put(vars->data, x, y, vars->map->color->floor);
-		x++;
-	}
-}
-
-int		put_text(t_vars *vars, int y, int i, double *limit)
+static int	put_text(t_vars *vars, int y, int i, double *limit)
 {
 	t_ray	*ray;
 	double	ymin;
@@ -84,4 +49,49 @@ int		put_text(t_vars *vars, int y, int i, double *limit)
 				(int)ray->collision->y % vars->tex[north]->width,
 				(y - ymin) * (vars->tex[west]->height) / (ymax - ymin)));
 		return (0);
+}
+
+static void	put_colors(t_vars *vars, double wall_proj_height, int i)
+{
+	double	limit_y[2];
+	int		x;
+	int		y;
+
+	limit_y[0] = (vars->map->height / 2) - (wall_proj_height / 2);
+	limit_y[1] = (vars->map->height / 2) + (wall_proj_height / 2);
+	x = i * WALL_WIDTH;
+	while (x < (i + 1) * WALL_WIDTH)
+	{
+		y = -1;
+		while (++y <= limit_y[0] && y < vars->map->height)
+			my_mlx_pixel_put(vars->data, x, y, vars->map->color->ceilling);
+		y--;
+		while (++y <= limit_y[1] && y < vars->map->height)
+			my_mlx_pixel_put(vars->data, x, y, put_text(vars, y, i, limit_y));
+		y--;
+		while (++y <= vars->map->height)
+			my_mlx_pixel_put(vars->data, x, y, vars->map->color->floor);
+		x++;
+	}
+}
+
+void		put_3dmap(t_vars *vars)
+{
+	double	correct_dist_plane;
+	double	wall_proj_height;
+	int		i;
+
+	i = 0;
+	vars->player->dist_proj_plane = (vars->map->width / 2) / (tan(FOV / 2));
+	while (i < vars->map->num_rays)
+	{
+		correct_dist_plane = vars->ray[i]->dist_wall *
+					cos(vars->ray[i]->ray_angle - vars->player->rotation_angle);
+		wall_proj_height = TILE_SIZE / correct_dist_plane *
+							vars->player->dist_proj_plane;
+		wall_proj_height = (wall_proj_height < vars->map->height) ?
+							wall_proj_height : vars->map->height;
+		put_colors(vars, wall_proj_height, i);
+		i++;
+	}
 }

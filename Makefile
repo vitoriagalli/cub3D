@@ -5,14 +5,15 @@ LIBFT_DIR = libft
 MLX_DIR = minilibx-linux
 
 SRC =	$(SRC_DIR)/main.c \
+		$(SRC_DIR)/get_next_line.c \
 		$(SRC_DIR)/geometry_line.c \
 		$(SRC_DIR)/geometry_rect.c \
 		$(SRC_DIR)/input_check_args.c \
 		$(SRC_DIR)/input_read_n_validate.c \
 		$(SRC_DIR)/input_parse_identif.c \
 		$(SRC_DIR)/input_parse_map.c \
-		$(SRC_DIR)/vars_init.c \
-		$(SRC_DIR)/vars_create.c \
+		$(SRC_DIR)/vars_create_1.c \
+		$(SRC_DIR)/vars_create_2.c \
 		$(SRC_DIR)/game.c \
 		$(SRC_DIR)/key_update.c \
 		$(SRC_DIR)/raycast.c \
@@ -20,12 +21,10 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/render_2d.c \
 		$(SRC_DIR)/render_3d.c \
 		$(SRC_DIR)/sprite.c \
-		$(SRC_DIR)/mlx_funct.c \
 		$(SRC_DIR)/auxiliar_funct.c \
 		$(SRC_DIR)/free_info.c \
 		$(SRC_DIR)/error.c \
-		$(SRC_DIR)/get_next_line.c \
-		$(SRC_DIR)/render_bmp.c \
+		$(SRC_DIR)/save_bmp_file.c \
 
 INCLUDES = include
 
