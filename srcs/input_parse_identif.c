@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 20:06:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/10 04:51:57 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/12 16:54:34 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ static int	parse_color(char *str)
 
 static void	parse_resolution(char *str, t_map *map)
 {
-	int	nb[2];
-	int	i;
-	int	j;
+	int		nb[2];
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

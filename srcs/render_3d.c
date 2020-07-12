@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/10 01:05:58 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/11 03:01:23 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ static int	put_text(t_vars *vars, int y, int i, double *limit)
 				(y - ymin) * (vars->tex[north]->height) / (ymax - ymin)));
 	else if (ray_facing(ray->ray_angle, ray_down) && ray->coord == HORZ)
 		return (get_texture_color(vars->tex[south],
-				(int)ray->collision->x % vars->tex[north]->width,
+				(int)ray->collision->x % vars->tex[south]->width,
 				(y - ymin) * (vars->tex[south]->height) / (ymax - ymin)));
 	else if (ray_facing(ray->ray_angle, ray_right) && ray->coord == VERT)
 		return (get_texture_color(vars->tex[east],
-				(int)ray->collision->y % vars->tex[north]->width,
+				(int)ray->collision->y % vars->tex[east]->width,
 				(y - ymin) * (vars->tex[east]->height) / (ymax - ymin)));
 	else if (ray_facing(ray->ray_angle, ray_left) && ray->coord == VERT)
 		return (get_texture_color(vars->tex[west],
-				(int)ray->collision->y % vars->tex[north]->width,
+				(int)ray->collision->y % vars->tex[west]->width,
 				(y - ymin) * (vars->tex[west]->height) / (ymax - ymin)));
 		return (0);
 }
