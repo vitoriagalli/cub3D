@@ -6,38 +6,46 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 16:28:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/09 19:25:35 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:00:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_sprite(t_vars *vars, int s, int x)
+static int	is_end_window_3d(t_map *map, int x, int y)
 {
-	t_point			i;
-	t_point			tex;
-	t_point			p;
-	unsigned int	color;
+	if (x < 0 || x >= map->width ||
+		y < 0 || y >= map->height)
+		return (1);
+	return (0);
+}
 
-	i.x = x - vars->sprite[s]->width / 2;
-	p.x = i.x;
-	while (i.x < x + vars->sprite[s]->width / 2)
+static void	draw_sprite(t_vars *vars, int s, int x0)
+{
+	t_point			tex;
+	t_point			in;
+	t_point			c;
+	unsigned int	color;
+	int				ray_sprite;
+
+	in.x = x0 - vars->sprite[s]->width / 2;
+	in.y = (vars->map->height / 2) - (vars->sprite[s]->height / 2);
+	c.x = 0;
+	while (c.x < vars->sprite[s]->width)
 	{
-		tex.x = vars->tex[sprite]->width * (i.x - p.x) / vars->sprite[s]->width;
-		i.y = (vars->map->height / 2) - (vars->sprite[s]->height / 2);
-		p.y = i.y;
-		while (i.y < (vars->map->height / 2) + (vars->sprite[s]->height / 2) &&
-		i.x >= 0 && i.x <= vars->map->width)
+		c.y = 0;
+		tex.x = c.x * vars->tex[sprite]->width / vars->sprite[s]->width;
+		ray_sprite = (in.x + c.x) / WALL_WIDTH;
+		while (c.y < vars->sprite[s]->height)
 		{
-			tex.y = vars->tex[sprite]->height * (i.y - p.y) /
-			vars->sprite[s]->height;
-			if (i.x > 0 && i.x < vars->map->width && i.y > 0 && i.y < vars->map
-			->height && vars->sprite[s]->dist < vars->ray[(int)i.x]->dist_wall)
+			tex.y = c.y * vars->tex[sprite]->height / vars->sprite[s]->height;
+			if (!is_end_window_3d(vars->map, (in.x + c.x), (in.y + c.y)) &&
+			vars->sprite[s]->dist < vars->ray[(int)(ray_sprite)]->dist_wall)
 				(color = get_texture_color(vars->tex[sprite], tex.x, tex.y)) ?
-				my_mlx_pixel_put(vars->data, i.x, i.y, color) : 0;
-			i.y++;
+				my_mlx_pixel_put(vars->data, in.x + c.x, in.y + c.y, color) : 0;
+			c.y++;
 		}
-		i.x++;
+		c.x++;
 	}
 }
 

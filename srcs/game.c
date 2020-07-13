@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/10 03:51:06 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:06:58 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ static void	clean_ray_struct(t_vars *vars)
 	vars->ray = NULL;
 }
 
-void		init_game(t_vars *vars, int argc)
-{
-	put_game(vars);
-	if (argc == 2)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
-	else
-	{
-		save_bmp_file(vars);
-		close_program();
-	}
-}
-
 void		put_game(t_vars *vars)
 {
 	vars->ray = ft_raycast(vars);
@@ -52,6 +40,38 @@ void		put_game(t_vars *vars)
 		put_rays(vars);
 	}
 	clean_ray_struct(vars);
+}
+
+static void	verify_resolution(t_vars *vars)
+{
+	int	max_display_width;
+	int	max_display_height;
+
+	mlx_get_screen_size(vars->mlx, &max_display_width, &max_display_height);
+	vars->map->width = vars->map->width > max_display_width ?
+						max_display_width : vars->map->width;
+	vars->map->height = vars->map->height > max_display_height ?
+						max_display_height : vars->map->height;
+	vars->map->num_rays = vars->map->width / WALL_WIDTH;
+}
+
+int			init_game(t_vars *vars, int argc)
+{
+	if (argc == 2)
+	{
+		verify_resolution(vars);
+		put_game(vars);
+		vars->win = mlx_new_window(vars->mlx, vars->map->width,
+				vars->map->height, "CUB3D");
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
+	}
+	else
+	{
+		put_game(vars);
+		save_bmp_file(vars);
+		close_program();
+	}
+	return (0);
 }
 
 int			clean_before_close(t_vars *vars)
@@ -67,10 +87,4 @@ int			clean_before_close(t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->data->img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	return (close_program());
-}
-
-int			close_program(void)
-{
-	exit(0);
-	return (0);
 }

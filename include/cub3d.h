@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/12 16:54:15 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:26:36 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include <math.h>
-# include <stdio.h> // tirar depois
 
 # define INT_MAX 2147483647
 # define PI 3.1416
@@ -39,13 +38,11 @@
 # define TRUE 1
 # define WALL_2D_COLOR 0x000000
 # define VOID_2D_COLOR 0xffffff
-# define MAX_DISPLAY_HEIGHT 630
-# define MAX_DISPLAY_WIDTH 1368
-# define RAYS_2D_COLOR 0xffff00
+# define RAYS_2D_COLOR 0xffff50
 # define FOV 1.1
 # define WALL_WIDTH 1
-# define MOVE_SPEED 20
-# define ROTAT_SPEED 0.1
+# define MOVE_SPEED 25
+# define ROTAT_SPEED 0.12
 # define MAP2D_SCALE 0.12
 # define TILE_SIZE 64
 
@@ -155,7 +152,7 @@ int				check_args(int argc, char **argv);
 int				read_file(char *file, t_map *map);
 int				get_map_info(t_map *map, char *line, int *row);
 int				validate_map(t_map *map);
-void			get_identifier(t_map *map, char *line);
+int				get_identifier(t_map *map, char *line);
 int				ft_error(t_map *map, int i);
 int				ft_path_error(t_vars *vars);
 int				ft_arg_error(int i);
@@ -176,9 +173,10 @@ void			**allocate_dynamic(void **buffer, int size, int m);
 **  game functions
 */
 
-void			init_game(t_vars *vars, int argc);
+int				init_game(t_vars *vars, int argc);
 int				move_player_press(int keycode, t_vars *vars);
 void			put_game(t_vars *vars);
+int				update_new_position(t_vars *vars);
 int				clean_before_close(t_vars *vars);
 int				close_program(void);
 

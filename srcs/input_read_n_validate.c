@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/09 20:47:30 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/13 15:52:07 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static int	check_lack_info(t_map *map)
 		return (ft_error(map, -9));
 	else if (!map->n_column || !map->n_row)
 		return (ft_error(map, -10));
-	else if (!map->width || !map->height)
+	else if (!map->width || !map->height ||
+			map->width < map->n_column || map->height < map->n_row)
 		return (ft_error(map, -11));
 	else if (map->color->ceilling < 0 || map->color->floor < 0)
 		return (ft_error(map, -12));

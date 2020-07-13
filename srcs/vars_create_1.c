@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vars_create.c                                      :+:      :+:    :+:   */
+/*   vars_create_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/10 01:00:44 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/13 01:54:08 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,6 @@ static t_sprite	**create_sprite(t_map *map)
 
 int				create_n_check(t_vars *vars)
 {
-	if (!(vars->mlx = mlx_init()))
-		return (ft_error(vars->map, -16));
-	vars->win = mlx_new_window(vars->mlx, vars->map->width,
-				vars->map->height, "CUB3D");
 	if (!(vars->tex = create_texture(vars->mlx, vars->map->path)))
 		return (ft_path_error(vars));
 	vars->data = create_image(vars->mlx, vars->map);

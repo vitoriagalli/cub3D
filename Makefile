@@ -61,6 +61,7 @@ clean:
 fclean: clean
 		make fclean -C $(LIBFT_DIR)
 		$(RM) $(NAME)
+		$(RM) *.bmp
 
 re: fclean all
 

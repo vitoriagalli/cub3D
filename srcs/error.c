@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 02:02:45 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/09 20:58:01 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/13 03:51:53 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static char	*error_messeges_continue(int i)
 		return ("\e[31mERROR\e[39m\nMlx could not be initialized");
 	if (i == -17)
 		return ("\e[31mERROR\e[39m\nTexture could not be loaded");
+	if (i == -18)
+		return ("\e[31mERROR\e[39m\nDuplicate key");
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:40:56 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/10 03:38:08 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/13 02:04:35 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int	store_color(t_vars *vars, int x, int y)
 	unsigned int	color;
 	unsigned char	addr_color[4];
 
-	color = *(unsigned int*)(vars->data->addr +
-			(4 * vars->map->width * (vars->map->height - 1 - y)) +
-			(4 * x));
+	color = *(unsigned int *)(vars->data->addr +
+	vars->map->width * (vars->map->height - y - 1) * 4 +
+	x * 4);
 	little_endian_int(&addr_color[0], color);
 	return (*(unsigned int*)(addr_color));
 }
@@ -47,8 +47,8 @@ static void	bmp_header(t_vars *vars, int fd)
 	little_endian_int(&file[18], vars->map->width);
 	little_endian_int(&file[22], vars->map->height);
 	file[26] = (unsigned char)(1);
-	file[28] = (unsigned char)(24);
-	write(fd, file, 54);
+	file[28] = (unsigned char)(32);
+	write(fd, &file, 54);
 }
 
 int			save_bmp_file(t_vars *vars)
@@ -58,7 +58,7 @@ int			save_bmp_file(t_vars *vars)
 	int		x;
 	int		y;
 
-	if ((fd = open("img.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND)) < 0)
+	if ((fd = open("im.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 777)) < 0)
 		return (0);
 	bmp_header(vars, fd);
 	y = 0;

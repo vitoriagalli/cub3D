@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:53 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/09 19:58:52 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:20:49 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	replace_image(t_vars *vars, t_data *new_img)
 	vars->data = new_img;
 }
 
-static int	update_new_position(t_vars *vars)
+int			update_new_position(t_vars *vars)
 {
 	t_data	*img;
 
