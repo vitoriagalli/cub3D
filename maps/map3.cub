@@ -1,4 +1,4 @@
-R 3000 2000
+R 2500 1800
 NO ./text/space/42sp.xpm
 WE ./text/space/dark.xpm
 EA ./text/space/dark2.xpm

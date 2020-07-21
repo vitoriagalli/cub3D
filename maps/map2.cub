@@ -1,13 +1,13 @@
 
-S  ./text/space/astro.xpm
+S  ./text/orig/pillar.xpm
 F 		200    ,			200  , 80
 
-SO 			./text/space/42sp.xpm
+SO 			./text/orig/eagle.xpm
 
 R    900   600
-NO       ./text/space/42.xpm
-WE   ./text/space/dark.xpm
-EA  ./text/space/dark2.xpm
+NO       ./text/orig/eagle.xpm
+WE   ./text/orig/eagle.xpm
+EA  ./text/orig/eagle.xpm
 
 C 0,255,255
 

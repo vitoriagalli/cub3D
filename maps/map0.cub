@@ -1,19 +1,24 @@
-R 600 400
-NO ./text/orig/wood.xpm
+
+R 1000 600
+
+
+NO ./text/orig/redbrick.xpm
 SO ./text/orig/bluestone.xpm
 WE ./text/orig/greystone.xpm
-EA ./text/orig/redbrick.xpm
+EA ./text/orig/wood.xpm
 
-S  ./text/orig/pillar.xpm
+S ./text/orig/pillar.xpm
 
 F 173 , 97, 21
-C 0,255,255
+
+C 0,255,  255
+
 
 
 11111111111111111111
 10000000000000000001
 10000111111000000001
-1000000000100000S001
+1000000000100000W001
 10100000001000000001
 10100000000000000001
 10100002000000000001
