@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/13 20:26:36 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:53:28 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@
 # define VERT 1
 # define FALSE 0
 # define TRUE 1
-# define WALL_2D_COLOR 0x000000
-# define VOID_2D_COLOR 0xffffff
-# define RAYS_2D_COLOR 0xffff50
+# define WALL_2D_COLOR 0x4d4d33
+# define RAYS_2D_COLOR 0xffff66
 # define FOV 1.1
 # define WALL_WIDTH 1
 # define MOVE_SPEED 25
 # define ROTAT_SPEED 0.12
-# define MAP2D_SCALE 0.12
+# define MAP2D_SCALE 0.1
 # define TILE_SIZE 64
+# define OFFSET 8
 
 typedef enum	e_playerface
 {

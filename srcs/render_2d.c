@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/09 20:07:13 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/22 23:52:00 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	put_rays(t_vars *vars)
 {
 	int	posit[2];
 	int	collision[2];
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < vars->map->num_rays)
 	{
-		posit[0] = vars->player->posit->x * MAP2D_SCALE;
-		posit[1] = vars->player->posit->y * MAP2D_SCALE;
-		collision[0] = vars->ray[i]->collision->x * MAP2D_SCALE;
-		collision[1] = vars->ray[i]->collision->y * MAP2D_SCALE;
+		posit[0] = vars->player->posit->x * MAP2D_SCALE + OFFSET;
+		posit[1] = vars->player->posit->y * MAP2D_SCALE + OFFSET;
+		collision[0] = vars->ray[i]->collision->x * MAP2D_SCALE + OFFSET;
+		collision[1] = vars->ray[i]->collision->y * MAP2D_SCALE + OFFSET;
 		ft_line(vars->data, posit, collision, vars->player->posit->color);
 		i++;
 	}
@@ -32,30 +32,27 @@ void	put_rays(t_vars *vars)
 
 void	put_minimap(t_vars *vars)
 {
-	int i;
-	int j;
-	int x0;
+	t_point	p;
+	int		i;
+	int		j;
 
 	i = -1;
-	x0 = vars->point->x;
+	p.x = vars->point->x;
+	p.y = vars->point->y;
 	while (++i < vars->map->n_row)
 	{
 		j = -1;
-		vars->point->x = x0;
-		while (++j < vars->map->n_column && vars->map->map_grid[i][j])
+		vars->point->x = p.x;
+		while (++j < vars->map->n_column)
 		{
-			if (vars->map->map_grid[i][j] != ' ')
-			{
-				vars->point->color = vars->map->map_grid[i][j] == '1' ?
-				WALL_2D_COLOR : VOID_2D_COLOR;
+			if (vars->map->map_grid[i][j] == '1')
 				ft_rectangle(vars->data, *vars->point,
 				TILE_SIZE * MAP2D_SCALE, TILE_SIZE * MAP2D_SCALE);
-			}
 			vars->point->x = vars->point->x + TILE_SIZE * MAP2D_SCALE;
 		}
 		vars->point->y = vars->point->y + TILE_SIZE * MAP2D_SCALE;
 	}
-	assign_point(vars->point, 0, 0, 0);
+	assign_point(vars->point, p.x, p.y, vars->point->color);
 }
 
 int		is_wall(t_map *map, int x, int y, char identf)

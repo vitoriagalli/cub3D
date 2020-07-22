@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/13 01:54:08 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:52:06 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				create_n_check(t_vars *vars)
 	if (!(vars->tex = create_texture(vars->mlx, vars->map->path)))
 		return (ft_path_error(vars));
 	vars->data = create_image(vars->mlx, vars->map);
-	vars->point = create_point(0, 0, 0);
+	vars->point = create_point(OFFSET, OFFSET, WALL_2D_COLOR);
 	vars->player = create_player(vars->map, MOVE_SPEED, ROTAT_SPEED);
 	vars->sprite = create_sprite(vars->map);
 	vars->minimap = TRUE;
