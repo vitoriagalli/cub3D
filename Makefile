@@ -1,4 +1,4 @@
-NAME =		cub3d
+NAME =		cub3D
 SRCS_DIR =	srcs
 OBJS_DIR =	.objs
 LIBFT_DIR =	libft

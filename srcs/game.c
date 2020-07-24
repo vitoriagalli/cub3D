@@ -6,11 +6,27 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/13 17:06:58 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/24 22:27:56 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static t_ray	**allocate_ray(t_vars *vars)
+{
+	t_ray	**ray;
+	int		i;
+
+	i = 0;
+	ray = ft_calloc(vars->map->num_rays, sizeof(t_ray *));
+	while (i < vars->map->num_rays)
+	{
+		ray[i] = ft_calloc(1, sizeof(t_ray));
+		ray[i]->collision = ft_calloc(1, sizeof(t_point));
+		i++;
+	}
+	return (ray);
+}
 
 static void	clean_ray_struct(t_vars *vars)
 {
@@ -31,7 +47,7 @@ static void	clean_ray_struct(t_vars *vars)
 
 void		put_game(t_vars *vars)
 {
-	vars->ray = ft_raycast(vars);
+	ft_raycast(vars);
 	put_3dmap(vars);
 	put_sprites(vars);
 	if (vars->minimap == TRUE)
@@ -39,7 +55,6 @@ void		put_game(t_vars *vars)
 		put_minimap(vars);
 		put_rays(vars);
 	}
-	clean_ray_struct(vars);
 }
 
 static void	verify_resolution(t_vars *vars)
@@ -57,6 +72,7 @@ static void	verify_resolution(t_vars *vars)
 
 int			init_game(t_vars *vars, int argc)
 {
+	vars->ray = allocate_ray(vars);
 	if (argc == 2)
 	{
 		verify_resolution(vars);
@@ -76,6 +92,7 @@ int			init_game(t_vars *vars, int argc)
 
 int			clean_before_close(t_vars *vars)
 {
+	clean_ray_struct(vars);
 	clean_buffer((void **)vars->map->map_grid, vars->map->n_row);
 	clean_buffer((void **)vars->map->path, 5);
 	free_tex(vars->mlx, vars->tex);

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/11 03:01:23 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/24 17:48:19 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	put_colors(t_vars *vars, double wall_proj_height, int i)
 		while (++y <= limit_y[1] && y < vars->map->height)
 			my_mlx_pixel_put(vars->data, x, y, put_text(vars, y, i, limit_y));
 		y--;
-		while (++y <= vars->map->height)
+		while (++y < vars->map->height)
 			my_mlx_pixel_put(vars->data, x, y, vars->map->color->floor);
 		x++;
 	}
@@ -82,15 +82,12 @@ void		put_3dmap(t_vars *vars)
 	int		i;
 
 	i = 0;
-	vars->player->dist_proj_plane = (vars->map->width / 2) / (tan(FOV / 2));
 	while (i < vars->map->num_rays)
 	{
 		correct_dist_plane = vars->ray[i]->dist_wall *
 					cos(vars->ray[i]->ray_angle - vars->player->rotation_angle);
 		wall_proj_height = TILE_SIZE / correct_dist_plane *
 							vars->player->dist_proj_plane;
-		wall_proj_height = (wall_proj_height < vars->map->height) ?
-							wall_proj_height : vars->map->height;
 		put_colors(vars, wall_proj_height, i);
 		i++;
 	}

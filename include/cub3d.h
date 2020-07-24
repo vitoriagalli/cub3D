@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/22 22:53:28 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:30:21 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include <math.h>
+# include <stdio.h>
 
 # define INT_MAX 2147483647
 # define PI 3.1416
@@ -126,9 +127,8 @@ typedef struct	s_sprite
 	double		angle;
 	double		angle_dif;
 	double		dist;
-	double		height;
-	double		width;
-	int			ray_facing;
+	int			height;
+	int			width;
 }				t_sprite;
 
 typedef struct	s_vars {
@@ -176,7 +176,7 @@ void			**allocate_dynamic(void **buffer, int size, int m);
 int				init_game(t_vars *vars, int argc);
 int				move_player_press(int keycode, t_vars *vars);
 void			put_game(t_vars *vars);
-int				update_new_position(t_vars *vars);
+int				update_frame(t_vars *vars);
 int				clean_before_close(t_vars *vars);
 int				close_program(void);
 
@@ -206,8 +206,8 @@ int				get_texture_color(t_tex *tex, int x, int y);
 */
 
 int				ray_facing(double angle, int way);
-t_ray			**ft_raycast(t_vars *vars);
-t_point			*cast_ray(t_vars *vars, double ray_angle, int coord,
+int				**ft_raycast(t_vars *vars);
+void			cast_ray(t_vars *vars, double ray_angle, int coord,
 				t_point *next);
 
 /*

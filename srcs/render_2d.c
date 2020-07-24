@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/31 23:51:07 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/22 23:52:00 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/24 17:23:28 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ int		is_end_window(t_map *map, double x, double y)
 {
 	if (x < 0 || x >= map->n_column * TILE_SIZE ||
 		y < 0 || y >= map->n_row * TILE_SIZE)
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }

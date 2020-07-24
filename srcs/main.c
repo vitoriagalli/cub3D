@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/13 20:00:35 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:30:53 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			main(int argc, char **argv)
 	init_game(&vars, argc);
 	mlx_hook(vars.win, 2, (1l << 0), move_player_press, &vars);
 	mlx_hook(vars.win, 17, (1l << 17), clean_before_close, &vars);
-	mlx_loop_hook(vars.mlx, update_new_position, &vars);
+	mlx_loop_hook(vars.mlx, update_frame, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }

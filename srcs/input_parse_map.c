@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/09 20:50:49 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/24 21:07:11 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static int	check_char(t_map *map, int i, int j)
 			!(ft_c_is_in(map->map_grid[i - 1][j + 1], "012")) ||
 			!(ft_c_is_in(map->map_grid[i][j + 1], "012")) ||
 			!(ft_c_is_in(map->map_grid[i + 1][j + 1], "012")))
-			return (0);
+			return (FALSE);
 	}
-	return (1);
+	return (TRUE);
 }
 
 int			validate_map(t_map *map)
@@ -41,17 +41,15 @@ int			validate_map(t_map *map)
 		j = 0;
 		while (j < map->n_column)
 		{
-			if (map->map_grid[i][j] == '0' && (i == 0 || j == 0 ||
-			i == map->n_row - 1 || j == map->n_column - 1))
-				return (0);
-			else if (map->map_grid[i][j] == '0')
-				if (!check_char(map, i, j))
-					return (0);
+			if ((map->map_grid[i][j] == '0' || map->map_grid[i][j] == '2') &&
+			((i == 0 || j == 0 || i == map->n_row - 1 || j == map->n_column - 1)
+			|| !check_char(map, i, j)))
+				return (FALSE);
 			j++;
 		}
 		i++;
 	}
-	return (1);
+	return (TRUE);
 }
 
 static int	parse_player_location(t_map *map, char c, int row, int column)

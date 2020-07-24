@@ -6,13 +6,13 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 01:53:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/09 19:46:34 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/24 21:15:14 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				ray_facing(double angle, int way)
+int			ray_facing(double angle, int way)
 {
 	int	up;
 	int	down;
@@ -34,11 +34,9 @@ int				ray_facing(double angle, int way)
 	return (-1);
 }
 
-static t_point	*horz_inter(t_vars *vars, t_point *intercept, double ray_angle)
+static void	horz_inter(t_vars *vars, t_point *intercept, double ray_angle,
+						t_point *step)
 {
-	t_point	*step;
-
-	step = create_point(0, 0, 0);
 	intercept->y = floor(vars->player->posit->y / TILE_SIZE) * TILE_SIZE;
 	intercept->y += ray_facing(ray_angle, ray_down) ? TILE_SIZE : 0;
 	intercept->x = vars->player->posit->x + (intercept->y - vars->player->
@@ -48,14 +46,11 @@ static t_point	*horz_inter(t_vars *vars, t_point *intercept, double ray_angle)
 	step->x = TILE_SIZE / tan(ray_angle);
 	step->x *= (ray_facing(ray_angle, ray_left) && step->x > 0) ? -1 : 1;
 	step->x *= (ray_facing(ray_angle, ray_right) && step->x < 0) ? -1 : 1;
-	return (step);
 }
 
-static t_point	*vert_inter(t_vars *vars, t_point *intercept, double ray_angle)
+static void	vert_inter(t_vars *vars, t_point *intercept, double ray_angle,
+						t_point *step)
 {
-	t_point	*step;
-
-	step = create_point(0, 0, 0);
 	intercept->x = floor(vars->player->posit->x / TILE_SIZE) * TILE_SIZE;
 	intercept->x += ray_facing(ray_angle, ray_right) ? TILE_SIZE : 0;
 	intercept->y = vars->player->posit->y + (intercept->x - vars->player->
@@ -65,18 +60,18 @@ static t_point	*vert_inter(t_vars *vars, t_point *intercept, double ray_angle)
 	step->y = TILE_SIZE * tan(ray_angle);
 	step->y *= (ray_facing(ray_angle, ray_up) && step->y > 0) ? -1 : 1;
 	step->y *= (ray_facing(ray_angle, ray_down) && step->y < 0) ? -1 : 1;
-	return (step);
 }
 
-t_point			*cast_ray(t_vars *vars, double ray_angle, int coord,
+void		cast_ray(t_vars *vars, double ray_angle, int coord,
 							t_point *next)
 {
-	t_point	*step;
+	t_point	step;
 	double	x_chk;
 	double	y_chk;
 
-	step = (coord == HORZ) ? horz_inter(vars, next, ray_angle) :
-							vert_inter(vars, next, ray_angle);
+	(coord == HORZ) ?
+		horz_inter(vars, next, ray_angle, &step) :
+		vert_inter(vars, next, ray_angle, &step);
 	while (!is_end_window(vars->map, next->x, next->y))
 	{
 		x_chk = next->x + ((ray_facing(ray_angle, ray_left) && coord == VERT) ?
@@ -89,10 +84,8 @@ t_point			*cast_ray(t_vars *vars, double ray_angle, int coord,
 			break ;
 		else
 		{
-			next->x += step->x;
-			next->y += step->y;
+			next->x += step.x;
+			next->y += step.y;
 		}
 	}
-	free(step);
-	return (next);
 }
