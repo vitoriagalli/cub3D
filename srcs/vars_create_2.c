@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:38 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/24 19:44:00 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/26 00:21:24 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,20 @@ void		assign_point(t_point *point, int x, int y, int color)
 	point->x = x;
 	point->y = y;
 	point->color = color;
+}
+
+t_ray		**allocate_ray(t_vars *vars)
+{
+	t_ray	**ray;
+	int		i;
+
+	i = 0;
+	ray = ft_calloc(vars->map->num_rays, sizeof(t_ray *));
+	while (i < vars->map->num_rays)
+	{
+		ray[i] = ft_calloc(1, sizeof(t_ray));
+		ray[i]->collision = ft_calloc(1, sizeof(t_point));
+		i++;
+	}
+	return (ray);
 }

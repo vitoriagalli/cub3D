@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/13 15:52:07 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/25 22:45:29 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,21 @@ static int	is_empty_line(char *line)
 	if (line[i] != '\0')
 	{
 		free(line);
-		return (0);
+		return (FALSE);
 	}
 	free(line);
-	return (1);
+	return (TRUE);
+}
+
+static int	end_of_file(int fd, char **line)
+{
+	while ((get_next_line(fd, line)))
+	{
+		if (!(is_empty_line(*line)))
+			return (FALSE);
+	}
+	free(*line);
+	return (TRUE);
 }
 
 static int	is_identifier(char *line)
@@ -35,8 +46,8 @@ static int	is_identifier(char *line)
 		(line[0] == 'W' && line[1] == 'E') ||
 		(line[0] == 'E' && line[1] == 'A') ||
 		(line[0] == 'S' && line[1] == '0'))
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
 
 static int	check_lack_info(t_map *map)
@@ -97,15 +108,15 @@ int			read_file(char *file, t_map *map)
 	{
 		if (line[0] == ' ' || line[0] == '1')
 		{
-			ismap = TRUE;
-			if ((ret = get_map_info(map, line, &i)) < 0)
+			if ((ret = get_map_info(map, line, &i, &ismap)) < 0)
 				return (ft_error(map, ret));
 		}
 		else if (is_identifier(line) && !ismap)
 			get_identifier(map, line);
-		else if ((ismap && is_empty_line(line)) || !(is_empty_line(line)))
+		else if (!(is_empty_line(line)) || (ismap && !end_of_file(fd, &line)))
 			return (ft_error(map, -8));
 	}
 	free(line);
+	close(fd);
 	return (fill_columns(map));
 }

@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:35:55 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/24 21:07:11 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/25 22:37:07 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,12 @@ static int	parse_row_map(t_map *map, char *line, int row)
 	return (i);
 }
 
-int			get_map_info(t_map *map, char *line, int *row)
+int			get_map_info(t_map *map, char *line, int *row, int *ismap)
 {
 	int	n_col;
 	int	i;
 
+	*ismap = TRUE;
 	i = *row;
 	n_col = 0;
 	map->map_grid = (char **)allocate_dynamic((void **)map->map_grid,

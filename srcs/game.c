@@ -6,27 +6,11 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/24 22:27:56 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/26 00:19:45 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static t_ray	**allocate_ray(t_vars *vars)
-{
-	t_ray	**ray;
-	int		i;
-
-	i = 0;
-	ray = ft_calloc(vars->map->num_rays, sizeof(t_ray *));
-	while (i < vars->map->num_rays)
-	{
-		ray[i] = ft_calloc(1, sizeof(t_ray));
-		ray[i]->collision = ft_calloc(1, sizeof(t_point));
-		i++;
-	}
-	return (ray);
-}
 
 static void	clean_ray_struct(t_vars *vars)
 {

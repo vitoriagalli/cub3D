@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/24 20:30:21 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/26 00:19:25 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ typedef struct	s_vars {
 
 int				check_args(int argc, char **argv);
 int				read_file(char *file, t_map *map);
-int				get_map_info(t_map *map, char *line, int *row);
+int				get_map_info(t_map *map, char *line, int *row, int *ismap);
 int				validate_map(t_map *map);
 int				get_identifier(t_map *map, char *line);
 int				ft_error(t_map *map, int i);
@@ -188,6 +188,7 @@ int				create_n_check(t_vars *vars);
 t_point			*create_point(int x, int y, int color);
 t_data			*create_image(void *mlx_ptr, t_map *map);
 void			assign_point(t_point *point, int x, int y, int color);
+t_ray			**allocate_ray(t_vars *vars);
 
 /*
 ** render 2d and 3d functions
