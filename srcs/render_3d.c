@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 02:57:12 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/24 17:48:19 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/26 23:35:29 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ static void	put_colors(t_vars *vars, double wall_proj_height, int i)
 	{
 		y = -1;
 		while (++y <= limit_y[0] && y < vars->map->height)
-			my_mlx_pixel_put(vars->data, x, y, vars->map->color->ceilling);
+			my_mlx_pixel_put(vars->data, x, y, vars->map->color_ceiling);
 		y--;
 		while (++y <= limit_y[1] && y < vars->map->height)
 			my_mlx_pixel_put(vars->data, x, y, put_text(vars, y, i, limit_y));
 		y--;
 		while (++y < vars->map->height)
-			my_mlx_pixel_put(vars->data, x, y, vars->map->color->floor);
+			my_mlx_pixel_put(vars->data, x, y, vars->map->color_floor);
 		x++;
 	}
 }

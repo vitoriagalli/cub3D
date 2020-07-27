@@ -6,28 +6,11 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/26 00:19:45 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/27 02:13:36 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	clean_ray_struct(t_vars *vars)
-{
-	int i;
-
-	i = 0;
-	while (i < vars->map->num_rays)
-	{
-		free(vars->ray[i]->collision);
-		vars->ray[i]->collision = NULL;
-		free(vars->ray[i]);
-		vars->ray[i] = NULL;
-		i++;
-	}
-	free(vars->ray);
-	vars->ray = NULL;
-}
 
 void		put_game(t_vars *vars)
 {
@@ -69,23 +52,42 @@ int			init_game(t_vars *vars, int argc)
 	{
 		put_game(vars);
 		save_bmp_file(vars);
-		close_program();
+		clean_before_close(vars);
 	}
 	return (0);
 }
 
 int			clean_before_close(t_vars *vars)
 {
-	clean_ray_struct(vars);
-	clean_buffer((void **)vars->map->map_grid, vars->map->n_row);
-	clean_buffer((void **)vars->map->path, 5);
+	free_rays(vars);
+	free_sprite(vars);
 	free_tex(vars->mlx, vars->tex);
-	free(vars->map->color);
+	free_buffer((void **)vars->map->map_grid, vars->map->n_row);
+	free_buffer((void **)vars->map->path, 5);
 	free(vars->map);
 	free(vars->point);
 	free(vars->player->posit);
 	free(vars->player);
 	mlx_destroy_image(vars->mlx, vars->data->img);
+	free(vars->data);
 	mlx_destroy_window(vars->mlx, vars->win);
+	free(vars->mlx);
 	return (close_program());
+}
+
+void		free_rays(t_vars *vars)
+{
+	int i;
+
+	i = 0;
+	while (i < vars->map->num_rays)
+	{
+		free(vars->ray[i]->collision);
+		vars->ray[i]->collision = NULL;
+		free(vars->ray[i]);
+		vars->ray[i] = NULL;
+		i++;
+	}
+	free(vars->ray);
+	vars->ray = NULL;
 }

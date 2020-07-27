@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 06:53:34 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/25 22:45:29 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/27 02:24:03 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	is_empty_line(char *line)
 	return (TRUE);
 }
 
-static int	end_of_file(int fd, char **line)
+int			end_of_file(int fd, char **line)
 {
 	while ((get_next_line(fd, line)))
 	{
@@ -37,17 +37,6 @@ static int	end_of_file(int fd, char **line)
 	}
 	free(*line);
 	return (TRUE);
-}
-
-static int	is_identifier(char *line)
-{
-	if (ft_c_is_in(line[0], "RCFS") ||
-		(line[0] == 'N' && line[1] == 'O') ||
-		(line[0] == 'W' && line[1] == 'E') ||
-		(line[0] == 'E' && line[1] == 'A') ||
-		(line[0] == 'S' && line[1] == '0'))
-		return (TRUE);
-	return (FALSE);
 }
 
 static int	check_lack_info(t_map *map)
@@ -59,7 +48,7 @@ static int	check_lack_info(t_map *map)
 	else if (!map->width || !map->height ||
 			map->width < map->n_column || map->height < map->n_row)
 		return (ft_error(map, -11));
-	else if (map->color->ceilling < 0 || map->color->floor < 0)
+	else if (map->color_ceiling < 0 || map->color_floor < 0)
 		return (ft_error(map, -12));
 	else if (!map->path[north] || !*map->path[north] || !map->path[south] ||
 			!*map->path[south] || !map->path[east] || !*map->path[east] ||

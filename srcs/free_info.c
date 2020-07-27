@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 02:05:27 by vscabell          #+#    #+#             */
-/*   Updated: 2020/06/17 04:43:03 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/27 02:13:03 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ void	free_tex(void *mlx, t_tex **tex)
 		{
 			mlx_destroy_image(mlx, tex[i]->data->img);
 			free(tex[i]->data);
+			tex[i]->data = NULL;
 			free(tex[i]);
+			tex[i] = NULL;
 		}
 		i++;
 	}
 	free(tex);
+	tex = NULL;
 }
 
 void	check_n_free(void *ptr)
@@ -47,17 +50,16 @@ int		free_map(t_map *map)
 	check_n_free(map->path[west]);
 	check_n_free(map->path[sprite]);
 	check_n_free(map->path);
-	check_n_free(map->color);
 	check_n_free(map->init_posit);
 	if (map->sprite_posit)
-		clean_buffer((void **)map->sprite_posit, map->n_sprites);
+		free_buffer((void **)map->sprite_posit, map->n_sprites);
 	if (map->map_grid)
-		clean_buffer((void **)map->map_grid, map->n_row);
+		free_buffer((void **)map->map_grid, map->n_row);
 	check_n_free(map);
 	return (0);
 }
 
-void	clean_buffer(void **buffer, int n_arrays)
+void	free_buffer(void **buffer, int n_arrays)
 {
 	int i;
 
@@ -73,4 +75,21 @@ void	clean_buffer(void **buffer, int n_arrays)
 		free(buffer);
 		buffer = NULL;
 	}
+}
+
+void	free_sprite(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < vars->map->n_sprites)
+	{
+		free(vars->sprite[i]->posit);
+		vars->sprite[i]->posit = NULL;
+		free(vars->sprite[i]);
+		vars->sprite[i] = NULL;
+		i++;
+	}
+	free(vars->sprite);
+	vars->sprite = NULL;
 }

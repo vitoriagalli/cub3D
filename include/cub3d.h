@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/26 00:19:25 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/27 02:23:13 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include <math.h>
-# include <stdio.h>
 
 # define INT_MAX 2147483647
 # define PI 3.1416
@@ -42,7 +41,7 @@
 # define FOV 1.1
 # define WALL_WIDTH 1
 # define MOVE_SPEED 25
-# define ROTAT_SPEED 0.12
+# define ROTAT_SPEED 0.10
 # define MAP2D_SCALE 0.1
 # define TILE_SIZE 64
 # define OFFSET 8
@@ -78,11 +77,6 @@ typedef struct	s_point {
 	int			color;
 }				t_point;
 
-typedef struct	s_color {
-	int			ceilling;
-	int			floor;
-}				t_color;
-
 typedef struct	s_map {
 	char		**map_grid;
 	int			width;
@@ -92,7 +86,8 @@ typedef struct	s_map {
 	t_point		*init_posit;
 	double		rotation_angle;
 	int			num_rays;
-	t_color		*color;
+	int			color_ceiling;
+	int			color_floor;
 	char		**path;
 	int			n_sprites;
 	t_point		**sprite_posit;
@@ -150,6 +145,7 @@ typedef struct	s_vars {
 
 int				check_args(int argc, char **argv);
 int				read_file(char *file, t_map *map);
+int				is_identifier(char *line);
 int				get_map_info(t_map *map, char *line, int *row, int *ismap);
 int				validate_map(t_map *map);
 int				get_identifier(t_map *map, char *line);
@@ -212,13 +208,15 @@ void			cast_ray(t_vars *vars, double ray_angle, int coord,
 				t_point *next);
 
 /*
-** clear data functions
+** free pointer functions
 */
 
-void			free_tex(void *mlx, t_tex **tex);
 void			check_n_free(void *ptr);
+void			free_tex(void *mlx, t_tex **tex);
+void			free_rays(t_vars *vars);
+void			free_sprite(t_vars *vars);
+void			free_buffer(void **buffer, int n_arrays);
 int				free_map(t_map *map);
-void			clean_buffer(void **buffer, int n_arrays);
 
 /*
 ** convert to bmp function
