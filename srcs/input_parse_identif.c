@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 20:06:06 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/26 23:33:13 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/27 03:04:05 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static void	parse_resolution(char *str, t_map *map)
 		return ;
 	map->width = nb[0];
 	map->height = nb[1];
-	map->num_rays = map->width / WALL_WIDTH;
 }
 
 int			get_identifier(t_map *map, char *line)

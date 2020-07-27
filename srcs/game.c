@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/27 02:13:36 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/27 03:04:53 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,17 @@ static void	verify_resolution(t_vars *vars)
 
 int			init_game(t_vars *vars, int argc)
 {
+	verify_resolution(vars);
 	vars->ray = allocate_ray(vars);
+	put_game(vars);
 	if (argc == 2)
 	{
-		verify_resolution(vars);
-		put_game(vars);
 		vars->win = mlx_new_window(vars->mlx, vars->map->width,
 				vars->map->height, "CUB3D");
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 	}
 	else
 	{
-		put_game(vars);
 		save_bmp_file(vars);
 		clean_before_close(vars);
 	}
