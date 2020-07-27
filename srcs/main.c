@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 00:00:03 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/26 23:36:48 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/27 20:03:08 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	allocate_map(t_vars *vars)
 	vars->map->n_column = 0;
 	if (!(vars->mlx = mlx_init()))
 		return (ft_error(vars->map, -16));
+	vars->win = NULL;
 	return (1);
 }
 

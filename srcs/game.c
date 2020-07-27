@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/27 03:04:53 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/27 20:00:21 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int			clean_before_close(t_vars *vars)
 	free(vars->player);
 	mlx_destroy_image(vars->mlx, vars->data->img);
 	free(vars->data);
-	mlx_destroy_window(vars->mlx, vars->win);
+	if (vars->win)
+		mlx_destroy_window(vars->mlx, vars->win);
 	free(vars->mlx);
 	return (close_program());
 }
