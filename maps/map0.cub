@@ -1,6 +1,6 @@
 
-R 1000 600
 
+R 1000 600
 
 NO ./text/orig/redbrick.xpm
 SO ./text/orig/bluestone.xpm

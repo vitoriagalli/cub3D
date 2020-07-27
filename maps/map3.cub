@@ -1,9 +1,9 @@
-R 2500 1800
+R 900 500
 NO ./text/space/42sp.xpm
-WE ./text/space/dark.xpm
-EA ./text/space/dark2.xpm
-SO ./text/space/space1.xpm
-S ./text/space/astro.xpm
+WE ./text/space/caution.xpm
+EA ./text/space/dont.xpm
+SO ./text/space/ship.xpm
+S ./text/space/marvin.xpm
 F 122, 122, 80
 C 0,0,102
 
