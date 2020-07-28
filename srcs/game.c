@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:03:57 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/27 20:00:21 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/28 03:34:47 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,8 @@ void		put_game(t_vars *vars)
 	}
 }
 
-static void	verify_resolution(t_vars *vars)
-{
-	int	max_display_width;
-	int	max_display_height;
-
-	mlx_get_screen_size(vars->mlx, &max_display_width, &max_display_height);
-	vars->map->width = vars->map->width > max_display_width ?
-						max_display_width : vars->map->width;
-	vars->map->height = vars->map->height > max_display_height ?
-						max_display_height : vars->map->height;
-	vars->map->num_rays = vars->map->width / WALL_WIDTH;
-}
-
 int			init_game(t_vars *vars, int argc)
 {
-	verify_resolution(vars);
 	vars->ray = allocate_ray(vars);
 	put_game(vars);
 	if (argc == 2)

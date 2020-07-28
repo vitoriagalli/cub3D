@@ -6,7 +6,7 @@
 /*   By: vscabell <vscabell@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 06:04:58 by vscabell          #+#    #+#             */
-/*   Updated: 2020/07/27 02:23:13 by vscabell         ###   ########.fr       */
+/*   Updated: 2020/07/28 03:35:34 by vscabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct	s_map {
 	char		**map_grid;
 	int			width;
 	int			height;
+	int			max_w;
+	int			max_h;
 	int			n_column;
 	int			n_row;
 	t_point		*init_posit;
