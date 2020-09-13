@@ -26,6 +26,8 @@ Key comands to move around the maze
 * M to show/hide the mini 2d map
 * ESC to quit
 
-![1](https://user-images.githubusercontent.com/56961723/91602489-d130be00-e941-11ea-9d8d-eaf48ac69063.png)
-![3](https://user-images.githubusercontent.com/56961723/91602368-9e86c580-e941-11ea-9394-b1e7af837b47.png)
-![2](https://user-images.githubusercontent.com/56961723/91602372-9f1f5c00-e941-11ea-8bc4-4095a88210ea.png)
+\
+\
+![gif-refize](https://user-images.githubusercontent.com/56961723/93027486-8cfd1900-f5e3-11ea-8827-26169c038366.gif)
+![im1-re](https://user-images.githubusercontent.com/56961723/93027649-ac487600-f5e4-11ea-8965-8977253f29b5.png)
+![im2-re](https://user-images.githubusercontent.com/56961723/93027650-ad79a300-f5e4-11ea-8bb5-6d463487eef9.png)
